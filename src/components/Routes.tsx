@@ -8,14 +8,15 @@ function Root({ children }: { children?: ReactNode }) {
         <li>Home</li>
         <li>About</li>
         <li>Other pages here...</li>
+        <li>Other pages here...</li>
+        <li>Other pages here...</li>
         <NavLink to="/search">
-          <li>Search for Videos</li>
+          <li>List of Videos</li>
         </NavLink>
         <NavLink to="/search/123">
           <li>
-            This is NOT a permanent link in the Nav. Just putting here so that
-            way you all can see what an index page for a particular video could
-            be like...
+            Just a random route parameter link. The route parameter for
+            `/search/` will be an index page for the video itself.
           </li>
         </NavLink>
       </ul>
