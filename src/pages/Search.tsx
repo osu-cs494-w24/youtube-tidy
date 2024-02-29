@@ -4,7 +4,8 @@ import { useState } from "react";
 // import YouTube from "react-youtube";
 import FoldingCube from "../components/FoldingCube";
 import styled from "@emotion/styled";
-import dummyData from "../assets/SearchResults.json";
+import { YoutubeItem, YoutubeSearchResponse } from "../assets/interfaces";
+import dummyData from "../dummyData/SearchResults.json";
 
 const Card = styled.div`
   display: flex;
@@ -31,26 +32,6 @@ const ControlForm = styled.div`
   margin-bottom: 1rem;
 `;
 
-
-interface YoutubeItem {
-  id: {
-    videoId: string;
-  };
-  snippet: {
-    title: string;
-    description: string;
-    thumbnails: {
-      high: {
-        url: string;
-      };
-    };
-  };
-}
-
-interface YoutubeSearchResponse {
-  items: YoutubeItem[];
-}
-
 function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
@@ -73,7 +54,7 @@ function Search() {
       const searchRes = await fetch(
         `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=5&safeSearch=strict&part=snippet`
       );
-      
+
       // to use dummyData, uncomment the next line
       // return dummyData
 
