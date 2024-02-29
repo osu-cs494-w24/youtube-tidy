@@ -1,0 +1,10 @@
+{
+    "id": "userID",
+    "email": "email@gmail.com",
+    "verified_email": true,
+    "name": "Dana Scully",
+    "given_name": "Dana",
+    "family_name": "Scully",
+    "picture": "this_is_supposed_to_be_a_url_to_a_picture",
+    "locale": "en"
+}
