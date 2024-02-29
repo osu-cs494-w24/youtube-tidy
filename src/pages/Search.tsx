@@ -4,6 +4,7 @@ import { useState } from "react";
 // import YouTube from "react-youtube";
 import FoldingCube from "../components/FoldingCube";
 import styled from "@emotion/styled";
+import dummyData from "../assets/SearchResults.json";
 
 const Card = styled.div`
   display: flex;
@@ -30,59 +31,25 @@ const ControlForm = styled.div`
   margin-bottom: 1rem;
 `;
 
-// using dummy data while API is down
-// const dummyData = {
-//   kind: "youtube#searchListResponse",
-//   etag: "uc3Hf21vt6xqJewX5Y8UiSFjsXQ",
-//   nextPageToken: "CAUQAA",
-//   regionCode: "US",
-//   pageInfo: {
-//     totalResults: 1000000,
-//     resultsPerPage: 5,
-//   },
-//   items: [
-//     {
-//       kind: "youtube#searchResult",
-//       etag: "3-lbqEoe2_aLPh4ZCKWPwl9OWAU",
-//       id: {
-//         kind: "youtube#video",
-//         videoId: "y0sF5xhGreA",
-//       },
-//     },
-//     {
-//       kind: "youtube#searchResult",
-//       etag: "a1tALiFEHzRgaMVrrf3Vz3e3nSs",
-//       id: {
-//         kind: "youtube#video",
-//         videoId: "wdjpworLSk8",
-//       },
-//     },
-//     {
-//       kind: "youtube#searchResult",
-//       etag: "D9e5dmu3epwZoskQf3W0rF2eHFg",
-//       id: {
-//         kind: "youtube#video",
-//         videoId: "S3TUOWdC0y0",
-//       },
-//     },
-//     {
-//       kind: "youtube#searchResult",
-//       etag: "lG4XK5a5x3E4Hy-x5I4iQGvbxuk",
-//       id: {
-//         kind: "youtube#video",
-//         videoId: "3bhkYoMWTFE",
-//       },
-//     },
-//     {
-//       kind: "youtube#searchResult",
-//       etag: "_9b1h7IUl8MqJgsjVPOJLrhYZx8",
-//       id: {
-//         kind: "youtube#video",
-//         videoId: "1ZNLpoglNnM",
-//       },
-//     },
-//   ],
-// };
+
+interface YoutubeItem {
+  id: {
+    videoId: string;
+  };
+  snippet: {
+    title: string;
+    description: string;
+    thumbnails: {
+      high: {
+        url: string;
+      };
+    };
+  };
+}
+
+interface YoutubeSearchResponse {
+  items: YoutubeItem[];
+}
 
 function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -93,7 +60,7 @@ function Search() {
 
   const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
 
-  const { isLoading, data } = useQuery({
+  const { isLoading, data } = useQuery<YoutubeSearchResponse>({
     queryKey: ["searchVideos", query],
     queryFn: async () => {
       if (!query) {
@@ -106,6 +73,9 @@ function Search() {
       const searchRes = await fetch(
         `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=5&safeSearch=strict&part=snippet`
       );
+      
+      // to use dummyData, uncomment the next line
+      // return dummyData
 
       const searchData = await searchRes.json();
       // console.log("SEARCH DATA: ", searchData["items"]);
@@ -146,12 +116,12 @@ function Search() {
       {isLoading && <FoldingCube />}
       <Card>
         {data &&
-          data["items"] &&
-          data["items"].map((item: any) => (
-            <CardTotal key={item["id"]["videoId"]}>
-              <h2>{item["snippet"]["title"]}</h2>
-              <img src={item["snippet"]["thumbnails"]["high"]["url"]} />
-              <p>{item["snippet"]["description"]}</p>
+          data.items &&
+          data.items.map((item: YoutubeItem) => (
+            <CardTotal key={item.id.videoId}>
+              <h2>{item.snippet.title}</h2>
+              <img src={item.snippet.thumbnails.high.url} />
+              <p>{item.snippet.description}</p>
             </CardTotal>
           ))}
       </Card>
