@@ -1,0 +1,92 @@
+{
+    "kind": "youtube#playlistListResponse",
+    "etag": "dummyTag",
+    "pageInfo": {
+        "totalResults": 2,
+        "resultsPerPage": 5
+    },
+    "items": [
+        {
+            "kind": "youtube#playlist",
+            "etag": "dummyTag",
+            "id": "youTubePlaylistId1",
+            "snippet": {
+                "publishedAt": "2024-02-28T10:11:08Z",
+                "channelId": "channelId1",
+                "title": "Music",
+                "description": "This is a description for a music playlist",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/vv2DSmy3Tro/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/vv2DSmy3Tro/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/vv2DSmy3Tro/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    },
+                    "standard": {
+                        "url": "https://i.ytimg.com/vi/vv2DSmy3Tro/sddefault.jpg",
+                        "width": 640,
+                        "height": 480
+                    },
+                    "maxres": {
+                        "url": "https://i.ytimg.com/vi/vv2DSmy3Tro/maxresdefault.jpg",
+                        "width": 1280,
+                        "height": 720
+                    }
+                },
+                "channelTitle": "Channel Title",
+                "localized": {
+                    "title": "Music",
+                    "description": "This is a description for a music playlist"
+                }
+            },
+            "contentDetails": {
+                "itemCount": 15
+            }
+        },
+        {
+            "kind": "youtube#playlist",
+            "etag": "dummyTag",
+            "id": "youTubePlaylistId2",
+            "snippet": {
+                "publishedAt": "2024-02-28T10:11:08Z",
+                "channelId": "youtubeChannelId2",
+                "title": "Music That Sounds Neat",
+                "description": "This is a playlist for neat sounding music",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/-tRdBsnX4N4/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/-tRdBsnX4N4/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/-tRdBsnX4N4/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    }
+                },
+                "channelTitle": "Another Channel Title",
+                "localized": {
+                    "title": "Music That Sounds Neat",
+                    "description": "This is a playlist for neat sounding music"
+                }
+            },
+            "contentDetails": {
+                "itemCount": 61
+            }
+        }
+    ]
+}
