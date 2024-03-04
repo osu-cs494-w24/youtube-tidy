@@ -27,6 +27,7 @@ interface UserInfo {
   family_name: string;
   picture: string;
   locale: string;
+  access_token: string;
 }
 
 interface YoutubeItem {
