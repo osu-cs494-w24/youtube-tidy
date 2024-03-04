@@ -1,3 +1,5 @@
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { addSearchResults } from "../redux/searchSlice";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -5,7 +7,13 @@ import { useState } from "react";
 import FoldingCube from "../components/FoldingCube";
 import styled from "@emotion/styled";
 import { YoutubeItem, YoutubeSearchResponse } from "../assets/interfaces";
-import dummyData from "../dummyData/SearchResults.json";
+
+import dData from "../dummyData/SearchResults.json";
+const dummyData = {
+  ...dData,
+  query: "cute cats",
+  queryTime: new Date().toISOString(),
+};
 
 const Card = styled.div`
   display: flex;
@@ -32,7 +40,31 @@ const ControlForm = styled.div`
   margin-bottom: 1rem;
 `;
 
+function getFromStore(
+  query: string | null,
+  searchResults: YoutubeSearchResponse[]
+) {
+  const ONE_HOUR = 1000 * 60 * 60; // 1 hour in milliseconds
+
+  const result = searchResults.find((result) => result.query === query);
+  if (result) {
+    const currentTime = new Date();
+    const queryTime = new Date(result.queryTime);
+
+    if (currentTime.getTime() - queryTime.getTime() < ONE_HOUR) {
+      console.log(
+        "Search results already exist in store, no need for API call"
+      );
+      return result;
+    }
+  }
+
+  return null;
+}
+
 function Search() {
+  const dispatch = useAppDispatch();
+  const searchResults = useAppSelector((state) => state.search.searchResults);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
   const [inputQuery, setInputQuery] = useState(query || "");
@@ -51,12 +83,20 @@ function Search() {
         return {};
       }
 
+      // to use dummyData, uncomment the return line below
+      //return dummyData;
+
+      // check if searchResults already exists in store
+      const results = getFromStore(query, searchResults);
+      if (results) {
+        return results;
+      }
+
+      console.log("No search results found in store, fetching from API...");
+
       const searchRes = await fetch(
         `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=5&safeSearch=strict&part=snippet`
       );
-
-      // to use dummyData, uncomment the next line
-      // return dummyData
 
       const searchData = await searchRes.json();
       // console.log("SEARCH DATA: ", searchData["items"]);
@@ -66,7 +106,16 @@ function Search() {
       //   searchData["items"].map((item: any, index: number) => index);
       // console.log("INDICES?: ", searchListIndices);
 
-      return searchData;
+      // add to store
+      dispatch(
+        addSearchResults({
+          ...searchData,
+          query,
+          queryTime: new Date().toISOString(),
+        })
+      );
+
+      return { ...searchData, query, queryTime: new Date().toISOString() };
     },
   });
   return (

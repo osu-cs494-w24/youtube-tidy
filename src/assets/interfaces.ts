@@ -46,6 +46,13 @@ interface YoutubeItem {
 }
 
 interface YoutubeSearchResponse {
+  query: string;
+  queryTime: string;
+  nextPageToken: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
   items: YoutubeItem[];
 }
 
