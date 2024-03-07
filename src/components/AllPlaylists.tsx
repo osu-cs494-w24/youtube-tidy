@@ -1,28 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
-import { queryPlaylists } from "../queries/PlaylistQuery";
-import { PlaylistSearchResponse, Playlist } from "../assets/interfaces";
+import { useAppSelector } from "../redux/hooks";
 
-export default function AllPlaylists({
-  accessToken,
-}: {
-  accessToken: string | null;
-}) {
-  const { isLoading, isError, data, error } = useQuery<PlaylistSearchResponse>({
-    queryKey: ["playlists"],
-    queryFn: () => queryPlaylists(accessToken!),
-    enabled: !!accessToken, // get data only when access token is available
-  });
+export default function AllPlaylists() {
+  const userPlaylists = useAppSelector((state) => state.playlists);
+  const status = useAppSelector((state) => state.playlists.loading);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
-  if (!data) {
-    return <h1>No playlists found.</h1>;
+  if (status === "pending") return <div>Loading...</div>;
+  if (status === "error") return <div>Error with retrieving playlists</div>;
+  if (userPlaylists.playlistsOverview?.items.length === 0) {
+    return <h1>You don't have any playlists</h1>;
   }
 
   return (
     <div>
-      <h2>Playlists</h2>
-      {data.items.map((playlist: Playlist) => (
+      <h2>Playlists Overview</h2>
+      {userPlaylists.playlistsOverview?.items.map((playlist) => (
         <div key={playlist.id}>
           <h3>{playlist.snippet.title}</h3>
           <p>{playlist.contentDetails.itemCount} videos</p>
