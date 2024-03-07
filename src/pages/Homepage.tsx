@@ -3,10 +3,13 @@ import { setUser } from "../redux/userSlice";
 import { useGoogleLogin } from "@react-oauth/google";
 import { queryUserName } from "../queries/UserInfoQuery";
 import AllPlaylists from "../components/AllPlaylists";
+import { loadPlaylists } from "../redux/playlistsSlice";
+import SinglePlaylist from "../components/SinglePlaylist";
 
 function Homepage() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.info);
+  const playlists = useAppSelector((state) => state.playlists.playlists);
 
   const login = useGoogleLogin({
     onSuccess: (user) => {
@@ -14,6 +17,7 @@ function Homepage() {
         // combine access_token into userInfo
         const combinedInfo = { ...userInfo, access_token: user.access_token };
         dispatch(setUser(combinedInfo));
+        dispatch(loadPlaylists(user.access_token));
       });
     },
   });
@@ -26,7 +30,17 @@ function Homepage() {
             Successfully logged in, Welcome
             {user?.given_name ? ` ${user.given_name}!` : "!"}
           </h1>
-          <AllPlaylists accessToken={user.access_token} />
+          <AllPlaylists />
+          {playlists && playlists.length > 0 ? (
+            <div>
+              <h2>Playlist Details:</h2>
+              {playlists.map((playlist) => (
+                <SinglePlaylist key={playlist.id} playlist={playlist} />
+              ))}
+            </div>
+          ) : (
+            <div>No playlists found</div>
+          )}
         </>
       ) : (
         <button onClick={() => login()}>Login with Google</button>

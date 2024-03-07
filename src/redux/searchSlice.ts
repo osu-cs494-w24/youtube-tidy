@@ -19,7 +19,7 @@ const searchSlice = createSlice({
         (result) => result.query === action.payload.query
       );
 
-      //if search already exists, update it
+      //if search already exists, update it, otherwise add it to lsit
       if (search) {
         search = action.payload;
       } else {

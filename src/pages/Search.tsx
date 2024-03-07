@@ -6,7 +6,7 @@ import { useState } from "react";
 // import YouTube from "react-youtube";
 import FoldingCube from "../components/FoldingCube";
 import styled from "@emotion/styled";
-import { YoutubeItem, YoutubeSearchResponse } from "../assets/interfaces";
+import { YoutubeSearchResponse } from "../assets/interfaces";
 
 import dData from "../dummyData/SearchResults.json";
 const dummyData = {
@@ -147,11 +147,11 @@ function Search() {
       <Card>
         {data &&
           data.items &&
-          data.items.map((item: YoutubeItem) => (
-            <CardTotal key={item.id.videoId}>
-              <h2>{item.snippet.title}</h2>
-              <img src={item.snippet.thumbnails.high.url} />
-              <p>{item.snippet.description}</p>
+          data.items.map((video) => (
+            <CardTotal key={video.id.videoId}>
+              <h2>{video.snippet.title}</h2>
+              <img src={video.snippet.thumbnails.high.url} />
+              <p>{video.snippet.description}</p>
             </CardTotal>
           ))}
       </Card>

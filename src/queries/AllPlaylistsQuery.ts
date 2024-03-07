@@ -1,6 +1,6 @@
-import { PlaylistSearchResponse } from "../assets/interfaces";
+import { AllPlaylistSearchResponse } from "../assets/interfaces";
 
-const queryPlaylists = async (accessToken: string) => {
+const getAllPlaylists = async (accessToken: string) => {
   if (!accessToken) {
     throw new Error("Access token not found.");
   }
@@ -17,9 +17,9 @@ const queryPlaylists = async (accessToken: string) => {
     throw new Error("Failed to fetch playlists.");
   }
 
-  const playlists = (await response.json()) as PlaylistSearchResponse;
+  const playlists = (await response.json()) as AllPlaylistSearchResponse;
 
   return playlists;
 };
 
-export { queryPlaylists };
+export { getAllPlaylists };
