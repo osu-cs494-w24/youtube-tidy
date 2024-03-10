@@ -99,6 +99,19 @@ interface Video {
     favoriteCount: string;
     commentCount: string;
   };
+  comments: Comment[];
+}
+
+// comments on a video are retrieved from /comments endpoint
+interface Comment {
+  id: string;
+  snippet: {
+    authorDisplayName: string;
+    authorProfileImageUrl: string;
+    textDisplay: string;
+    likeCount: number;
+    publishedAt: string;
+  };
 }
 
 // a single query from /search endpoint
@@ -133,4 +146,5 @@ export type {
   UserInfo,
   SinglePlaylistObj,
   Video,
+  Comment,
 };
