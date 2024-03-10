@@ -24,8 +24,8 @@ interface SinglePlaylistObj {
   name: string;
   id: string;
   description: string;
-  nextPageToken: string;
-  prevPageToken: string;
+  nextPageToken: string | null;
+  prevPageToken: string | null;
   pageInfo: {
     totalResults: number;
     resultsPerPage: number;
