@@ -1,41 +1,65 @@
-import { Video } from "../assets/interfaces";
+import { Video, Comment } from "../assets/interfaces";
 
-// takes an access token and an array of video ids and returns an array of videos
-const getVideos = async (accessToken: string, videoIds: string[]) => {
-  if (!accessToken) {
-    throw new Error("Access token not found.");
+const getVideo = async (videoId: string) => {
+  const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
+
+  if (!videoId) {
+    throw new Error("No video ID provided.");
   }
 
-  if (videoIds.length === 0) {
-    throw new Error("No video ids provided.");
-  }
-
-  const videoIdsString = videoIds.join(",");
-
-  // Max videos that can be returned in one get is 50
-  const response = await fetch(
-    "https://www.googleapis.com/youtube/v3/videos" +
-      `?part=snippet,id,contentDetails,fileDetails,suggestions&id=${videoIdsString}&access_token=${accessToken}`
+  // fetch video data
+  const videoResponse = await fetch(
+    `https://www.googleapis.com/youtube/v3/videos` +
+      `?part=snippet,contentDetails,statistics&id=${videoId}&key=${YoutubeAPI}`
   );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch video(s).");
+  if (!videoResponse.ok) {
+    throw new Error("Failed to fetch video.");
   }
 
-  const data = await response.json();
+  const videoData = await videoResponse.json();
 
-  console.log("data: ", data);
+  // fetch ten comments for the video, sorted by relevance
+  const commentResponse = await fetch(
+    `https://www.googleapis.com/youtube/v3/commentThreads` +
+      `?part=snippet,id,replies&videoId=${videoId}&maxResults=10&order=relevance&textFormat=plainText&key=${YoutubeAPI}`
+  );
 
-  const videos: Video[] = data.items.map((item: Video) => {
+  if (!commentResponse.ok) {
+    throw new Error("Failed to fetch comments for video.");
+  }
+
+  const commentData = await commentResponse.json();
+
+  // YT API returns comments in a nested structure, this interface is used to keep the
+  // mapping of the comments typesafe and a little easier to read
+  interface CommentThread {
+    snippet: {
+      topLevelComment: Comment;
+    };
+  }
+
+  // the comment info we want is in CommentThread.snippet.topLevelComment
+  const comments: Comment[] = commentData.items.map((item: CommentThread) => {
+    const { id, snippet } = item.snippet.topLevelComment;
     return {
-      id: item.id,
-      snippet: item.snippet,
-      contentDetails: item.contentDetails,
-      statistics: item.statistics,
+      id,
+      snippet: {
+        authorDisplayName: snippet.authorDisplayName,
+        authorProfileImageUrl: snippet.authorProfileImageUrl,
+        textDisplay: snippet.textDisplay,
+        likeCount: snippet.likeCount,
+        publishedAt: snippet.publishedAt,
+      },
     };
   });
 
-  return videos;
+  const video: Video & { comments: Comment[] } = {
+    ...videoData.items[0],
+    comments,
+  };
+
+  return video;
 };
 
-export { getVideos };
+export { getVideo };
