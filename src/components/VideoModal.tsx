@@ -1,9 +1,18 @@
 import styled from "@emotion/styled";
-import { getVideo } from "../queries/VideoQuery";
+import { useState } from "react";
+import { getVideo } from "../requests/VideoQuery";
 import { useQuery } from "@tanstack/react-query";
-import { Video, Comment } from "../assets/interfaces";
+import { Video, Comment, SinglePlaylistObj } from "../assets/interfaces";
 import FoldingCube from "../components/FoldingCube";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import {
+  addVideoToPlaylist,
+  removeVideoFromPlaylist,
+} from "../redux/playlistsSlice";
+import {
+  addVideoToPlaylistRequest,
+  removeVideoFromPlaylistRequest,
+} from "../requests/PlaylistActions";
 
 const CloseButton = styled.button`
   position: absolute;
@@ -54,25 +63,61 @@ const PlaylistsContainer = styled.div`
   overflow-x: scroll; /* add horizontal scrolling */
 `;
 
-const PlaylistItem = styled.div`
-  cursor: pointer;
-  margin: 5px;
+const Tooltip = styled.span`
+  visibility: hidden;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 3px;
+  width: 80%;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
 `;
 
-const Description = styled.p`
+const PlaylistItem = styled.div`
+  position: relative;
+  cursor: pointer;
+  margin: 5px;
+
+  :hover {
+    transform: scale(1.1);
+  }
+
+  &:hover ${Tooltip} {
+    visibility: visible;
+    opacity: 0.9;
+  }
+`;
+
+const Description = styled.div`
   border: 1px solid black;
   width: 90%;
   margin: 10px;
   padding: 10px;
+  cursor: pointer;
+`;
+
+const CommentsCollapsedContainer = styled.div`
+  width: 90%;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  cursor: pointer;
 `;
 
 const CommentsContainer = styled.div`
   width: 90%;
+  max-height: 200px;
   margin: 10px;
   padding: 10px;
-  height: 200px;
   overflow-y: scroll;
   border: 1px solid black;
+  cursor: pointer;
 `;
 
 const SingleComment = styled.div`
@@ -106,8 +151,25 @@ export default function VideoModal({
   videoID: string;
   onClose: () => void;
 }) {
-  const user = useAppSelector((state) => state.user.info);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
   const playlists = useAppSelector((state) => state.playlists);
+  const [showDescription, setShowDescription] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+
+  // check if current video is in a given playlist, returns the video if it is
+  // in the form of a playlistItem, which is nested in the SinglePlaylistObj interface
+  const videoInPlaylist = (playlistID: string) => {
+    const playlist = playlists.playlists?.find(
+      (playlist: SinglePlaylistObj) => playlist.id === playlistID
+    );
+    if (playlist) {
+      const videoInPlaylist = playlist.items.find(
+        (video) => video.contentDetails.videoId === videoID
+      );
+      return videoInPlaylist;
+    }
+  };
 
   // retrieve video data from the API
   const { isLoading, data: video } = useQuery<Video>({
@@ -138,6 +200,33 @@ export default function VideoModal({
     );
   }
 
+  // either add or remove a video from a playlist
+  const handlePlaylistClick = async (playlistID: string) => {
+    const isInPlaylist = videoInPlaylist(playlistID);
+
+    // add the video to the playlist if it's not already in it
+    if (!isInPlaylist && user.info) {
+      const playlistItem = await addVideoToPlaylistRequest(
+        user.info.access_token,
+        playlistID,
+        videoID
+      );
+      dispatch(addVideoToPlaylist({ playlistID, playlistItem }));
+    }
+
+    // otherwise remove the video from the playlist
+    else if (user.info) {
+      const playlistItemID = isInPlaylist?.id;
+      if (playlistItemID) {
+        await removeVideoFromPlaylistRequest(
+          user.info.access_token,
+          playlistItemID
+        );
+        dispatch(removeVideoFromPlaylist({ playlistID, videoID }));
+      }
+    }
+  };
+
   return (
     <>
       <VideoModalBackdrop />
@@ -153,26 +242,56 @@ export default function VideoModal({
           />
         </VideoContainer>
 
+        {/* Description and Cmoments are collapsable, only one can be uncollapsed at a time */}
         <Description>
-          {video.snippet.description.substring(0, 200)} ...
+          <h4
+            onClick={() => {
+              setShowDescription(!showDescription);
+              setShowComments(false);
+            }}
+          >
+            Description
+          </h4>
+          {showDescription && <p>{video.snippet.description}</p>}
         </Description>
 
-        <CommentsContainer>
-          {video.comments.map((comment: Comment) => (
-            <SingleComment key={comment.id}>
-              <img src={comment.snippet.authorProfileImageUrl} />
-              <p>{comment.snippet.authorDisplayName}</p>
-              <p>{comment.snippet.textDisplay}</p>
-            </SingleComment>
-          ))}
-        </CommentsContainer>
+        {showComments ? (
+          <CommentsContainer>
+            <h4 onClick={() => setShowComments(!showComments)}>Comments</h4>
+            {video.comments.map((comment: Comment) => (
+              <SingleComment key={comment.id}>
+                <img src={comment.snippet.authorProfileImageUrl} />
+                <p>{comment.snippet.authorDisplayName}</p>
+                <p>{comment.snippet.textDisplay}</p>
+              </SingleComment>
+            ))}
+          </CommentsContainer>
+        ) : (
+          <CommentsCollapsedContainer>
+            <h4
+              onClick={() => {
+                setShowDescription(false);
+                setShowComments(!showComments);
+              }}
+            >
+              Comments
+            </h4>
+          </CommentsCollapsedContainer>
+        )}
 
-        {/* user will be able to add/remove a video from their playlists */}
+        {/* Playlists only show up if user is logged in */}
         {playlists?.playlistsOverview && (
           <PlaylistsContainer>
             {playlists.playlistsOverview.items.map((playlist) => (
-              <PlaylistItem key={playlist.id}>
+              <PlaylistItem
+                key={playlist.id}
+                onClick={() => handlePlaylistClick(playlist.id)}
+              >
                 <img src={playlist.snippet.thumbnails.default.url} />
+                <Tooltip>
+                  {videoInPlaylist(playlist.id) ? "Remove from" : "Add to"}
+                  {playlist.snippet.title}
+                </Tooltip>
               </PlaylistItem>
             ))}
           </PlaylistsContainer>

@@ -1,5 +1,12 @@
 import { Video, Comment } from "../assets/interfaces";
 
+/*
+ * Fetches a single video from the YouTube API and returns it along with the first 10 comments
+ * Video API: https://developers.google.com/youtube/v3/docs/videos/list
+ * Comments API: https://developers.google.com/youtube/v3/docs/commentThreads/list
+ *
+ * @param videoId - (required) the ID of the video to fetch
+ */
 const getVideo = async (videoId: string) => {
   const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
 
@@ -54,6 +61,8 @@ const getVideo = async (videoId: string) => {
     };
   });
 
+  // video data is returned with a video array, but we only requested one video,
+  // so grab the first one and add the comments to it
   const video: Video & { comments: Comment[] } = {
     ...videoData.items[0],
     comments,
