@@ -1,7 +1,7 @@
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { setUser } from "../redux/userSlice";
 import { useGoogleLogin } from "@react-oauth/google";
-import { queryUserName } from "../queries/UserInfoQuery";
+import { queryUserName } from "../requests/UserInfoQuery";
 import AllPlaylists from "../components/AllPlaylists";
 import { loadPlaylists } from "../redux/playlistsSlice";
 import SinglePlaylist from "../components/SinglePlaylist";

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { getAllPlaylists } from "../queries/AllPlaylistsQuery";
-import { getPlaylist } from "../queries/SinglePlaylistQuery";
+import { getAllPlaylists } from "../requests/AllPlaylistsQuery";
+import { getPlaylist } from "../requests/SinglePlaylistQuery";
 import {
   AllPlaylistSearchResponse,
   SinglePlaylistObj,
@@ -61,6 +61,59 @@ const playlistsSlice = createSlice({
     addPlaylist(state, action: PayloadAction<SinglePlaylistObj>) {
       state.playlists.push(action.payload);
     },
+    addVideoToPlaylist(
+      state,
+      action: PayloadAction<{
+        playlistID: string;
+        playlistItem: SinglePlaylistObj["items"][0];
+      }>
+    ) {
+      const { playlistID, playlistItem } = action.payload;
+
+      // find the playlist and confirm the video isn't already in it
+      const playlist = state.playlists.find(
+        (playlist) => playlist.id === playlistID
+      );
+      if (playlist) {
+        const videoExists = playlist.items.find(
+          (video) => video.id === playlistItem.id
+        );
+
+        if (!videoExists) {
+          playlist.items.push(playlistItem);
+
+          // update itemCount in the playlist overview
+          const playlistOverviewItem = state.playlistsOverview?.items.find(
+            (playlist) => playlist.id === playlistID
+          );
+          if (playlistOverviewItem) {
+            playlistOverviewItem.contentDetails.itemCount++;
+          }
+        }
+      }
+    },
+    removeVideoFromPlaylist(
+      state,
+      action: PayloadAction<{ playlistID: string; videoID: string }>
+    ) {
+      const { playlistID, videoID } = action.payload;
+      const playlist = state.playlists.find(
+        (playlist) => playlist.id === playlistID
+      );
+      if (playlist) {
+        playlist.items = playlist.items.filter(
+          (video) => video.contentDetails.videoId !== videoID
+        );
+
+        // update itemCount in the playlist overview
+        const playlistOverviewItem = state.playlistsOverview?.items.find(
+          (playlist) => playlist.id === playlistID
+        );
+        if (playlistOverviewItem) {
+          playlistOverviewItem.contentDetails.itemCount--;
+        }
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -82,3 +135,9 @@ const playlistsSlice = createSlice({
 
 export default playlistsSlice.reducer;
 export const selectPlaylists = (state: RootState) => state.playlists;
+export const {
+  addPlaylistsOverview,
+  addPlaylist,
+  addVideoToPlaylist,
+  removeVideoFromPlaylist,
+} = playlistsSlice.actions;

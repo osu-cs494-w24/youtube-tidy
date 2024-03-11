@@ -86,6 +86,18 @@ interface Video {
       default: {
         url: string;
       };
+      medium: {
+        url: string;
+      };
+      high: {
+        url: string;
+      };
+      standard: {
+        url: string;
+      };
+      maxres: {
+        url: string;
+      };
     };
   };
   contentDetails: {
