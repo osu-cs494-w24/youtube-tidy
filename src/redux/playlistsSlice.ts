@@ -1,0 +1,84 @@
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "./store";
+import { getAllPlaylists } from "../queries/AllPlaylistsQuery";
+import { getPlaylist } from "../queries/SinglePlaylistQuery";
+import {
+  AllPlaylistSearchResponse,
+  SinglePlaylistObj,
+} from "../assets/interfaces";
+
+interface LoadPlaylistsResult {
+  playlistsOverview: AllPlaylistSearchResponse;
+  playlists: SinglePlaylistObj[];
+}
+
+export const loadPlaylists = createAsyncThunk<
+  LoadPlaylistsResult,
+  string | null
+>("playlists/loadPlaylists", async (accessToken) => {
+  if (!accessToken) {
+    throw new Error("Access token not found.");
+  }
+  const playlistsOverview = await getAllPlaylists(accessToken);
+  console.log("playlistsOverview: ", playlistsOverview);
+  const playlists = await Promise.all(
+    playlistsOverview.items.map(async (playlist) => {
+      return await getPlaylist(
+        accessToken,
+        playlist.id,
+        playlist.snippet.title,
+        playlist.snippet.description
+      );
+    })
+  );
+  return { playlistsOverview, playlists };
+});
+
+interface PlaylistsState {
+  playlistsOverview: AllPlaylistSearchResponse | null;
+  playlists: SinglePlaylistObj[];
+  loading: "idle" | "pending" | "fulfilled" | "error";
+  error: string | null;
+}
+
+const initialState: PlaylistsState = {
+  playlistsOverview: null,
+  playlists: [],
+  loading: "idle",
+  error: null,
+};
+
+const playlistsSlice = createSlice({
+  name: "playlists",
+  initialState,
+  reducers: {
+    addPlaylistsOverview(
+      state,
+      action: PayloadAction<AllPlaylistSearchResponse>
+    ) {
+      state.playlistsOverview = action.payload;
+    },
+    addPlaylist(state, action: PayloadAction<SinglePlaylistObj>) {
+      state.playlists.push(action.payload);
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loadPlaylists.pending, (state) => {
+        state.loading = "pending";
+      })
+      .addCase(loadPlaylists.fulfilled, (state, action) => {
+        state.loading = "fulfilled";
+        state.playlistsOverview = action.payload.playlistsOverview;
+        state.playlists = action.payload.playlists;
+        state.error = null;
+      })
+      .addCase(loadPlaylists.rejected, (state, action) => {
+        state.loading = "error";
+        state.error = action.error.message || "Unknown error";
+      });
+  },
+});
+
+export default playlistsSlice.reducer;
+export const selectPlaylists = (state: RootState) => state.playlists;
