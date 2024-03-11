@@ -95,8 +95,10 @@ function Search() {
         return {};
       }
 
-      // to use dummyData, uncomment the return line below
-      //return dummyData;
+      // to use dummyData, set environement variable to true
+      if (import.meta.env.VITE_USE_DUMMY_DATA === "true") {
+        return dummyData;
+      }
 
       // check if searchResults already exists in store
       const results = getFromStore(query, searchResults);
