@@ -5,7 +5,6 @@ import { Global } from "@emotion/react";
 
 import Search from "../pages/Search";
 import Root from "./Routes";
-// import VideoIndex from "../pages/VideoIndex"; // Likely won't use this.
 import Theme from "../assets/Theme";
 import Playlists from "../pages/Playlists";
 import Subscriptions from "../pages/Subscriptions";
@@ -31,11 +30,6 @@ function App() {
           path: "search",
           element: <Search />,
         },
-        //  Likely won't use this route.
-        // {
-        //   path: "search/:VideoID",
-        //   element: <VideoIndex />,
-        // },
       ],
     },
   ]);

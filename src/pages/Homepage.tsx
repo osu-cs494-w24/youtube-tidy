@@ -2,15 +2,12 @@ import { useAppSelector } from "../redux/hooks";
 import AllPlaylists from "../components/AllPlaylists";
 import SinglePlaylist from "../components/SinglePlaylist";
 
-import Login from "../components/Login";
-
 function Homepage() {
   const user = useAppSelector((state) => state.user.info);
   const playlists = useAppSelector((state) => state.playlists.playlists);
 
   return (
     <>
-      <Login />
       <h1>Homepage</h1>
       {user?.access_token ? (
         <>

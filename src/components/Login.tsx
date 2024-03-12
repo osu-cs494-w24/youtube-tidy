@@ -4,6 +4,29 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setUser } from "../redux/userSlice";
 import { loadPlaylists } from "../redux/playlistsSlice";
 
+import styled from "@emotion/styled";
+
+const ContainerButton = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const LoginButton = styled.button`
+  padding: 1rem;
+  border: none;
+  border-radius: 15px;
+  background-color: rgba(241, 73, 81, 0.3);
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  :hover {
+    box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
+  }
+  @media (min-width: 587px) {
+    margin-top: 0;
+  }
+`;
+
 function Login() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.info);
@@ -35,7 +58,11 @@ function Login() {
           </h1>
         </>
       ) : (
-        <button onClick={() => login()}>Login with Google</button>
+        <>
+          <ContainerButton>
+            <LoginButton onClick={() => login()}>Login with Google</LoginButton>
+          </ContainerButton>
+        </>
       )}
     </>
   );
