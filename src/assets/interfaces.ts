@@ -86,6 +86,18 @@ interface Video {
       default: {
         url: string;
       };
+      medium: {
+        url: string;
+      };
+      high: {
+        url: string;
+      };
+      standard: {
+        url: string;
+      };
+      maxres: {
+        url: string;
+      };
     };
   };
   contentDetails: {
@@ -98,6 +110,19 @@ interface Video {
     dislikeCount: string;
     favoriteCount: string;
     commentCount: string;
+  };
+  comments: Comment[];
+}
+
+// comments on a video are retrieved from /comments endpoint
+interface Comment {
+  id: string;
+  snippet: {
+    authorDisplayName: string;
+    authorProfileImageUrl: string;
+    textDisplay: string;
+    likeCount: number;
+    publishedAt: string;
   };
 }
 
@@ -133,4 +158,5 @@ export type {
   UserInfo,
   SinglePlaylistObj,
   Video,
+  Comment,
 };
