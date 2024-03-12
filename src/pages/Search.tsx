@@ -7,6 +7,7 @@ import { useState } from "react";
 import FoldingCube from "../components/FoldingCube";
 import styled from "@emotion/styled";
 import { YoutubeSearchResponse } from "../assets/interfaces";
+import VideoModal from "../components/VideoModal";
 
 import dData from "../dummyData/SearchResults.json";
 const dummyData = {
@@ -68,6 +69,17 @@ function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
   const [inputQuery, setInputQuery] = useState(query || "");
+  const [selectedVideoID, setSelectedVideoID] = useState<string | null>(null);
+
+  // clicking a video will provide a pop-up modal with the video
+  const handleVideoClick = (videoID: string) => {
+    setSelectedVideoID(videoID);
+  };
+
+  // closing the video will remove the pop-up modal
+  const handleCloseVideo = () => {
+    setSelectedVideoID(null);
+  };
 
   // Just a reminder - When writing functionality, please try not to fill the API quota limit by endlessly testing an API endpoint fetch - otherwise we can't use it, or have to make another Google Cloud project with new API key. If you're worried about reaching the quota limit, export the response data from the endpoint, import it, and utilize it as dummy data (to prevent further API calls that may reach its limit for the day).
 
@@ -150,13 +162,20 @@ function Search() {
         {data &&
           data.items &&
           data.items.map((video) => (
-            <CardTotal key={video.id.videoId}>
+            <CardTotal
+              key={video.id.videoId}
+              onClick={() => handleVideoClick(video.id.videoId)}
+            >
               <h2>{video.snippet.title}</h2>
               <img src={video.snippet.thumbnails.high.url} />
               <p>{video.snippet.description}</p>
             </CardTotal>
           ))}
       </Card>
+
+      {selectedVideoID && (
+        <VideoModal videoID={selectedVideoID} onClose={handleCloseVideo} />
+      )}
     </>
   );
 }
