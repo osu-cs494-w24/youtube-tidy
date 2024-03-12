@@ -12,13 +12,6 @@ const ContainerButton = styled.div`
 `;
 
 const LoginButton = styled.button`
-  padding: 1rem;
-  border: none;
-  border-radius: 15px;
-  background-color: rgba(241, 73, 81, 0.3);
-  font-size: 1.1rem;
-  margin-top: 1rem;
-  cursor: pointer;
   :hover {
     box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
   }
