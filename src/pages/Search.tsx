@@ -3,11 +3,27 @@ import { addSearchResults } from "../redux/searchSlice";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-// import YouTube from "react-youtube";
 import FoldingCube from "../components/FoldingCube";
 import styled from "@emotion/styled";
 import { YoutubeSearchResponse } from "../assets/interfaces";
 import VideoModal from "../components/VideoModal";
+
+const SearchButton = styled.button`
+  padding: 1rem;
+  margin-left: 0rem;
+  border: none;
+  border-radius: 15px;
+  background-color: rgba(241, 73, 81, 0.3);
+  font-size: 1.1rem;
+  margin-left: 0.4rem;
+`;
+
+const StyledInput = styled.input`
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1rem;
+  border-radius: 7px;
+`;
 
 import dData from "../dummyData/SearchResults.json";
 const dummyData = {
@@ -142,12 +158,12 @@ function Search() {
         }}
       >
         <ControlForm>
-          <input
+          <StyledInput
             value={inputQuery}
             placeholder="Cute Cats"
             onChange={(e) => setInputQuery(e.target.value)}
           />
-          <button type="submit">Search YouTube</button>
+          <SearchButton type="submit">Search</SearchButton>
         </ControlForm>
       </form>
       {/* {console.log("Data?: ", data)}

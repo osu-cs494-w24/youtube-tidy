@@ -30,7 +30,6 @@ const NavbarLi = styled.li`
   }
   a.active {
     background-color: #000000;
-    border-bottom: 4px solid rgb(255, 255, 255);
   }
   @media (min-width: 587px) {
     align-self: center;
