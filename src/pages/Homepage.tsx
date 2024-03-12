@@ -12,7 +12,14 @@ function Homepage() {
   const playlists = useAppSelector((state) => state.playlists.playlists);
 
   const login = useGoogleLogin({
+    scope: [
+      "openid",
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/youtube.force-ssl",
+    ].join(" "),
     onSuccess: (user) => {
+      console.log("user scope: ", user.scope);
       queryUserName(user.access_token).then((userInfo) => {
         // combine access_token into userInfo
         const combinedInfo = { ...userInfo, access_token: user.access_token };
