@@ -8,16 +8,6 @@ import styled from "@emotion/styled";
 import { YoutubeSearchResponse } from "../assets/interfaces";
 import VideoModal from "../components/VideoModal";
 
-const SearchButton = styled.button`
-  padding: 1rem;
-  margin-left: 0rem;
-  border: none;
-  border-radius: 15px;
-  background-color: rgba(241, 73, 81, 0.3);
-  font-size: 1.1rem;
-  margin-left: 0.4rem;
-`;
-
 const StyledInput = styled.input`
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -163,7 +153,7 @@ function Search() {
             placeholder="Cute Cats"
             onChange={(e) => setInputQuery(e.target.value)}
           />
-          <SearchButton type="submit">Search</SearchButton>
+          <button type="submit">Search</button>
         </ControlForm>
       </form>
       {/* {console.log("Data?: ", data)}

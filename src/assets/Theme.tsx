@@ -8,6 +8,15 @@ function Theme() {
       margin: 0;
       padding: 0;
     }
+    button {
+      padding: 1rem;
+      margin-left: 0rem;
+      border: none;
+      border-radius: 15px;
+      background-color: rgba(241, 73, 81, 0.3);
+      font-size: 1.1rem;
+      margin-left: 0.4rem;
+    }
   `;
   return GlobalStyles;
 }
