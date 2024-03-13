@@ -13,6 +13,12 @@ const ContainerButton = styled.div`
   justify-content: flex-end;
 `;
 
+const StylePFP = styled.img`
+  max-width: 85px;
+  max-height: 85px;
+  border-radius: 50px;
+`;
+
 const LoginButton = styled.button`
   :hover {
     box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
@@ -52,6 +58,8 @@ function Login() {
             Successfully logged in, Welcome
             {user?.given_name ? ` ${user.given_name}!` : "!"}
           </h1>
+          {/* {console.log("Test.....", user.picture)} */}
+          <StylePFP src={user.picture} />
         </>
       ) : (
         <>
