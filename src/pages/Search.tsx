@@ -22,10 +22,18 @@ const dummyData = {
   queryTime: new Date().toISOString(),
 };
 
+const ContainerCards = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+`;
+
 const Card = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  align-self: center;
+
   @media (min-width: 587px) {
     flex-direction: row;
   }
@@ -115,7 +123,7 @@ function Search() {
       console.log("No search results found in store, fetching from API...");
 
       const searchRes = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=5&safeSearch=strict&part=snippet`
+        `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=6&safeSearch=strict&part=snippet`
       );
 
       const searchData = await searchRes.json();
@@ -164,20 +172,22 @@ function Search() {
         data?.searchData
       )} */}
       {isLoading && <FoldingCube />}
-      <Card>
-        {data &&
-          data.items &&
-          data.items.map((video) => (
-            <CardTotal
-              key={video.id.videoId}
-              onClick={() => handleVideoClick(video.id.videoId)}
-            >
-              <h2>{video.snippet.title}</h2>
-              <img src={video.snippet.thumbnails.high.url} />
-              <p>{video.snippet.description}</p>
-            </CardTotal>
-          ))}
-      </Card>
+      <ContainerCards>
+        <Card>
+          {data &&
+            data.items &&
+            data.items.map((video) => (
+              <CardTotal
+                key={video.id.videoId}
+                onClick={() => handleVideoClick(video.id.videoId)}
+              >
+                <h2>{video.snippet.title}</h2>
+                <img src={video.snippet.thumbnails.high.url} />
+                <p>{video.snippet.description}</p>
+              </CardTotal>
+            ))}
+        </Card>
+      </ContainerCards>
 
       {selectedVideoID && (
         <VideoModal videoID={selectedVideoID} onClose={handleCloseVideo} />
