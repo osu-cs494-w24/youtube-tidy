@@ -33,6 +33,7 @@ const Card = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   align-self: center;
+  /* align-content: center; */
 
   @media (min-width: 587px) {
     flex-direction: row;
@@ -43,12 +44,13 @@ const CardTotal = styled.div`
   display: flex;
   flex-direction: column;
   color: #000000;
-  border: 2px solid black;
+  border: 1px solid black;
   margin-bottom: 1rem;
   border-radius: 7px;
   padding: 1rem;
   max-width: 25%;
   margin: 1rem;
+  cursor: pointer;
 `;
 
 const ControlForm = styled.div`
