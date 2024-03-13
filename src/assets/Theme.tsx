@@ -18,6 +18,10 @@ function Theme() {
       margin-left: 0.4rem;
       cursor: pointer;
     }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
   `;
   return GlobalStyles;
 }
