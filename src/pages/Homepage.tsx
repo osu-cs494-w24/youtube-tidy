@@ -25,7 +25,11 @@ function Homepage() {
         </>
       ) : (
         <>
-          <p> ! This is a temporary page for non-logged in users ! </p>
+          <p>
+            {" "}
+            ! This is a temporary page for non-logged in users, plan on showing
+            generic playlists, subs, videos, etc !{" "}
+          </p>
           <p>
             Welcome to Tube Tidy! This web application was built with React, the
             YouTube Data API, Google Cloud Console, and other related libraries.
@@ -35,7 +39,10 @@ function Homepage() {
             subscriptions, and search for videos. You can even edit your
             playlists and subscriptions.
           </p>
-          <p>! This is a temporary page for non-logged in users !</p>
+          <p>
+            ! This is a temporary page for non-logged in users, plan on showing
+            generic playlists, subs, videos, etc !
+          </p>
         </>
       )}
     </>
