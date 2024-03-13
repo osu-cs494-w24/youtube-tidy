@@ -3,6 +3,25 @@ import { queryUserName } from "../requests/UserInfoQuery";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setUser } from "../redux/userSlice";
 import { loadPlaylists } from "../redux/playlistsSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+
+import styled from "@emotion/styled";
+
+const ContainerButton = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const LoginButton = styled.button`
+  :hover {
+    box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
+  }
+  margin-top: 1rem;
+  @media (min-width: 587px) {
+    margin-top: 0;
+  }
+`;
 
 function Login() {
   const dispatch = useAppDispatch();
@@ -35,7 +54,13 @@ function Login() {
           </h1>
         </>
       ) : (
-        <button onClick={() => login()}>Login with Google</button>
+        <>
+          <ContainerButton>
+            <LoginButton onClick={() => login()}>
+              Login with <FontAwesomeIcon icon={faGoogle} />
+            </LoginButton>
+          </ContainerButton>
+        </>
       )}
     </>
   );
