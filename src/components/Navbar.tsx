@@ -10,7 +10,9 @@ const NavbarUl = styled.ul`
 
   @media (min-width: 587px) {
     flex-direction: row;
-    margin: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     border-radius: 7px;
   }
 `;
@@ -30,7 +32,9 @@ const NavbarLi = styled.li`
   }
   a.active {
     background-color: #000000;
-    border-radius: 7px;
+    @media (min-width: 587px) {
+      border-radius: 7px;
+    }
   }
   @media (min-width: 587px) {
     align-self: center;
