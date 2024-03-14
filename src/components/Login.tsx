@@ -24,6 +24,7 @@ const LoginButton = styled.button`
     box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
   }
   margin-top: 1rem;
+  margin-bottom: 1rem;
   @media (min-width: 587px) {
     margin-top: 0;
   }
