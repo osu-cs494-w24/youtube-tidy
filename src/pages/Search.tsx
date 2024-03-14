@@ -33,7 +33,7 @@ const Card = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   align-self: center;
-  /* align-content: center; */
+  align-content: center;
 
   @media (min-width: 587px) {
     flex-direction: row;
