@@ -48,9 +48,15 @@ const CardTotal = styled.div`
   margin-bottom: 1rem;
   border-radius: 7px;
   padding: 1rem;
-  max-width: 25%;
+  max-width: 50%;
   margin: 1rem;
   cursor: pointer;
+  @media (min-width: 587px) {
+    max-width: 35%;
+  }
+  @media (min-width: 1080px) {
+    max-width: 25%;
+  }
 `;
 
 const ControlForm = styled.div`
