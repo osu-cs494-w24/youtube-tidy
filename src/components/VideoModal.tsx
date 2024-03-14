@@ -13,19 +13,34 @@ import {
   addVideoToPlaylistRequest,
   removeVideoFromPlaylistRequest,
 } from "../requests/PlaylistActions";
+import Login from "./Login";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronDown,
+  faChevronUp,
+  faXmark,
+  faPlus,
+  faMinus,
+} from "@fortawesome/free-solid-svg-icons";
 
 const CloseButton = styled.button`
   position: absolute;
   top: 0;
   right: 0;
   z-index: 15;
-  background-color: red;
+  background-color: none;
   color: white;
   border: none;
-  padding: 0.5rem;
+  padding: 1rem;
   border-top-right-radius: 10px;
   border-bottom-left-radius: 10px;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
   cursor: pointer;
+
+  :hover {
+    transform: scale(1.1);
+  }
 `;
 
 const VideoModalContainer = styled.div`
@@ -34,13 +49,34 @@ const VideoModalContainer = styled.div`
   left: calc(50vw / 2);
   z-index: 10;
   width: 50%;
-  height: 90%;
+  max-height: 90%;
+  height: fit-content;
   border-radius: 10px;
   background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  overflow: hidden;
+
+  .modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    background-color: red;
+    color: white;
+
+    h3 {
+      max-width: 80%;
+    }
+  }
+
+  .modal-body {
+    width: 100%;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+  }
 `;
 
 const VideoModalBackdrop = styled.div`
@@ -53,78 +89,122 @@ const VideoModalBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
 `;
 
-const PlaylistsContainer = styled.div`
+const PlaylistToolTip = styled.span`
   display: flex;
-  width: 90%;
-  height: fit-content;
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid black;
-  overflow-x: scroll; /* add horizontal scrolling */
-`;
-
-const Tooltip = styled.span`
-  visibility: hidden;
-  background-color: black;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 0.75rem;
+  background-color: rgb(161, 161, 161);
+  box-shadow: 0 0 10px 0 black;
   color: white;
-  text-align: center;
   border-radius: 6px;
   padding: 3px;
-  width: 80%;
+  max-width: 80%;
   position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 10%;
+  left: 10%;
   opacity: 0;
   transition: opacity 0.3s;
+
+  p {
+    margin: 0;
+    padding-left: 5px;
+    width: fit-content;
+    text-align: center;
+  }
 `;
 
 const PlaylistItem = styled.div`
   position: relative;
   cursor: pointer;
-  margin: 5px;
+  margin-right: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
+  img {
+    border-radius: 10px;
+    height: 100%;
+    width: 100%:
+  }
   :hover {
     transform: scale(1.1);
   }
 
-  &:hover ${Tooltip} {
+  &:hover ${PlaylistToolTip} {
     visibility: visible;
     opacity: 0.9;
   }
 `;
 
-const Description = styled.div`
-  border: 1px solid black;
+const CollapsibleContainer = styled.div`
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
   width: 90%;
   margin: 10px;
   padding: 10px;
   cursor: pointer;
-`;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
-const CommentsCollapsedContainer = styled.div`
-  width: 90%;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid black;
-  cursor: pointer;
-`;
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+  }
 
-const CommentsContainer = styled.div`
-  width: 90%;
-  max-height: 200px;
-  margin: 10px;
-  padding: 10px;
-  overflow-y: scroll;
-  border: 1px solid black;
-  cursor: pointer;
+  h4 {
+    margin: 0;
+  }
+
+  .body {
+    border-top: 1px solid gray;
+    padding: 10px;
+    cursor: default;
+  }
+
+  .comments {
+    max-height: 300px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+  }
+
+  .playlists {
+    display: flex;
+    height: fit-content;
+    padding: 10px;
+    margin: 10px;
+    overflow-x: scroll; /* add horizontal scrolling */
+    scrollbar-width: thin;
+  }
 `;
 
 const SingleComment = styled.div`
-  border: 1px solid black;
-  margin: 5px;
-  padding: 5px;
-  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  padding-bottom: 0px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid gray;
+    padding: 5px;
+  }
+
+  .user-info {
+    display: flex;
+  }
+
+  img {
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
 `;
 
 // see stack overflow post for the styling of the VideoContainer and
@@ -134,6 +214,9 @@ const VideoContainer = styled.div`
   width: 95%;
   padding-top: calc(56.25% * 0.95); /* 16:9 */
   position: relative;
+  margin: 10px;
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
 const VideoFrame = styled.iframe`
@@ -156,6 +239,7 @@ export default function VideoModal({
   const playlists = useAppSelector((state) => state.playlists);
   const [showDescription, setShowDescription] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [showPlaylists, setShowPlaylists] = useState(true);
 
   // check if current video is in a given playlist, returns the video if it is
   // in the form of a playlistItem, which is nested in the SinglePlaylistObj interface
@@ -233,69 +317,113 @@ export default function VideoModal({
       <VideoModalContainer>
         <div className="modal-header">
           <h3>{video.snippet.title}</h3>
-          <CloseButton onClick={onClose}>X</CloseButton>
+          <CloseButton>
+            <FontAwesomeIcon icon={faXmark} onClick={onClose} />
+          </CloseButton>
         </div>
-        <VideoContainer>
-          <VideoFrame
-            src={`https://www.youtube.com/embed/${videoID}`}
-            title="YouTube video player"
-          />
-        </VideoContainer>
+        <div className="modal-body">
+          <VideoContainer>
+            <VideoFrame
+              src={`https://www.youtube.com/embed/${videoID}`}
+              title="YouTube video player"
+            />
+          </VideoContainer>
 
-        {/* Description and Cmoments are collapsable, only one can be uncollapsed at a time */}
-        <Description>
-          <h4
-            onClick={() => {
-              setShowDescription(!showDescription);
-              setShowComments(false);
-            }}
-          >
-            Description
-          </h4>
-          {showDescription && <p>{video.snippet.description}</p>}
-        </Description>
+          {/* Playlists only show up if user is logged in */}
+          <CollapsibleContainer id="playlists">
+            <div
+              className="header"
+              onClick={() => setShowPlaylists(!showPlaylists)}
+            >
+              <h4>Playlists</h4>
+              {!user.info ? (
+                <Login />
+              ) : showPlaylists ? (
+                <FontAwesomeIcon icon={faChevronUp} />
+              ) : (
+                <FontAwesomeIcon icon={faChevronDown} />
+              )}
+            </div>
+            {playlists?.playlistsOverview && showPlaylists && (
+              <div className="body playlists">
+                {playlists.playlistsOverview.items.map((playlist) => (
+                  <PlaylistItem
+                    key={playlist.id}
+                    onClick={() => handlePlaylistClick(playlist.id)}
+                  >
+                    <img src={playlist.snippet.thumbnails.default.url} />
+                    <PlaylistToolTip>
+                      {videoInPlaylist(playlist.id) ? (
+                        <FontAwesomeIcon icon={faMinus} />
+                      ) : (
+                        <FontAwesomeIcon icon={faPlus} />
+                      )}
+                      <p>{playlist.snippet.title}</p>
+                    </PlaylistToolTip>
+                  </PlaylistItem>
+                ))}
+              </div>
+            )}
+          </CollapsibleContainer>
 
-        {showComments ? (
-          <CommentsContainer>
-            <h4 onClick={() => setShowComments(!showComments)}>Comments</h4>
-            {video.comments.map((comment: Comment) => (
-              <SingleComment key={comment.id}>
-                <img src={comment.snippet.authorProfileImageUrl} />
-                <p>{comment.snippet.authorDisplayName}</p>
-                <p>{comment.snippet.textDisplay}</p>
-              </SingleComment>
-            ))}
-          </CommentsContainer>
-        ) : (
-          <CommentsCollapsedContainer>
-            <h4
+          {/* Description and Comments are collapsible, only one can be uncollapsed at a time */}
+          <CollapsibleContainer id="description">
+            <div
+              className="header"
               onClick={() => {
-                setShowDescription(false);
-                setShowComments(!showComments);
+                setShowDescription(!showDescription);
+                setShowComments(false);
               }}
             >
-              Comments
-            </h4>
-          </CommentsCollapsedContainer>
-        )}
+              <h4>Description</h4>
+              {showDescription ? (
+                <FontAwesomeIcon icon={faChevronUp} />
+              ) : (
+                <FontAwesomeIcon icon={faChevronDown} />
+              )}
+            </div>
+            {showDescription && (
+              <div className="body">{video.snippet.description}</div>
+            )}
+          </CollapsibleContainer>
 
-        {/* Playlists only show up if user is logged in */}
-        {playlists?.playlistsOverview && (
-          <PlaylistsContainer>
-            {playlists.playlistsOverview.items.map((playlist) => (
-              <PlaylistItem
-                key={playlist.id}
-                onClick={() => handlePlaylistClick(playlist.id)}
-              >
-                <img src={playlist.snippet.thumbnails.default.url} />
-                <Tooltip>
-                  {videoInPlaylist(playlist.id) ? "Remove from" : "Add to"}
-                  {playlist.snippet.title}
-                </Tooltip>
-              </PlaylistItem>
-            ))}
-          </PlaylistsContainer>
-        )}
+          <CollapsibleContainer id="comments">
+            <div
+              className="header"
+              onClick={() => {
+                setShowComments(!showComments);
+                setShowDescription(false);
+              }}
+            >
+              <h4>Comments Preview</h4>
+              {showComments ? (
+                <FontAwesomeIcon icon={faChevronUp} />
+              ) : (
+                <FontAwesomeIcon icon={faChevronDown} />
+              )}
+            </div>
+            {showComments && (
+              <div className="body comments">
+                {video.comments.map((comment: Comment) => (
+                  <SingleComment key={comment.id}>
+                    <div className="comment-header">
+                      <div className="user-info">
+                        <img src={comment.snippet.authorProfileImageUrl} />
+                        <p>{comment.snippet.authorDisplayName}</p>
+                      </div>
+                      <p>
+                        {new Date(
+                          comment.snippet.publishedAt
+                        ).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <p>{comment.snippet.textDisplay}</p>
+                  </SingleComment>
+                ))}
+              </div>
+            )}
+          </CollapsibleContainer>
+        </div>
       </VideoModalContainer>
     </>
   );
