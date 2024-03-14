@@ -19,6 +19,8 @@ import {
   faChevronDown,
   faChevronUp,
   faXmark,
+  faPlus,
+  faMinus,
 } from "@fortawesome/free-solid-svg-icons";
 
 const CloseButton = styled.button`
@@ -67,37 +69,49 @@ const VideoModalBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
 `;
 
-const Tooltip = styled.span`
-  visibility: hidden;
-  background-color: black;
+const PlaylistToolTip = styled.span`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 0.75rem;
+  background-color: rgb(161, 161, 161);
+  box-shadow: 0 0 10px 0 black;
   color: white;
-  text-align: center;
   border-radius: 6px;
   padding: 3px;
-  width: 80%;
+  max-width: 80%;
   position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 10%;
+  left: 10%;
   opacity: 0;
   transition: opacity 0.3s;
+
+  p {
+    margin: 0;
+    padding-left: 5px;
+    width: fit-content;
+    text-align: center;
+  }
 `;
 
 const PlaylistItem = styled.div`
   position: relative;
   cursor: pointer;
-  margin: 5px;
+  margin-right: 15px;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
   img {
     border-radius: 10px;
+    height: 100%;
+    width: 100%:
   }
   :hover {
     transform: scale(1.1);
   }
 
-  &:hover ${Tooltip} {
+  &:hover ${PlaylistToolTip} {
     visibility: visible;
     opacity: 0.9;
   }
@@ -317,10 +331,14 @@ export default function VideoModal({
                   onClick={() => handlePlaylistClick(playlist.id)}
                 >
                   <img src={playlist.snippet.thumbnails.default.url} />
-                  <Tooltip>
-                    {videoInPlaylist(playlist.id) ? "Remove from" : "Add to"}
-                    {playlist.snippet.title}
-                  </Tooltip>
+                  <PlaylistToolTip>
+                    {videoInPlaylist(playlist.id) ? (
+                      <FontAwesomeIcon icon={faMinus} />
+                    ) : (
+                      <FontAwesomeIcon icon={faPlus} />
+                    )}
+                    <p>{playlist.snippet.title}</p>
+                  </PlaylistToolTip>
                 </PlaylistItem>
               ))}
             </div>
