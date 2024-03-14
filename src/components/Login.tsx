@@ -59,8 +59,11 @@ function Login() {
             Successfully logged in, Welcome
             {user?.given_name ? ` ${user.given_name}!` : "!"}
           </h1>
-          {/* {console.log("Test.....", user.picture)} */}
-          <StylePFP src={user.picture} />
+          {user.picture && user.picture ? (
+            <StylePFP src={user.picture} />
+          ) : (
+            <StylePFP src="src/assets/unnamed.jpg" />
+          )}
         </>
       ) : (
         <>
