@@ -13,11 +13,18 @@ const ContainerButton = styled.div`
   justify-content: flex-end;
 `;
 
+const StylePFP = styled.img`
+  max-width: 85px;
+  max-height: 85px;
+  border-radius: 50px;
+`;
+
 const LoginButton = styled.button`
   :hover {
     box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
   }
   margin-top: 1rem;
+  margin-bottom: 1rem;
   @media (min-width: 587px) {
     margin-top: 0;
   }
@@ -52,6 +59,11 @@ function Login() {
             Successfully logged in, Welcome
             {user?.given_name ? ` ${user.given_name}!` : "!"}
           </h1>
+          {user.picture && user.picture ? (
+            <StylePFP src={user.picture} />
+          ) : (
+            <StylePFP src="src/assets/unnamed.jpg" />
+          )}
         </>
       ) : (
         <>
