@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -71,11 +71,34 @@ const MenuIcon = styled.div`
   justify-content: flex-end;
 `;
 
+const MobileNavButton = styled.button`
+  background-color: inherit;
+`;
+
 function Navbar() {
   const [menu, setMenu] = useState(false);
+  const [mobileNav, setMobileNav] = useState(false);
   const toggleStatus = () => {
     setMenu((prevIsOn) => !prevIsOn);
   };
+
+  // Implementation of dynamic nav bar.
+  // Code is dependent upon window.matchMedia function, recommended by this post.
+  // See: 'Using JavaScript'.
+  // Source: https://stackoverflow.com/questions/50156069/how-can-i-make-my-existing-responsive-navigation-bar-into-a-hamburger-menu-for-s
+  useEffect(() => {
+    const screen = window.matchMedia("(min-width: 587px)");
+    const handleScreenChange = (e: MediaQueryListEvent) => {
+      setMobileNav(e.matches);
+    };
+
+    screen.addEventListener("change", handleScreenChange);
+    setMobileNav(screen.matches);
+
+    return () => {
+      screen.removeEventListener("change", handleScreenChange);
+    };
+  }, []);
 
   return (
     <>
@@ -84,11 +107,11 @@ function Navbar() {
           <>
             <NavbarLi>
               <ContainLogoWIcon>
-                <button onClick={toggleStatus}>
+                <MobileNavButton onClick={toggleStatus}>
                   <MenuIcon>
                     <FontAwesomeIcon icon={faBars} />
                   </MenuIcon>
-                </button>
+                </MobileNavButton>
                 <Logo>
                   <FontAwesomeIcon icon={faYoutube} />
                   Tidy
@@ -115,6 +138,7 @@ function Navbar() {
         ) : null}
         {window.innerWidth >= 587 ? (
           <>
+            {menu ? setMenu(false) : null}
             <NavbarLi>
               <NavLink to="/">
                 <Logo>
