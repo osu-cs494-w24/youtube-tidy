@@ -1,6 +1,19 @@
+import { useAppSelector } from "../redux/hooks";
+import SinglePlaylist from "../components/SinglePlaylist";
+
 function Playlist() {
+  const playlists = useAppSelector((state) => state.playlists.playlists);
+  const playlist = playlists.find(p => p.id == 'test')
+
+  if (playlist) {
+    return (
+      <>
+        <SinglePlaylist playlist={playlist} />
+      </>
+    );
+  }
   return (
-    <h1>Single playlist page...</h1>
+    <p>Error retrieving playlist {'test'}</p>
   )
 }
 

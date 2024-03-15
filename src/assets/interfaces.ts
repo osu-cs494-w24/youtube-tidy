@@ -93,6 +93,7 @@ interface SinglePlaylistObj {
       videoPublishedAt: string;
     };
   }[];
+}
 
 interface PlaylistItem {
   id: string;
