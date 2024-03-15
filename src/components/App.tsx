@@ -24,7 +24,7 @@ function App() {
           element: <Playlists />,
         },
         {
-          path: "playlists/:playlistID",
+          path: "playlists/:id",
           element: <Playlist />,
         },
         {
