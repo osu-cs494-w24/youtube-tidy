@@ -56,8 +56,16 @@ const VideoModalContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;
-  /* max-width: 100%;
-  max-height: 100%; */
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 700px) {
+    transform: none;
+    width: 90vw;
+    top: 5%;
+    left: 5%;
+  }
 
   .modal-header {
     display: flex;
@@ -82,42 +90,6 @@ const VideoModalContainer = styled.div`
     flex-direction: column;
   }
 `;
-
-// const VideoModalContainer = styled.div`
-//   position: fixed;
-//   top: 5%;
-//   left: calc(50vw / 2);
-//   z-index: 10;
-//   width: 50%;
-//   max-height: 90%;
-//   height: fit-content;
-//   border-radius: 10px;
-//   background-color: white;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   overflow: hidden;
-
-//   .modal-header {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: center;
-//     width: 100%;
-//     text-align: center;
-//     background-color: red;
-//     color: white;
-
-//     h3 {
-//       max-width: 80%;
-//     }
-//   }
-
-//   .modal-body {
-//     width: 100%;
-//     overflow-y: scroll;
-//     scrollbar-width: thin;
-//   }
-// `;
 
 const VideoModalBackdrop = styled.div`
   position: fixed;
