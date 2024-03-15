@@ -56,9 +56,16 @@ const VideoModalContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;
-  max-height: 90%;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 700px) {
+    transform: none;
+    width: 90vw;
+    top: 5%;
+    left: 5%;
+  }
 
   .modal-header {
     display: flex;
