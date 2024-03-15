@@ -17,6 +17,10 @@ const StylePFP = styled.img`
   max-width: 85px;
   max-height: 85px;
   border-radius: 50px;
+  align-self: flex-end;
+  :hover {
+    box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
+  }
 `;
 
 const LoginButton = styled.button`
