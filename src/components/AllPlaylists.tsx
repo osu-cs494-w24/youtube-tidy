@@ -1,4 +1,5 @@
 import { useAppSelector } from "../redux/hooks";
+import styled from "@emotion/styled";
 
 export default function AllPlaylists() {
   const userPlaylists = useAppSelector((state) => state.playlists);
@@ -10,17 +11,37 @@ export default function AllPlaylists() {
     return <h1>You don't have any playlists</h1>;
   }
 
+  const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+  `;
+
+  const Cards = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+  `;
+
+  const VideoInfo = styled.div`
+    flex-direction: column;
+    padding-left: 1rem;
+  `;
+
   return (
-    <div>
-      <h2>Playlists Overview</h2>
+    <Container>
+      {/* <h2>Playlists Overview</h2> */}
       {userPlaylists.playlistsOverview?.items.map((playlist) => (
-        <div key={playlist.id}>
-          <h3>{playlist.snippet.title}</h3>
-          <p>{playlist.contentDetails.itemCount} videos</p>
-          <p>{playlist.snippet.description}</p>
+        // <div key={playlist.id}>
+        <Cards key={playlist.id}>
           <img src={playlist.snippet.thumbnails.default.url} alt="thumbnail" />
-        </div>
+          <VideoInfo>
+            <h3>{playlist.snippet.title}</h3>
+            <p>{playlist.contentDetails.itemCount} videos</p>
+            <p>{playlist.snippet.description}</p>
+          </VideoInfo>
+        </Cards>
+        // </div>
       ))}
-    </div>
+    </Container>
   );
 }
