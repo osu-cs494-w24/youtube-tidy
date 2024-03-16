@@ -85,26 +85,30 @@ function Subscriptions() {
 
   return (
     <>
-      <h1>
-        {user?.given_name
-          ? `${user.given_name}'s Subscriptions`
-          : "Subscriptions"}
-      </h1>
-      <SubscriptionControlPanel
-        handleSelectAll={handleSelectAll}
-        allSelected={allSelected}
-        unsubscribeClicked={unsubscribeClicked}
-        selectedSubscriptions={selectedSubscriptions}
-        handleUnsubscribe={handleUnsubscribe}
-        setUnsubscribedClicked={setUnsubscribedClicked}
-      />
-      <AllSubscriptions
-        subscriptionList={subscriptionList}
-        handleSelect={handleSelect}
-        allSelected={allSelected}
-        selectedSubscriptions={selectedSubscriptions}
-        status={status}
-      />
+      {user && (
+        <>
+          <h1>
+            {user?.given_name
+              ? `${user.given_name}'s Subscriptions`
+              : "Subscriptions"}
+          </h1>
+          <SubscriptionControlPanel
+            handleSelectAll={handleSelectAll}
+            allSelected={allSelected}
+            unsubscribeClicked={unsubscribeClicked}
+            selectedSubscriptions={selectedSubscriptions}
+            handleUnsubscribe={handleUnsubscribe}
+            setUnsubscribedClicked={setUnsubscribedClicked}
+          />
+          <AllSubscriptions
+            subscriptionList={subscriptionList}
+            handleSelect={handleSelect}
+            allSelected={allSelected}
+            selectedSubscriptions={selectedSubscriptions}
+            status={status}
+          />
+        </>
+      )}
     </>
   );
 }
