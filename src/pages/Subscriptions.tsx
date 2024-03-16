@@ -5,6 +5,7 @@ import {
   removeSubscriptions,
 } from "../redux/subscriptionsSlice";
 import SingleSubscription from "../components/SingleSubscription";
+import { removeChannelsFromSubscriptions } from "../requests/SubscriptionActions";
 
 function Subscriptions() {
   const [selectedSubscriptions, setSelectedSubscriptions] = useState<string[]>(
@@ -51,13 +52,29 @@ function Subscriptions() {
     setUnsubscribedClicked(false);
   }
 
-  function handleUnsubscribe() {
-    // call youtube api to unsubscribe
-    // delete subscriptions from the store
+  function updateStateAfterUnsubscribe() {
     dispatch(removeSubscriptions(selectedSubscriptions));
     setUnsubscribedClicked(false);
     setAllSelected(false);
     setSelectedSubscriptions([]);
+  }
+
+  async function handleUnsubscribe() {
+    let success = false;
+
+    if (import.meta.env.VITE_USE_DUMMY_DATA === "true") {
+      updateStateAfterUnsubscribe();
+    } else {
+      if (user) {
+        success = await removeChannelsFromSubscriptions(
+          user.access_token,
+          selectedSubscriptions
+        );
+        if (success) {
+          updateStateAfterUnsubscribe();
+        }
+      }
+    }
   }
 
   return (
@@ -92,9 +109,8 @@ function Subscriptions() {
                 selectedSubscriptions.includes(subscriptionData.id)
               }
             />
-            // <p key={subscriptionData.id}>text</p> // assuming 'id' and 'name' are properties of 'subscription'
           ))
-        : "loading..."}
+        : ""}
     </>
   );
 }
