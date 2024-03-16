@@ -10,8 +10,11 @@ export const loadSubscriptions = createAsyncThunk<
   if (!accessToken) {
     throw new Error("Access token not found.");
   }
+  // Timeout used to test loading state
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
   if (import.meta.env.VITE_USE_DUMMY_DATA === "true") {
-    const response = await fetch("/subscriptions.json");
+    const response = await fetch("/dummyData/subscriptions.json");
     const dummySubscriptions = await response.json();
     return dummySubscriptions.items;
   }
@@ -21,25 +24,23 @@ export const loadSubscriptions = createAsyncThunk<
   return subscriptionList;
 });
 
-// subscription state
 interface SubscriptionsState {
   subscriptionList: Subscription[];
-  loading: "idle" | "pending" | "fulfilled" | "error";
+  status: "idle" | "pending" | "fulfilled" | "error";
   error: string | null;
 }
 
-// initial state
 const initialState: SubscriptionsState = {
   subscriptionList: [],
-  loading: "idle",
+  status: "idle",
   error: null,
 };
 
-// create slice
 const subscriptionsSlice = createSlice({
   name: "subscriptions",
   initialState: initialState,
   reducers: {
+    // Remove a list of subscriptions from the store
     removeSubscriptions(state, action) {
       const subscriptionsToDelete = action.payload;
       state.subscriptionList = state.subscriptionList.filter(
@@ -50,21 +51,20 @@ const subscriptionsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loadSubscriptions.pending, (state) => {
-        state.loading = "pending";
+        state.status = "pending";
       })
       .addCase(loadSubscriptions.fulfilled, (state, action) => {
-        state.loading = "fulfilled";
+        state.status = "fulfilled";
         state.subscriptionList = action.payload;
         state.error = null;
       })
       .addCase(loadSubscriptions.rejected, (state, action) => {
-        state.loading = "error";
+        state.status = "error";
         state.error = action.error.message || "Unknown error";
       });
   },
 });
 
-// reducer, which can be passed to the slice
 export default subscriptionsSlice.reducer;
 export const { removeSubscriptions } = subscriptionsSlice.actions;
 export const selectNumSubscriptions = (state: RootState) =>
