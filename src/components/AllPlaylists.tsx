@@ -1,6 +1,7 @@
 import { useAppSelector } from "../redux/hooks";
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { NavLink } from "react-router-dom";
 
 export default function AllPlaylists() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -108,7 +109,7 @@ export default function AllPlaylists() {
             )}
 
             <VideoInfo>
-              <h3>{playlist.snippet.title}</h3>
+              <h3><NavLink to={`/playlists/${playlist.id}`}>{playlist.snippet.title}</NavLink></h3>
               <p>
                 {playlist.contentDetails.itemCount}{" "}
                 {playlist.contentDetails.itemCount === 1 ? "video" : "videos"}
