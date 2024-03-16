@@ -54,7 +54,7 @@ const CardTotal = styled.div`
   @media (min-width: 587px) {
     max-width: 35%;
   }
-  @media (min-width: 1080px) {
+  @media (min-width: 720px) {
     max-width: 25%;
   }
 `;

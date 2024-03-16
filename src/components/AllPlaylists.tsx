@@ -11,7 +11,7 @@ export default function AllPlaylists() {
   // Source: https://stackoverflow.com/questions/50156069/how-can-i-make-my-existing-responsive-navigation-bar-into-a-hamburger-menu-for-s
   // Tablet
   useEffect(() => {
-    const screen = window.matchMedia("(min-width: 1080px)");
+    const screen = window.matchMedia("(min-width: 720px)");
     const handleScreenChange = (e: MediaQueryListEvent) => {
       setIsDesktop(e.matches);
     };
@@ -36,9 +36,10 @@ export default function AllPlaylists() {
   const Container = styled.div`
     display: flex;
     flex-direction: column;
-    @media (min-width: 1080px) {
+    @media (min-width: 720px) {
       flex-direction: row;
       flex-wrap: wrap;
+      margin-left: 5rem;
     }
   `;
 
@@ -46,7 +47,7 @@ export default function AllPlaylists() {
     display: flex;
     flex-direction: row;
     margin-bottom: 1rem;
-    @media (min-width: 1080px) {
+    @media (min-width: 720px) {
       flex-direction: column;
       margin-right: 1rem;
     }
@@ -58,7 +59,7 @@ export default function AllPlaylists() {
   `;
 
   const Thumbnail = styled.img`
-    @media (min-width: 1080px) {
+    @media (min-width: 720px) {
       width: 300px;
       height: 225px;
       border-radius: 15px;

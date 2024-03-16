@@ -27,7 +27,7 @@ function Homepage() {
   `;
 
   const ContainerDesktop = styled.div`
-    @media (min-width: 1080px) {
+    @media (min-width: 720px) {
       display: flex;
     }
   `;
@@ -38,7 +38,7 @@ function Homepage() {
       {user?.access_token ? (
         <>
           <ContainerDesktop>
-            {window.innerWidth < 1080 ? (
+            {window.innerWidth < 720 ? (
               <ContainerButtons>
                 <HomepageButton
                   onClick={() => {
