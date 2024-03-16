@@ -37,26 +37,10 @@ export default function AllPlaylists() {
     display: flex;
     flex-direction: column;
     @media (min-width: 720px) {
-      border: 2px solid black;
       flex-direction: row;
       flex-wrap: wrap;
       margin-left: 5rem;
     }
-  `;
-
-  const Sidebar = styled.div`
-    border: 2px solid black;
-    padding: 2rem;
-  `;
-
-  const SideBarUL = styled.ul`
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-  `;
-
-  const SidebarLi = styled.li`
-    list-style-type: none;
   `;
 
   const Cards = styled.div`
@@ -84,22 +68,6 @@ export default function AllPlaylists() {
 
   return (
     <>
-      <Sidebar>
-        <SideBarUL>
-          Stats
-          <SidebarLi>12 playlists</SidebarLi>
-          <SidebarLi>504 videos</SidebarLi>
-          <SidebarLi>3 subscriptions</SidebarLi>
-        </SideBarUL>
-        <SideBarUL>Playlists</SideBarUL>
-        <SidebarLi>Put data here</SidebarLi>
-        <SidebarLi>Put data here</SidebarLi>
-        <SidebarLi>Put data here</SidebarLi>
-        <SideBarUL>Subscriptions</SideBarUL>
-        <SidebarLi>Subscriptions A</SidebarLi>
-        <SidebarLi>Subscriptions B</SidebarLi>
-        <SidebarLi>Subscriptions C</SidebarLi>
-      </Sidebar>
       <Container>
         {userPlaylists.playlistsOverview?.items.map((playlist) => (
           <Cards key={playlist.id}>

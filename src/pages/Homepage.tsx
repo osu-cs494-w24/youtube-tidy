@@ -1,12 +1,27 @@
 import { useAppSelector } from "../redux/hooks";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AllPlaylists from "../components/AllPlaylists";
 import SinglePlaylist from "../components/SinglePlaylist";
 import styled from "@emotion/styled";
 
 function Homepage() {
+  const [isDesktop, setIsDesktop] = useState(false);
   const user = useAppSelector((state) => state.user.info);
   // const playlists = useAppSelector((state) => state.playlists.playlists);
+
+  useEffect(() => {
+    const screen = window.matchMedia("(min-width: 720px)");
+    const handleScreenChange = (e: MediaQueryListEvent) => {
+      setIsDesktop(e.matches);
+    };
+
+    screen.addEventListener("change", handleScreenChange);
+    setIsDesktop(screen.matches);
+
+    return () => {
+      screen.removeEventListener("change", handleScreenChange);
+    };
+  }, []);
 
   const [playlistToggle, setPlaylistToggle] = useState(true);
   const [subscriptionsToggle, setSubscriptionsToggle] = useState(false);
@@ -32,11 +47,45 @@ function Homepage() {
     }
   `;
 
+  const Sidebar = styled.div`
+    border: 2px solid black;
+    padding: 2rem;
+  `;
+
+  const SideBarUL = styled.ul`
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  `;
+
+  const SidebarLi = styled.li`
+    list-style-type: none;
+  `;
+
   return (
     <>
       {/* <h1>Homepage</h1> */}
       {user?.access_token ? (
         <>
+          {isDesktop ? (
+            <Sidebar>
+              <SideBarUL>
+                Stats
+                <SidebarLi>12 playlists</SidebarLi>
+                <SidebarLi>504 videos</SidebarLi>
+                <SidebarLi>3 subscriptions</SidebarLi>
+              </SideBarUL>
+              <SideBarUL>Playlists</SideBarUL>
+              <SidebarLi>Put data here</SidebarLi>
+              <SidebarLi>Put data here</SidebarLi>
+              <SidebarLi>Put data here</SidebarLi>
+              <SideBarUL>Subscriptions</SideBarUL>
+              <SidebarLi>Subscriptions A</SidebarLi>
+              <SidebarLi>Subscriptions B</SidebarLi>
+              <SidebarLi>Subscriptions C</SidebarLi>
+            </Sidebar>
+          ) : null}
+
           <ContainerDesktop>
             {window.innerWidth < 720 ? (
               <ContainerButtons>
