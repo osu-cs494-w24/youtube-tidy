@@ -7,7 +7,13 @@ import styled from "@emotion/styled";
 function Homepage() {
   const [isDesktop, setIsDesktop] = useState(false);
   const user = useAppSelector((state) => state.user.info);
-  // const playlists = useAppSelector((state) => state.playlists.playlists);
+  const playlists = useAppSelector((state) => state.playlists.playlists);
+  const totalPlaylistCount = playlists.length;
+
+  console.log("LOL: ", playlists);
+  const totalVids = playlists
+    .map((object) => object.pageInfo.totalResults)
+    .reduce((acc, curr) => acc + curr, 0);
 
   useEffect(() => {
     const screen = window.matchMedia("(min-width: 720px)");
@@ -58,6 +64,11 @@ function Homepage() {
     padding: 0;
   `;
 
+  const SideBarSpan = styled.span`
+    font-weight: 600;
+    color: red;
+  `;
+
   const SidebarLi = styled.li`
     list-style-type: none;
   `;
@@ -71,16 +82,20 @@ function Homepage() {
             {isDesktop ? (
               <Sidebar>
                 <SideBarUL>
-                  Stats
-                  <SidebarLi>redux data</SidebarLi>
-                  <SidebarLi>redux data</SidebarLi>
+                  <SideBarSpan>Stats</SideBarSpan>
+                  <SidebarLi>{totalPlaylistCount} playlists</SidebarLi>
+                  <SidebarLi>{totalVids} videos</SidebarLi>
                   <SidebarLi>redux data</SidebarLi>
                 </SideBarUL>
-                <SideBarUL>Playlists</SideBarUL>
+                <SideBarUL>
+                  <SideBarSpan>Playlists</SideBarSpan>
+                </SideBarUL>
                 <SidebarLi>redux data</SidebarLi>
                 <SidebarLi>redux data</SidebarLi>
                 <SidebarLi>redux data</SidebarLi>
-                <SideBarUL>Subscriptions</SideBarUL>
+                <SideBarUL>
+                  <SideBarSpan>Subscriptions</SideBarSpan>
+                </SideBarUL>
                 <SidebarLi>redux data</SidebarLi>
                 <SidebarLi>redux data</SidebarLi>
                 <SidebarLi>redux data</SidebarLi>
