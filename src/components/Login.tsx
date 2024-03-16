@@ -3,6 +3,7 @@ import { queryUserName } from "../requests/UserInfoQuery";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setUser } from "../redux/userSlice";
 import { loadPlaylists } from "../redux/playlistsSlice";
+import { loadSubscriptions } from "../redux/subscriptionsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
@@ -41,6 +42,7 @@ function Login() {
         const combinedInfo = { ...userInfo, access_token: user.access_token };
         dispatch(setUser(combinedInfo));
         dispatch(loadPlaylists(user.access_token));
+        dispatch(loadSubscriptions(user.access_token));
       });
     },
   });
