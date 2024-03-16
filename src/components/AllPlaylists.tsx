@@ -14,12 +14,20 @@ export default function AllPlaylists() {
   const Container = styled.div`
     display: flex;
     flex-direction: column;
+    @media (min-width: 1080px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   `;
 
   const Cards = styled.div`
     display: flex;
     flex-direction: row;
     margin-bottom: 1rem;
+    @media (min-width: 1080px) {
+      flex-direction: column;
+      margin-right: 1rem;
+    }
   `;
 
   const VideoInfo = styled.div`
@@ -27,15 +35,24 @@ export default function AllPlaylists() {
     padding-left: 1rem;
   `;
 
+  const Thumbnail = styled.img`
+    display: flex;
+    width: 300px;
+    height: 225px;
+    border-radius: 15px;
+  `;
+
   return (
     <Container>
-      {/* <h2>Playlists Overview</h2> */}
       {userPlaylists.playlistsOverview?.items.map((playlist) => (
-        // <div key={playlist.id}>
         <Cards key={playlist.id}>
-          <img src={playlist.snippet.thumbnails.default.url} alt="thumbnail" />
+          <Thumbnail
+            src={playlist.snippet.thumbnails.default.url}
+            alt="thumbnail"
+          />
           <VideoInfo>
             <h3>{playlist.snippet.title}</h3>
+            {/* Playlist Video Title temporarily disabled. The longer the title, the larger the thumbnail. */}
             <p>{playlist.contentDetails.itemCount} videos</p>
             <p>{playlist.snippet.description}</p>
           </VideoInfo>
