@@ -19,6 +19,7 @@ interface AllPlaylistSearchResponse {
   }[];
 }
 
+// This represents a single subscription item
 interface Subscription {
   kind: string;
   etag: string;
