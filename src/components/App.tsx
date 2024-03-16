@@ -7,7 +7,7 @@ import Search from "../pages/Search";
 import Root from "./Routes";
 import Theme from "../assets/Theme";
 import Playlists from "../pages/Playlists";
-import Playlist from "../pages/Playlist";
+import PlaylistPage from "../pages/Playlist";
 import Subscriptions from "../pages/Subscriptions";
 import Homepage from "../pages/Homepage";
 
@@ -25,7 +25,7 @@ function App() {
         },
         {
           path: "playlists/:id",
-          element: <Playlist />,
+          element: <PlaylistPage />,
         },
         {
           path: "subscriptions",

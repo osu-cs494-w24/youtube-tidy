@@ -1,17 +1,19 @@
 import { useParams } from 'react-router-dom'
 import { useAppSelector } from "../redux/hooks";
-import SinglePlaylist from "../components/SinglePlaylist";
+import Playlist from '../components/Playlist';
+import PlaylistActionsBar from '../components/PlaylistActionsBar';
 
-function Playlist() {
+function PlaylistPage() {
   const params = useParams()
   const id = params.id
   const playlists = useAppSelector((state) => state.playlists.playlists);
-  const playlist = playlists.find(p => p.id == id)
+  const playlist = playlists.find(p => p.id == id)  // TODO: Make an separate selector?
 
   if (playlist) {
     return (
       <>
-        <SinglePlaylist playlist={playlist} />
+        <PlaylistActionsBar />
+        <Playlist playlist={playlist} />
       </>
     );
   }
@@ -20,4 +22,4 @@ function Playlist() {
   )
 }
 
-export default Playlist;
+export default PlaylistPage;
