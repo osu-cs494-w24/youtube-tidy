@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { queryUserName } from "../requests/UserInfoQuery";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -5,6 +6,7 @@ import { setUser } from "../redux/userSlice";
 import { loadPlaylists } from "../redux/playlistsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import Cookies from "js-cookie";
 
 import styled from "@emotion/styled";
 
@@ -42,6 +44,23 @@ function Login() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.info);
 
+  useEffect(() => {
+    const access_token = Cookies.get("access_token");
+    if (access_token) {
+      handleUserInfo(access_token);
+    }
+  }, [dispatch]);
+
+  const handleUserInfo = (access_token: string) => {
+    queryUserName(access_token).then((userInfo) => {
+      // combine access_token into userInfo
+      const combinedInfo = { ...userInfo, access_token };
+      dispatch(setUser(combinedInfo));
+      // load playlists into store
+      dispatch(loadPlaylists(access_token));
+    });
+  };
+
   const login = useGoogleLogin({
     scope: [
       "openid",
@@ -50,15 +69,11 @@ function Login() {
       "https://www.googleapis.com/auth/youtube.force-ssl",
     ].join(" "),
     onSuccess: (user) => {
-      console.log("user scope: ", user.scope);
-      queryUserName(user.access_token).then((userInfo) => {
-        // combine access_token into userInfo
-        const combinedInfo = { ...userInfo, access_token: user.access_token };
-        dispatch(setUser(combinedInfo));
-        dispatch(loadPlaylists(user.access_token));
-      });
+      handleUserInfo(user.access_token);
+      Cookies.set("access_token", user.access_token, { expires: 1 });
     },
   });
+
   return (
     <>
       {user?.access_token ? (
