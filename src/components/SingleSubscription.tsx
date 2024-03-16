@@ -5,8 +5,12 @@ const SubscriptionItem = styled.div`
   background-color: ${(props) => (props.isSelected ? "lightpink" : "white")};
 `;
 
-export default function SingleSubscription({ subscriptionData, handleSelect }) {
-  const [isSelected, setIsSelected] = useState(false);
+export default function SingleSubscription({
+  subscriptionData,
+  handleSelect,
+  isSelected,
+}) {
+  //   const [isSelected, setIsSelected] = useState(false);
 
   const BASE_URL = "https://www.youtube.com/channel/";
   const thumbnail = subscriptionData.snippet.thumbnails.default.url;
@@ -17,7 +21,7 @@ export default function SingleSubscription({ subscriptionData, handleSelect }) {
   const subscriptionId = subscriptionData.id;
 
   const handleCheckboxChange = (e) => {
-    setIsSelected(e.target.checked);
+    // setIsSelected(e.target.checked);
     handleSelect(subscriptionId, e.target.checked);
   };
 
