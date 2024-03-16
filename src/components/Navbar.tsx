@@ -54,14 +54,13 @@ const ContainLogoWIcon = styled.div`
 const Logo = styled.div`
   display: flex;
   font-size: 2rem;
-  color: #000000;
+  color: #ffffff;
   margin-right: 1rem;
   align-items: center;
   @media (min-width: 587px) {
     padding-left: 1rem;
     font-size: 1rem;
     font-size: 1.7rem;
-    color: #ffffff;
     justify-content: center;
   }
 `;
