@@ -8,14 +8,18 @@ function Playlists() {
 
   return (
     <>
-      <h1>
-        {user?.given_name ? `${user.given_name}'s Playlists` : "Playlists"}
-      </h1>
-      <AllPlaylists />
-      {/* Temporarily disabled this. */}
-      {/* {playlists.map((playlist) => (
-        <SinglePlaylist key={playlist.id} playlist={playlist} />
-      ))} */}
+      {user && (
+        <>
+          <h1>
+            {user?.given_name ? `${user.given_name}'s Playlists` : "Playlists"}
+          </h1>
+          <AllPlaylists />
+          {/* Temporarily disabled this. */}
+          {/* {playlists.map((playlist) => (
+          <SinglePlaylist key={playlist.id} playlist={playlist} />
+        ))} */}
+        </>
+      )}
     </>
   );
 }

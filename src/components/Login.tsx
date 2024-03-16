@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { queryUserName } from "../requests/UserInfoQuery";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -5,25 +6,30 @@ import { setUser } from "../redux/userSlice";
 import { loadPlaylists } from "../redux/playlistsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import Cookies from "js-cookie";
 
 import styled from "@emotion/styled";
 
-const ContainerButton = styled.div`
+const LoginContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  width: 100%;
 `;
 
-const StyleGreeting = styled.h1`
-  margin-top: 1rem;
-`;
+const LoginModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 40%;
+  margin: 10% 30%;
+  box-shadow: 0px 0px 10px gray;
+  border-radius: 15px;
+  text-align: center;
 
-const StylePFP = styled.img`
-  max-width: 85px;
-  max-height: 85px;
-  border-radius: 50px;
-  align-self: flex-end;
-  :hover {
-    box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
+  @media (max-width: 655px) {
+    width: 90%;
+    margin: 0;
   }
 `;
 
@@ -31,8 +37,9 @@ const LoginButton = styled.button`
   :hover {
     box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
   }
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem;
+  width: fit-content;
+
   @media (min-width: 587px) {
     margin-top: 0;
   }
@@ -42,6 +49,23 @@ function Login() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.info);
 
+  useEffect(() => {
+    const access_token = Cookies.get("access_token");
+    if (access_token) {
+      handleUserInfo(access_token);
+    }
+  }, [dispatch]);
+
+  const handleUserInfo = (access_token: string) => {
+    queryUserName(access_token).then((userInfo) => {
+      // combine access_token into userInfo
+      const combinedInfo = { ...userInfo, access_token };
+      dispatch(setUser(combinedInfo));
+      // load playlists into store
+      dispatch(loadPlaylists(access_token));
+    });
+  };
+
   const login = useGoogleLogin({
     scope: [
       "openid",
@@ -50,37 +74,28 @@ function Login() {
       "https://www.googleapis.com/auth/youtube.force-ssl",
     ].join(" "),
     onSuccess: (user) => {
-      console.log("user scope: ", user.scope);
-      queryUserName(user.access_token).then((userInfo) => {
-        // combine access_token into userInfo
-        const combinedInfo = { ...userInfo, access_token: user.access_token };
-        dispatch(setUser(combinedInfo));
-        dispatch(loadPlaylists(user.access_token));
-      });
+      handleUserInfo(user.access_token);
+      Cookies.set("access_token", user.access_token, { expires: 1 });
     },
   });
+
   return (
     <>
-      {user?.access_token ? (
-        <>
-          <StyleGreeting>
-            Successfully logged in, Welcome
-            {user?.given_name ? ` ${user.given_name}!` : "!"}
-          </StyleGreeting>
-          {user.picture && user.picture ? (
-            <StylePFP src={user.picture} />
-          ) : (
-            <StylePFP src="src/assets/unnamed.jpg" />
-          )}
-        </>
-      ) : (
-        <>
-          <ContainerButton>
+      {!user?.access_token && (
+        <LoginContainer>
+          <LoginModal>
+            <h3>Welcome to Youtube Tidy!</h3>
+            <p>
+              This web application was built with React, the YouTube Data API,
+              and some other helpful libraries. Login with your Google/YouTube
+              account, and use YouTube Tidy to quickly move vidoes between
+              playlists, mass delete or add videos to playlists, and more!
+            </p>
             <LoginButton onClick={() => login()}>
               Login with <FontAwesomeIcon icon={faGoogle} />
             </LoginButton>
-          </ContainerButton>
-        </>
+          </LoginModal>
+        </LoginContainer>
       )}
     </>
   );

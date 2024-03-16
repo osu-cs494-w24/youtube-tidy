@@ -94,6 +94,7 @@ function Search() {
   const query = searchParams.get("q");
   const [inputQuery, setInputQuery] = useState(query || "");
   const [selectedVideoID, setSelectedVideoID] = useState<string | null>(null);
+  const user = useAppSelector((state) => state.user.info);
 
   // clicking a video will provide a pop-up modal with the video
   const handleVideoClick = (videoID: string) => {
@@ -158,49 +159,53 @@ function Search() {
   });
   return (
     <>
-      <h1>Search for YouTube Videos: </h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          setSearchParams({ q: inputQuery });
-        }}
-      >
-        <ControlForm>
-          <StyledInput
-            value={inputQuery}
-            placeholder="Cute Cats"
-            onChange={(e) => setInputQuery(e.target.value)}
-          />
-          <button type="submit">Search</button>
-        </ControlForm>
-      </form>
-      {/* {console.log("Data?: ", data)}
+      {user && (
+        <>
+          <h1>Search for YouTube Videos: </h1>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setSearchParams({ q: inputQuery });
+            }}
+          >
+            <ControlForm>
+              <StyledInput
+                value={inputQuery}
+                placeholder="Cute Cats"
+                onChange={(e) => setInputQuery(e.target.value)}
+              />
+              <button type="submit">Search</button>
+            </ControlForm>
+          </form>
+          {/* {console.log("Data?: ", data)}
       {console.log("Search Data: ", data?.searchData)}
       {console.log(
         data?.searchData,
         "Testing generic data pull...",
         data?.searchData
       )} */}
-      {isLoading && <FoldingCube />}
-      <ContainerCards>
-        <Card>
-          {data &&
-            data.items &&
-            data.items.map((video) => (
-              <CardTotal
-                key={video.id.videoId}
-                onClick={() => handleVideoClick(video.id.videoId)}
-              >
-                <h2>{video.snippet.title}</h2>
-                <img src={video.snippet.thumbnails.high.url} />
-                <p>{video.snippet.description}</p>
-              </CardTotal>
-            ))}
-        </Card>
-      </ContainerCards>
+          {isLoading && <FoldingCube />}
+          <ContainerCards>
+            <Card>
+              {data &&
+                data.items &&
+                data.items.map((video) => (
+                  <CardTotal
+                    key={video.id.videoId}
+                    onClick={() => handleVideoClick(video.id.videoId)}
+                  >
+                    <h2>{video.snippet.title}</h2>
+                    <img src={video.snippet.thumbnails.high.url} />
+                    <p>{video.snippet.description}</p>
+                  </CardTotal>
+                ))}
+            </Card>
+          </ContainerCards>
 
-      {selectedVideoID && (
-        <VideoModal videoID={selectedVideoID} onClose={handleCloseVideo} />
+          {selectedVideoID && (
+            <VideoModal videoID={selectedVideoID} onClose={handleCloseVideo} />
+          )}
+        </>
       )}
     </>
   );
