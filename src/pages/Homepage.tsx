@@ -72,18 +72,18 @@ function Homepage() {
               <Sidebar>
                 <SideBarUL>
                   Stats
-                  <SidebarLi>12 playlists</SidebarLi>
-                  <SidebarLi>504 videos</SidebarLi>
-                  <SidebarLi>3 subscriptions</SidebarLi>
+                  <SidebarLi>redux data</SidebarLi>
+                  <SidebarLi>redux data</SidebarLi>
+                  <SidebarLi>redux data</SidebarLi>
                 </SideBarUL>
                 <SideBarUL>Playlists</SideBarUL>
-                <SidebarLi>Put data here</SidebarLi>
-                <SidebarLi>Put data here</SidebarLi>
-                <SidebarLi>Put data here</SidebarLi>
+                <SidebarLi>redux data</SidebarLi>
+                <SidebarLi>redux data</SidebarLi>
+                <SidebarLi>redux data</SidebarLi>
                 <SideBarUL>Subscriptions</SideBarUL>
-                <SidebarLi>Subscriptions A</SidebarLi>
-                <SidebarLi>Subscriptions B</SidebarLi>
-                <SidebarLi>Subscriptions C</SidebarLi>
+                <SidebarLi>redux data</SidebarLi>
+                <SidebarLi>redux data</SidebarLi>
+                <SidebarLi>redux data</SidebarLi>
               </Sidebar>
             ) : null}
             {window.innerWidth < 720 ? (
@@ -117,7 +117,6 @@ function Homepage() {
       ) : (
         <>
           <p>
-            {" "}
             ! This is a temporary page for non-logged in users, plan on showing
             generic playlists, subs, videos, etc !{" "}
           </p>
