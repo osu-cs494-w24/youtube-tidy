@@ -39,4 +39,34 @@ const getSubscriptionList = async (accessToken: string) => {
   return subscriptions as Subscription[];
 };
 
-export { getSubscriptionList };
+const removeChannelsFromSubscriptions = async (
+  accessToken: string,
+  subscriptionIdList: string[]
+) => {
+  if (!accessToken || !subscriptionIdList) {
+    throw new Error("Access token or playlist ID not found.");
+  }
+
+  const YoutubeKey = import.meta.env.VITE_YOUTUBE_API;
+
+  // const url = `https://www.googleapis.com/youtube/v3/subscriptions?id=${subscriptionId}&key=${YoutubeKey}`;
+
+  const requestOptions = {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
+  for (const subscriptionId of subscriptionIdList) {
+    const url = `https://www.googleapis.com/youtube/v3/subscriptions?id=${subscriptionId}&key=${YoutubeKey}`;
+    const response = await fetch(url, requestOptions);
+    if (!response.ok) {
+      throw new Error("Failed to channel from subscriptions.");
+    }
+  }
+  // on a successful delete, return true
+  return true;
+};
+
+export { getSubscriptionList, removeChannelsFromSubscriptions };
