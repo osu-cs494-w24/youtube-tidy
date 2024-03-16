@@ -34,7 +34,7 @@ const Card = styled.div`
   flex-wrap: wrap;
   align-self: center;
   align-content: center;
-
+  justify-content: center;
   @media (min-width: 587px) {
     flex-direction: row;
   }
@@ -44,12 +44,13 @@ const CardTotal = styled.div`
   display: flex;
   flex-direction: column;
   color: #000000;
-  border: 1px solid black;
+  border: 1px solid #e3e3e3
   margin-bottom: 1rem;
   border-radius: 7px;
   padding: 1rem;
   max-width: 50%;
   margin: 1rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
   @media (min-width: 587px) {
     max-width: 35%;
