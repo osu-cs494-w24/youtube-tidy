@@ -75,7 +75,7 @@ function Homepage() {
   return (
     <>
       {/* <h1>Homepage</h1> */}
-      {user?.access_token ? (
+      {user?.access_token && (
         <>
           <ContainerDesktop>
             {isDesktop ? (
@@ -127,26 +127,6 @@ function Homepage() {
               <p>Place `AllSubscriptions` component here</p>
             )}
           </ContainerDesktop>
-        </>
-      ) : (
-        <>
-          <p>
-            ! This is a temporary page for non-logged in users, plan on showing
-            generic playlists, subs, videos, etc !{" "}
-          </p>
-          <p>
-            Welcome to Tube Tidy! This web application was built with React, the
-            YouTube Data API, Google Cloud Console, and other related libraries.
-          </p>
-          <p>
-            Login with your Google/YouTube account, and explore your playlists,
-            subscriptions, and search for videos. You can even edit your
-            playlists and subscriptions.
-          </p>
-          <p>
-            ! This is a temporary page for non-logged in users, plan on showing
-            generic playlists, subs, videos, etc !
-          </p>
         </>
       )}
     </>

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { useAppSelector } from "../redux/hooks";
+import Cookies from "js-cookie";
 
 const NavbarUl = styled.ul`
   display: flex;
@@ -12,6 +13,7 @@ const NavbarUl = styled.ul`
   background-color: #ff0000;
   margin: 0;
   padding: 0;
+  margin-bottom: 20px;
 
   @media (min-width: 655px) {
     flex-direction: row;
@@ -75,9 +77,9 @@ const NavbarLi = styled.li`
 const UserToolTip = styled.span`
   text-align: center;
   font-size: 0.75rem;
-  background-color: rgb(161, 161, 161);
+  background-color: #ff0000;
   box-shadow: 0 0 10px 0 black;
-  color: black;
+  color: white;
   border-radius: 6px;
   padding: 3px;
   position: absolute;
@@ -91,7 +93,7 @@ const UserContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 5px 10px;
   position: relative;
 
   .user-img {
@@ -107,8 +109,6 @@ const UserContainer = styled.div`
 
     &:hover + ${UserToolTip} {
       opacity: 0.9;
-      background-color: black;
-      color: white;
     }
   }
 `;
@@ -171,6 +171,11 @@ function Navbar() {
     };
   }, []);
 
+  const logout = () => {
+    Cookies.remove("access_token");
+    window.location.reload();
+  };
+
   return (
     <>
       <NavbarUl>
@@ -190,7 +195,11 @@ function Navbar() {
                 </Logo>
                 {user && (
                   <UserContainer>
-                    <img className="user-img" src={user.picture} />
+                    <img
+                      className="user-img"
+                      src={user.picture}
+                      onClick={logout}
+                    />
                     <UserToolTip>Logout</UserToolTip>
                   </UserContainer>
                 )}
@@ -236,7 +245,7 @@ function Navbar() {
             </NavbarLi>
             {user && (
               <UserContainer>
-                <img className="user-img" src={user.picture} />
+                <img className="user-img" src={user.picture} onClick={logout} />
                 <UserToolTip>Logout</UserToolTip>
               </UserContainer>
             )}
