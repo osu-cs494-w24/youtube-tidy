@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { getSubscriptionList } from "../requests/SubscriptionList";
+import { getSubscriptionList } from "../requests/SubscriptionActions";
 import { Subscription } from "../assets/interfaces";
 
 export const loadSubscriptions = createAsyncThunk<
