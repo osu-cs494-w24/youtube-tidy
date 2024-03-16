@@ -8,14 +8,14 @@ function Homepage() {
   const user = useAppSelector((state) => state.user.info);
   // const playlists = useAppSelector((state) => state.playlists.playlists);
 
-  const [playlistToggle, setPlaylistToggle] = useState(false);
+  const [playlistToggle, setPlaylistToggle] = useState(true);
   const [subscriptionsToggle, setSubscriptionsToggle] = useState(false);
-  const togglePlaylist = () => {
-    setPlaylistToggle((prevIsOn) => !prevIsOn);
-  };
-  const toggleSubscriptions = () => {
-    setSubscriptionsToggle((prevIsOn) => !prevIsOn);
-  };
+  // const togglePlaylist = () => {
+  //   setPlaylistToggle((prevIsOn) => !prevIsOn);
+  // };
+  // const toggleSubscriptions = () => {
+  //   setSubscriptionsToggle((prevIsOn) => !prevIsOn);
+  // };
 
   const ContainerButtons = styled.div`
     display: flex;
@@ -38,36 +38,34 @@ function Homepage() {
       {user?.access_token ? (
         <>
           <ContainerButtons>
-            {playlistToggle ? (
-              <HomepageButton onClick={togglePlaylist}>
-                {/* {console.log("Am I on?", playlistToggle)} */}
-                Hide Playlists
-              </HomepageButton>
-            ) : (
-              <HomepageButton onClick={togglePlaylist}>
-                {/* {console.log("Am I on?", playlistToggle)} */}
-                Show Playlists
-              </HomepageButton>
-            )}
-            {subscriptionsToggle ? (
-              <HomepageButton onClick={toggleSubscriptions}>
-                {/* {console.log("Am I on?", subscriptionsToggle)} */}
-                Hide Subscriptions
-              </HomepageButton>
-            ) : (
-              <HomepageButton onClick={toggleSubscriptions}>
-                {/* {console.log("Am I on?", subscriptionsToggle)} */}
-                Show Subscriptions
-              </HomepageButton>
-            )}
-            {/* {console.log("Am I on?", playlistToggle)} */}
+            <HomepageButton
+              onClick={() => {
+                setPlaylistToggle(true);
+                setSubscriptionsToggle(false);
+              }}
+            >
+              Playlists
+            </HomepageButton>
+
+            <HomepageButton
+              onClick={() => {
+                setSubscriptionsToggle(true);
+                setPlaylistToggle(false);
+              }}
+            >
+              Subscriptions
+            </HomepageButton>
           </ContainerButtons>
-          {playlistToggle ? <AllPlaylists /> : <p>Playlists hidden</p>}
-          {subscriptionsToggle ? (
-            <p> PUT COMPONENT HERE RENDERING SUBSCRIPTIONS</p>
-          ) : (
-            <p> Subscriptions hidden</p>
+          {playlistToggle && !subscriptionsToggle && <AllPlaylists />}
+          {subscriptionsToggle && !playlistToggle && (
+            <p>Place `AllSubscriptions` component here</p>
           )}
+          {/* {playlistToggle ? <AllPlaylists /> : null}
+          {subscriptionsToggle ? (
+            <>
+              <p> PUT COMPONENT HERE RENDERING SUBSCRIPTIONS</p>
+            </>
+          ) : null} */}
         </>
       ) : (
         <>

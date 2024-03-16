@@ -13,6 +13,10 @@ const ContainerButton = styled.div`
   justify-content: flex-end;
 `;
 
+const StyleGreeting = styled.h1`
+  margin-top: 1rem;
+`;
+
 const StylePFP = styled.img`
   max-width: 85px;
   max-height: 85px;
@@ -59,10 +63,10 @@ function Login() {
     <>
       {user?.access_token ? (
         <>
-          <h1>
+          <StyleGreeting>
             Successfully logged in, Welcome
             {user?.given_name ? ` ${user.given_name}!` : "!"}
-          </h1>
+          </StyleGreeting>
           {user.picture && user.picture ? (
             <StylePFP src={user.picture} />
           ) : (
