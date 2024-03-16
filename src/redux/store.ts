@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
 import searchReducer from "./searchSlice";
 import playlistsReducer from "./playlistsSlice";
+import subscriptionReducer from "./subscriptionsSlice";
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     search: searchReducer,
     playlists: playlistsReducer,
+    subscriptions: subscriptionReducer,
   },
 });
 
