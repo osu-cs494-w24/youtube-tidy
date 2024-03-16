@@ -95,23 +95,6 @@ interface SinglePlaylistObj {
   }[];
 }
 
-interface PlaylistItem {
-  id: string;
-  snippet: {
-    title: string,
-    description: string;
-    thumbnails: {
-      default: {
-        url: string;
-      }
-    }
-  }
-}
-
-interface PlaylistItemsResponse {
-  items: PlaylistItem[];
-}
-
 interface UserInfo {
   id: string;
   email: string;
@@ -205,8 +188,6 @@ interface YoutubeSearchResponse {
 export type {
   YoutubeSearchResponse,
   AllPlaylistSearchResponse,
-  PlaylistItem,
-  PlaylistItemsResponse,
   UserInfo,
   SinglePlaylistObj,
   Subscription,
