@@ -12,9 +12,10 @@ function Playlists() {
         {user?.given_name ? `${user.given_name}'s Playlists` : "Playlists"}
       </h1>
       <AllPlaylists />
-      {playlists.map((playlist) => (
+      {/* Temporarily disabled this. */}
+      {/* {playlists.map((playlist) => (
         <SinglePlaylist key={playlist.id} playlist={playlist} />
-      ))}
+      ))} */}
     </>
   );
 }
