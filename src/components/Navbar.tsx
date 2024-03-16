@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { useAppSelector } from "../redux/hooks";
 
 const NavbarUl = styled.ul`
   display: flex;
@@ -14,10 +13,8 @@ const NavbarUl = styled.ul`
   margin: 0;
   padding: 0;
 
-  @media (min-width: 587px) {
+  @media (min-width: 655px) {
     flex-direction: row;
-    margin: 1rem;
-    border-radius: 7px;
   }
 `;
 
@@ -36,19 +33,89 @@ const NavbarLi = styled.li`
   }
   a.active {
     background-color: #000000;
-    @media (min-width: 587px) {
+    @media (min-width: 655px) {
       border-radius: 7px;
     }
   }
-  @media (min-width: 587px) {
+  @media (min-width: 655px) {
     align-self: center;
     text-align: center;
+  }
+
+  a.active:hover {
+    color: #ffffff;
+
+    .svg-inline--fa {
+      color: #ffffff;
+    }
+
+    p {
+      color: #ffffff;
+    }
+  }
+
+  a:hover {
+    color: #000000;
+
+    .svg-inline--fa {
+      color: #000000;
+    }
+
+    p {
+      color: #000000;
+    }
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+const UserToolTip = styled.span`
+  text-align: center;
+  font-size: 0.75rem;
+  background-color: rgb(161, 161, 161);
+  box-shadow: 0 0 10px 0 black;
+  color: black;
+  border-radius: 6px;
+  padding: 3px;
+  position: absolute;
+  bottom: -15px;
+  left: 6;
+  opacity: 0;
+  transition: opacity 0.3s;
+`;
+
+const UserContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  position: relative;
+
+  .user-img {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    &:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    &:hover + ${UserToolTip} {
+      opacity: 0.9;
+      background-color: black;
+      color: white;
+    }
   }
 `;
 
 const ContainLogoWIcon = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const Logo = styled.div`
@@ -57,7 +124,7 @@ const Logo = styled.div`
   color: #ffffff;
   margin-right: 1rem;
   align-items: center;
-  @media (min-width: 587px) {
+  @media (min-width: 655px) {
     padding-left: 1rem;
     font-size: 1rem;
     font-size: 1.7rem;
@@ -67,14 +134,19 @@ const Logo = styled.div`
 
 const MenuIcon = styled.div`
   display: flex;
-  justify-content: flex-end;
 `;
 
 const MobileNavButton = styled.button`
   background-color: inherit;
+  margin-right: auto;
+
+  &:hover .fa-bars {
+    color: #ffffff;
+  }
 `;
 
 function Navbar() {
+  const user = useAppSelector((state) => state.user.info);
   const [menu, setMenu] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
   const toggleStatus = () => {
@@ -86,7 +158,7 @@ function Navbar() {
   // See: 'Using JavaScript'.
   // Source: https://stackoverflow.com/questions/50156069/how-can-i-make-my-existing-responsive-navigation-bar-into-a-hamburger-menu-for-s
   useEffect(() => {
-    const screen = window.matchMedia("(min-width: 587px)");
+    const screen = window.matchMedia("(min-width: 655px)");
     const handleScreenChange = (e: MediaQueryListEvent) => {
       setMobileNav(e.matches);
     };
@@ -102,7 +174,7 @@ function Navbar() {
   return (
     <>
       <NavbarUl>
-        {window.innerWidth <= 586 ? (
+        {window.innerWidth <= 654 ? (
           <>
             <NavbarLi>
               <ContainLogoWIcon>
@@ -111,10 +183,17 @@ function Navbar() {
                     <FontAwesomeIcon icon={faBars} />
                   </MenuIcon>
                 </MobileNavButton>
+
                 <Logo>
                   <FontAwesomeIcon icon={faYoutube} />
                   Tidy
                 </Logo>
+                {user && (
+                  <UserContainer>
+                    <img className="user-img" src={user.picture} />
+                    <UserToolTip>Logout</UserToolTip>
+                  </UserContainer>
+                )}
               </ContainLogoWIcon>
             </NavbarLi>
           </>
@@ -135,14 +214,14 @@ function Navbar() {
             </NavbarLi>
           </>
         ) : null}
-        {window.innerWidth >= 587 ? (
+        {window.innerWidth >= 655 ? (
           <>
             {menu ? setMenu(false) : null}
             <NavbarLi>
               <NavLink to="/">
                 <Logo>
                   <FontAwesomeIcon icon={faYoutube} />
-                  Tidy
+                  <p>Tidy</p>
                 </Logo>
               </NavLink>
             </NavbarLi>
@@ -155,6 +234,12 @@ function Navbar() {
             <NavbarLi>
               <NavLink to="/search">Search</NavLink>
             </NavbarLi>
+            {user && (
+              <UserContainer>
+                <img className="user-img" src={user.picture} />
+                <UserToolTip>Logout</UserToolTip>
+              </UserContainer>
+            )}
           </>
         ) : null}{" "}
       </NavbarUl>

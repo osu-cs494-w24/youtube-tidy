@@ -74,6 +74,11 @@ function Login() {
     },
   });
 
+  const logout = () => {
+    Cookies.remove("access_token");
+    window.location.reload();
+  };
+
   return (
     <>
       {user?.access_token ? (
@@ -83,7 +88,7 @@ function Login() {
             {user?.given_name ? ` ${user.given_name}!` : "!"}
           </StyleGreeting>
           {user.picture && user.picture ? (
-            <StylePFP src={user.picture} />
+            <StylePFP src={user.picture} onClick={logout} />
           ) : (
             <StylePFP src="src/assets/unnamed.jpg" />
           )}
