@@ -10,7 +10,6 @@ function Homepage() {
   const playlists = useAppSelector((state) => state.playlists.playlists);
   const totalPlaylistCount = playlists.length;
 
-  console.log("LOL: ", playlists);
   const totalVids = playlists
     .map((object) => object.pageInfo.totalResults)
     .reduce((acc, curr) => acc + curr, 0);
