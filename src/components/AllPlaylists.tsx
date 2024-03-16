@@ -47,22 +47,46 @@ export default function AllPlaylists() {
     display: flex;
     flex-direction: row;
     margin-bottom: 1rem;
+    align-items: center;
+    box-shadow: 0 0 10px 0 gray;
+    border-radius: 15px;
+    width: 310px;
+    padding: 5px;
+
     @media (min-width: 720px) {
       flex-direction: column;
       margin-right: 1rem;
+      padding-top: 8px;
+    }
+
+    @media (max-width: 719px) {
+      width: 98%;
     }
   `;
 
   const VideoInfo = styled.div`
+    width: 100%;
     flex-direction: column;
     padding-left: 1rem;
+
+    p,
+    h3 {
+      margin: 0px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
   `;
 
   const Thumbnail = styled.img`
+    border-radius: 15px;
+
     @media (min-width: 720px) {
       width: 300px;
       height: 225px;
-      border-radius: 15px;
+    }
+
+    @media (max-width: 719px) {
+      width: 150px;
     }
   `;
 
@@ -85,7 +109,10 @@ export default function AllPlaylists() {
 
             <VideoInfo>
               <h3>{playlist.snippet.title}</h3>
-              <p>{playlist.contentDetails.itemCount} videos</p>
+              <p>
+                {playlist.contentDetails.itemCount}{" "}
+                {playlist.contentDetails.itemCount === 1 ? "video" : "videos"}
+              </p>
               <p>{playlist.snippet.description}</p>
             </VideoInfo>
           </Cards>
