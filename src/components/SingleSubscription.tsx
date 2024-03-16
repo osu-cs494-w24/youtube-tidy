@@ -1,7 +1,17 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
+import { Subscription } from "../assets/interfaces";
 
-const SubscriptionItem = styled.div`
+interface SubScriptionItemProps {
+  isSelected: boolean;
+}
+
+interface SingleSubscriptionProps {
+  subscriptionData: Subscription;
+  handleSelect: (subscriptionId: string, isSelected: boolean) => void;
+  isSelected: boolean;
+}
+
+const SubscriptionItem = styled.div<SubScriptionItemProps>`
   background-color: ${(props) => (props.isSelected ? "lightpink" : "white")};
 `;
 
@@ -9,9 +19,7 @@ export default function SingleSubscription({
   subscriptionData,
   handleSelect,
   isSelected,
-}) {
-  //   const [isSelected, setIsSelected] = useState(false);
-
+}: SingleSubscriptionProps) {
   const BASE_URL = "https://www.youtube.com/channel/";
   const thumbnail = subscriptionData.snippet.thumbnails.default.url;
   const title = subscriptionData.snippet.title;
@@ -20,8 +28,7 @@ export default function SingleSubscription({
   const channelUrl = BASE_URL + channelId;
   const subscriptionId = subscriptionData.id;
 
-  const handleCheckboxChange = (e) => {
-    // setIsSelected(e.target.checked);
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleSelect(subscriptionId, e.target.checked);
   };
 
