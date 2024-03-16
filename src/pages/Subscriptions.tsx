@@ -1,18 +1,41 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { loadSubscriptions } from "../redux/subscriptionsSlice";
-
+import SingleSubscription from "../components/SingleSubscription";
 
 function Subscriptions() {
+  const [selectedSubscriptions, setSelectedSubscriptions] = useState<string[]>(
+    []
+  );
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.info);
-  const { subscriptionList, loading } = useAppSelector( ( state )=> state.subscriptions );
+  const { subscriptionList, loading } = useAppSelector(
+    (state) => state.subscriptions
+  );
 
   useEffect(() => {
     // This is a fake access token while using dummy data
     dispatch(loadSubscriptions("1234"));
-    }, []);
+  }, []);
 
+  useEffect(() => {
+    console.log("== selected1Subscriptions", selectedSubscriptions);
+  }, [selectedSubscriptions]);
+
+  function handleSelect(subscriptionId: string, isSelected: bool) {
+    console.log("== subscriptionId", subscriptionId);
+    console.log("== isSelected", isSelected);
+    if (isSelected) {
+      console.log("hereherhehere");
+      setSelectedSubscriptions([...selectedSubscriptions, subscriptionId]);
+    } else {
+      const updatedSelectedSubs = selectedSubscriptions.filter(
+        (subscription) => subscription !== subscriptionId
+      );
+
+      setSelectedSubscriptions(updatedSelectedSubs);
+    }
+  }
 
   return (
     <>
@@ -21,12 +44,21 @@ function Subscriptions() {
           ? `${user.given_name}'s Subscriptions`
           : "Subscriptions"}
       </h1>
-      {console.log("== subscriptionList", subscriptionList)}
+      <div>
+        <button>Select all</button>
+        <button>Unselect all</button>
+        <button>Unsubscribe</button>
+      </div>
       {loading === "fulfilled"
-      ? subscriptionList.map((subscription) => (
-          <p key={subscription.id}>text</p> // assuming 'id' and 'name' are properties of 'subscription'
-        ))
-      : "loading..."}
+        ? subscriptionList.map((subscriptionData) => (
+            <SingleSubscription
+              key={subscriptionData.id}
+              subscriptionData={subscriptionData}
+              handleSelect={handleSelect}
+            />
+            // <p key={subscriptionData.id}>text</p> // assuming 'id' and 'name' are properties of 'subscription'
+          ))
+        : "loading..."}
     </>
   );
 }
