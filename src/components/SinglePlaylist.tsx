@@ -15,7 +15,7 @@ export default function SinglePlaylist({
           <h3>
             {index + 1}: {video.snippet.title}
           </h3>
-          <p>{video.snippet.description.slice(0, 100)}</p>
+          <p>{video.snippet.description.slice(0, 100)}...</p>
           <img src={video.snippet.thumbnails.default.url} alt="thumbnail" />
         </div>
       ))}
