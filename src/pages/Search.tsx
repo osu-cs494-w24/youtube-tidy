@@ -9,9 +9,9 @@ import { YoutubeSearchResponse } from "../assets/interfaces";
 import VideoModal from "../components/VideoModal";
 
 const StyledInput = styled.input`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-size: 1rem;
+  /* padding-top: 1rem;
+  padding-bottom: 1rem; */
+  font-size: 2rem;
   border-radius: 7px;
 `;
 
@@ -33,8 +33,8 @@ const Card = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   align-self: center;
-  /* align-content: center; */
-
+  align-content: center;
+  justify-content: center;
   @media (min-width: 587px) {
     flex-direction: row;
   }
@@ -44,17 +44,25 @@ const CardTotal = styled.div`
   display: flex;
   flex-direction: column;
   color: #000000;
-  border: 1px solid black;
+  border: 1px solid #e3e3e3;
   margin-bottom: 1rem;
   border-radius: 7px;
   padding: 1rem;
-  max-width: 25%;
+  max-width: 50%;
   margin: 1rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  @media (min-width: 587px) {
+    max-width: 35%;
+  }
+  @media (min-width: 720px) {
+    max-width: 25%;
+  }
 `;
 
 const ControlForm = styled.div`
   margin-bottom: 1rem;
+  display: flex;
 `;
 
 function getFromStore(
@@ -86,6 +94,7 @@ function Search() {
   const query = searchParams.get("q");
   const [inputQuery, setInputQuery] = useState(query || "");
   const [selectedVideoID, setSelectedVideoID] = useState<string | null>(null);
+  const user = useAppSelector((state) => state.user.info);
 
   // clicking a video will provide a pop-up modal with the video
   const handleVideoClick = (videoID: string) => {
@@ -150,49 +159,53 @@ function Search() {
   });
   return (
     <>
-      <h1>Search for YouTube Videos: </h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          setSearchParams({ q: inputQuery });
-        }}
-      >
-        <ControlForm>
-          <StyledInput
-            value={inputQuery}
-            placeholder="Cute Cats"
-            onChange={(e) => setInputQuery(e.target.value)}
-          />
-          <button type="submit">Search</button>
-        </ControlForm>
-      </form>
-      {/* {console.log("Data?: ", data)}
+      {user && (
+        <>
+          <h1>Search for YouTube Videos: </h1>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setSearchParams({ q: inputQuery });
+            }}
+          >
+            <ControlForm>
+              <StyledInput
+                value={inputQuery}
+                placeholder="Cute Cats"
+                onChange={(e) => setInputQuery(e.target.value)}
+              />
+              <button type="submit">Search</button>
+            </ControlForm>
+          </form>
+          {/* {console.log("Data?: ", data)}
       {console.log("Search Data: ", data?.searchData)}
       {console.log(
         data?.searchData,
         "Testing generic data pull...",
         data?.searchData
       )} */}
-      {isLoading && <FoldingCube />}
-      <ContainerCards>
-        <Card>
-          {data &&
-            data.items &&
-            data.items.map((video) => (
-              <CardTotal
-                key={video.id.videoId}
-                onClick={() => handleVideoClick(video.id.videoId)}
-              >
-                <h2>{video.snippet.title}</h2>
-                <img src={video.snippet.thumbnails.high.url} />
-                <p>{video.snippet.description}</p>
-              </CardTotal>
-            ))}
-        </Card>
-      </ContainerCards>
+          {isLoading && <FoldingCube />}
+          <ContainerCards>
+            <Card>
+              {data &&
+                data.items &&
+                data.items.map((video) => (
+                  <CardTotal
+                    key={video.id.videoId}
+                    onClick={() => handleVideoClick(video.id.videoId)}
+                  >
+                    <h2>{video.snippet.title}</h2>
+                    <img src={video.snippet.thumbnails.high.url} />
+                    <p>{video.snippet.description}</p>
+                  </CardTotal>
+                ))}
+            </Card>
+          </ContainerCards>
 
-      {selectedVideoID && (
-        <VideoModal videoID={selectedVideoID} onClose={handleCloseVideo} />
+          {selectedVideoID && (
+            <VideoModal videoID={selectedVideoID} onClose={handleCloseVideo} />
+          )}
+        </>
       )}
     </>
   );
