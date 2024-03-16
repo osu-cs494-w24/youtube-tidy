@@ -67,26 +67,25 @@ function Homepage() {
       {/* <h1>Homepage</h1> */}
       {user?.access_token ? (
         <>
-          {isDesktop ? (
-            <Sidebar>
-              <SideBarUL>
-                Stats
-                <SidebarLi>12 playlists</SidebarLi>
-                <SidebarLi>504 videos</SidebarLi>
-                <SidebarLi>3 subscriptions</SidebarLi>
-              </SideBarUL>
-              <SideBarUL>Playlists</SideBarUL>
-              <SidebarLi>Put data here</SidebarLi>
-              <SidebarLi>Put data here</SidebarLi>
-              <SidebarLi>Put data here</SidebarLi>
-              <SideBarUL>Subscriptions</SideBarUL>
-              <SidebarLi>Subscriptions A</SidebarLi>
-              <SidebarLi>Subscriptions B</SidebarLi>
-              <SidebarLi>Subscriptions C</SidebarLi>
-            </Sidebar>
-          ) : null}
-
           <ContainerDesktop>
+            {isDesktop ? (
+              <Sidebar>
+                <SideBarUL>
+                  Stats
+                  <SidebarLi>12 playlists</SidebarLi>
+                  <SidebarLi>504 videos</SidebarLi>
+                  <SidebarLi>3 subscriptions</SidebarLi>
+                </SideBarUL>
+                <SideBarUL>Playlists</SideBarUL>
+                <SidebarLi>Put data here</SidebarLi>
+                <SidebarLi>Put data here</SidebarLi>
+                <SidebarLi>Put data here</SidebarLi>
+                <SideBarUL>Subscriptions</SideBarUL>
+                <SidebarLi>Subscriptions A</SidebarLi>
+                <SidebarLi>Subscriptions B</SidebarLi>
+                <SidebarLi>Subscriptions C</SidebarLi>
+              </Sidebar>
+            ) : null}
             {window.innerWidth < 720 ? (
               <ContainerButtons>
                 <HomepageButton
