@@ -9,9 +9,9 @@ import { YoutubeSearchResponse } from "../assets/interfaces";
 import VideoModal from "../components/VideoModal";
 
 const StyledInput = styled.input`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-size: 1rem;
+  /* padding-top: 1rem;
+  padding-bottom: 1rem; */
+  font-size: 2rem;
   border-radius: 7px;
 `;
 
@@ -44,7 +44,7 @@ const CardTotal = styled.div`
   display: flex;
   flex-direction: column;
   color: #000000;
-  border: 1px solid #e3e3e3
+  border: 1px solid #e3e3e3;
   margin-bottom: 1rem;
   border-radius: 7px;
   padding: 1rem;
@@ -62,6 +62,7 @@ const CardTotal = styled.div`
 
 const ControlForm = styled.div`
   margin-bottom: 1rem;
+  display: flex;
 `;
 
 function getFromStore(
