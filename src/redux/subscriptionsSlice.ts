@@ -39,14 +39,20 @@ const initialState: SubscriptionsState = {
 const subscriptionsSlice = createSlice({
   name: "subscriptions",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    removeSubscriptions(state, action) {
+      const subscriptionsToDelete = action.payload;
+      state.subscriptionList = state.subscriptionList.filter(
+        (subscription) => !subscriptionsToDelete.includes(subscription.id)
+      );
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadSubscriptions.pending, (state) => {
         state.loading = "pending";
       })
       .addCase(loadSubscriptions.fulfilled, (state, action) => {
-        console.log("fulfilled");
         state.loading = "fulfilled";
         state.subscriptionList = action.payload;
         state.error = null;
@@ -60,5 +66,6 @@ const subscriptionsSlice = createSlice({
 
 // reducer, which can be passed to the slice
 export default subscriptionsSlice.reducer;
+export const { removeSubscriptions } = subscriptionsSlice.actions;
 export const selectNumSubscriptions = (state: RootState) =>
   state.subscriptions.subscriptionList.length;
