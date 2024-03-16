@@ -10,12 +10,6 @@ function Homepage() {
 
   const [playlistToggle, setPlaylistToggle] = useState(true);
   const [subscriptionsToggle, setSubscriptionsToggle] = useState(false);
-  // const togglePlaylist = () => {
-  //   setPlaylistToggle((prevIsOn) => !prevIsOn);
-  // };
-  // const toggleSubscriptions = () => {
-  //   setSubscriptionsToggle((prevIsOn) => !prevIsOn);
-  // };
 
   const ContainerButtons = styled.div`
     display: flex;
@@ -32,40 +26,45 @@ function Homepage() {
     }
   `;
 
+  const ContainerDesktop = styled.div`
+    @media (min-width: 1080px) {
+      display: flex;
+    }
+  `;
+
   return (
     <>
       {/* <h1>Homepage</h1> */}
       {user?.access_token ? (
         <>
-          <ContainerButtons>
-            <HomepageButton
-              onClick={() => {
-                setPlaylistToggle(true);
-                setSubscriptionsToggle(false);
-              }}
-            >
-              Playlists
-            </HomepageButton>
+          <ContainerDesktop>
+            {window.innerWidth < 1080 ? (
+              <ContainerButtons>
+                <HomepageButton
+                  onClick={() => {
+                    setPlaylistToggle(true);
+                    setSubscriptionsToggle(false);
+                  }}
+                >
+                  Playlists
+                </HomepageButton>
 
-            <HomepageButton
-              onClick={() => {
-                setSubscriptionsToggle(true);
-                setPlaylistToggle(false);
-              }}
-            >
-              Subscriptions
-            </HomepageButton>
-          </ContainerButtons>
-          {playlistToggle && !subscriptionsToggle && <AllPlaylists />}
-          {subscriptionsToggle && !playlistToggle && (
-            <p>Place `AllSubscriptions` component here</p>
-          )}
-          {/* {playlistToggle ? <AllPlaylists /> : null}
-          {subscriptionsToggle ? (
-            <>
-              <p> PUT COMPONENT HERE RENDERING SUBSCRIPTIONS</p>
-            </>
-          ) : null} */}
+                <HomepageButton
+                  onClick={() => {
+                    setSubscriptionsToggle(true);
+                    setPlaylistToggle(false);
+                  }}
+                >
+                  Subscriptions
+                </HomepageButton>
+              </ContainerButtons>
+            ) : null}
+
+            {playlistToggle && !subscriptionsToggle && <AllPlaylists />}
+            {subscriptionsToggle && !playlistToggle && (
+              <p>Place `AllSubscriptions` component here</p>
+            )}
+          </ContainerDesktop>
         </>
       ) : (
         <>
