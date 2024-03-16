@@ -1,7 +1,29 @@
 import { useAppSelector } from "../redux/hooks";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
 export default function AllPlaylists() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Implementation of dynamic nav bar.
+  // Code is dependent upon window.matchMedia function, recommended by this post.
+  // See: 'Using JavaScript'.
+  // Source: https://stackoverflow.com/questions/50156069/how-can-i-make-my-existing-responsive-navigation-bar-into-a-hamburger-menu-for-s
+  // Tablet
+  useEffect(() => {
+    const screen = window.matchMedia("(min-width: 1080px)");
+    const handleScreenChange = (e: MediaQueryListEvent) => {
+      setIsDesktop(e.matches);
+    };
+
+    screen.addEventListener("change", handleScreenChange);
+    setIsDesktop(screen.matches);
+
+    return () => {
+      screen.removeEventListener("change", handleScreenChange);
+    };
+  }, []);
+
   const userPlaylists = useAppSelector((state) => state.playlists);
   const status = useAppSelector((state) => state.playlists.loading);
 
@@ -36,20 +58,29 @@ export default function AllPlaylists() {
   `;
 
   const Thumbnail = styled.img`
-    display: flex;
-    width: 300px;
-    height: 225px;
-    border-radius: 15px;
+    @media (min-width: 1080px) {
+      width: 300px;
+      height: 225px;
+      border-radius: 15px;
+    }
   `;
 
   return (
     <Container>
       {userPlaylists.playlistsOverview?.items.map((playlist) => (
         <Cards key={playlist.id}>
-          <Thumbnail
-            src={playlist.snippet.thumbnails.default.url}
-            alt="thumbnail"
-          />
+          {isDesktop ? (
+            <Thumbnail
+              src={playlist.snippet.thumbnails.high.url}
+              alt="thumbnail"
+            />
+          ) : (
+            <Thumbnail
+              src={playlist.snippet.thumbnails.default.url}
+              alt="thumbnail"
+            />
+          )}
+
           <VideoInfo>
             <h3>{playlist.snippet.title}</h3>
             {/* Playlist Video Title temporarily disabled. The longer the title, the larger the thumbnail. */}
