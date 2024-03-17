@@ -4,6 +4,7 @@ import { queryUserName } from "../requests/UserInfoQuery";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { setUser } from "../redux/userSlice";
 import { loadPlaylists } from "../redux/playlistsSlice";
+import { loadSubscriptions } from "../redux/subscriptionsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import Cookies from "js-cookie";
@@ -63,6 +64,8 @@ function Login() {
       dispatch(setUser(combinedInfo));
       // load playlists into store
       dispatch(loadPlaylists(access_token));
+      // load subscriptions into store
+      dispatch(loadSubscriptions(combinedInfo.access_token));
     });
   };
 

@@ -1,0 +1,166 @@
+{
+  "kind": "youtube#SubscriptionListResponse",
+  "etag": "UzKDToBTukYFCT8hX49HltN3FL4",
+  "nextPageToken": "CAUQAA",
+  "pageInfo": {
+    "totalResults": 162,
+    "resultsPerPage": 5
+  },
+  "items": [
+    {
+      "kind": "youtube#subscription",
+      "etag": "Ew9CpH47E8vAdabf9wD-qOSPEHg",
+      "id": "ZgM0UPVjDOKjRgfiFu8MUj2NCeaHWLw9WqLuJvWu6Xs",
+      "snippet": {
+        "publishedAt": "2021-03-13T22:51:27.034798Z",
+        "title": "Van Neistat",
+        "description": "The Spirited Man is an unlimited series about the spirited man or woman who lives inside all of us (and fixing things).",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UC5mPJA4y5G8Z6aNkY6AxgAw"
+        },
+        "channelId": "UC9OgQhS6CsxMmWtvtzLw--A",
+        "thumbnails": {
+          "default": {
+            "url": "https://placehold.co/100x100"
+          },
+          "medium": {
+            "url": "https://placehold.co/100x100"
+          },
+          "high": {
+            "url": "https://placehold.co/100x100"
+          }
+        }
+      },
+      "contentDetails": {
+        "totalItemCount": 142,
+        "newItemCount": 0,
+        "activityType": "all"
+      }
+    },
+    {
+      "kind": "youtube#subscription",
+      "etag": "riHbvEZIRWaJupITUavxwZweAyE",
+      "id": "ZgM0UPVjDOKjRgfiFu8MUgWq0xwOzHvhdG83RWO7XVg",
+      "snippet": {
+        "publishedAt": "2016-09-28T13:39:07Z",
+        "title": "Michael Miller",
+        "description": "Ever since I started my aviation journey back in May 2007 I have wanted to share my experiences with others to give people a better picture of what being a helicopter pilot is all about.  Like many careers there is little exposure to what a job is like until after the money and time investment.  I hope this channel can change that!\n\nI started flying Helicopter EMS in 2012 with Med-Trans Corp flying the Bell 407.  In 2016-2018, I continued my career in UpState NY flying the BK117 for Mercy Flight Central, a small non-profit organization based at Rome NY Griffiss International Airport.  We spent a year as volunteer missionaries in the Philippines serving as handyman and helicopter pilot from 2018-2019\n\nReturning from overseas missions I am working with PHI Health flying medevac in Front Royal VA, and continuing to grow my aviation experience flying the Bell 407 and EC135.\n\nLong-term goal is to be able to find a part-time job stateside and go back overseas as volunteer missionaries.",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UCc2pxVJOAbMw2aEI3lZCMqQ"
+        },
+        "channelId": "UC9OgQhS6CsxMmWtvtzLw--A",
+        "thumbnails": {
+          "default": {
+            "url": "https://placehold.co/100x100"
+          },
+          "medium": {
+            "url": "https://placehold.co/100x100"
+          },
+          "high": {
+            "url": "https://placehold.co/100x100"
+          }
+        }
+      },
+      "contentDetails": {
+        "totalItemCount": 266,
+        "newItemCount": 0,
+        "activityType": "all"
+      }
+    },
+    {
+      "kind": "youtube#subscription",
+      "etag": "zK6ebsxJrnbfL24joXbKc8TwlUU",
+      "id": "ZgM0UPVjDOKjRgfiFu8MUnFXteh83HK_rxWtNn6EgNQ",
+      "snippet": {
+        "publishedAt": "2016-07-10T13:55:15Z",
+        "title": "Primitive Technology",
+        "description": "Primitive technology is a hobby where you build things in the wild completely from scratch using no modern tools or materials. These are the strict rules: If you want a fire, use a fire stick - An axe, pick up a stone and shape it - A hut, build one from trees, mud, rocks etc. The challenge is seeing how far you can go without utilizing modern technology. I do not live in the wild, but enjoy building shelter, tools, and more, only utilizing natural materials. To find specific videos, visit my playlist tab for building videos focused on pyrotechnology, shelter, weapons, food & agriculture, tools & machines, and weaving & fiber.\n\nFAQ\nQ.Where is this? \nA.This is in Far North Queensland Australia.\nQ.Do you live in the wild?\nA.I don't live in the wild but just go into the bush to make these projects. Also I camp out here occasionally.\nQ.How did you learn all this?\nA.Researching books and internet plus trial and error. I'm not indigenous and have no army training.\n\nCheck out my blog below.",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UCAL3JXZSzSm8AlZyD3nQdBA"
+        },
+        "channelId": "UC9OgQhS6CsxMmWtvtzLw--A",
+        "thumbnails": {
+          "default": {
+            "url": "https://placehold.co/100x100"
+          },
+          "medium": {
+            "url": "https://placehold.co/100x100"
+          },
+          "high": {
+            "url": "https://placehold.co/100x100"
+          }
+        }
+      },
+      "contentDetails": {
+        "totalItemCount": 76,
+        "newItemCount": 0,
+        "activityType": "all"
+      }
+    },
+    {
+      "kind": "youtube#subscription",
+      "etag": "BviFgxw9XTcEJJthn8ntOgW7Ekw",
+      "id": "ZgM0UPVjDOKvkuO2DQi_RmbkeryiAsJE982fJOalTJA",
+      "snippet": {
+        "publishedAt": "2022-09-13T15:49:05.111885Z",
+        "title": "A Life Engineered",
+        "description": "My name is Steve Huynh, I am a YouTuber, a Principal Engineer, a productivity junkie. I believe that if we take a structured and engineering approach to our lives and careers we can achieve anything we want. My mission is to help knowledge workers develop a growth mindset so they can live the lives they want, whether that’s getting promoted as quickly as possible, starting a business/startup, or finding financial independence.\n\nI do this by creating YouTube videos, my weekly email newsletter, and connecting people with a community of like-minded individuals on my Discord, where I distill the lessons I've learned from nearly 20 years in the tech industry.",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UCEHFikgnRuLd1HYKTLrae9Q"
+        },
+        "channelId": "UC9OgQhS6CsxMmWtvtzLw--A",
+        "thumbnails": {
+          "default": {
+            "url": "https://placehold.co/100x100"
+          },
+          "medium": {
+            "url": "https://placehold.co/100x100"
+          },
+          "high": {
+            "url": "https://placehold.co/100x100"
+          }
+        }
+      },
+      "contentDetails": {
+        "totalItemCount": 37,
+        "newItemCount": 0,
+        "activityType": "all"
+      }
+    },
+    {
+      "kind": "youtube#subscription",
+      "etag": "T_pRsEKmxM7v1rREDeE8WGI1ys4",
+      "id": "ZgM0UPVjDOKjRgfiFu8MUohUM5uhHhJpXfKPvGg_uwo",
+      "snippet": {
+        "publishedAt": "2013-01-06T05:46:53Z",
+        "title": "OlanRogers",
+        "description": "What you love to do shouldn't be defined by how much money, fame, or worldly desires you acquire but by how much fun it is to be doing something you love.\nMy contact email is olanrogerscontact@gmail.com",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UCNmXRwlQMlyXtLj-L9x3hLQ"
+        },
+        "channelId": "UC9OgQhS6CsxMmWtvtzLw--A",
+        "thumbnails": {
+          "default": {
+            "url": "https://placehold.co/100x100"
+          },
+          "medium": {
+            "url": "https://placehold.co/100x100"
+          },
+          "high": {
+            "url": "https://placehold.co/100x100"
+          }
+        }
+      },
+      "contentDetails": {
+        "totalItemCount": 133,
+        "newItemCount": 0,
+        "activityType": "all"
+      }
+    }
+  ]
+}
