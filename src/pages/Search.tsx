@@ -151,6 +151,7 @@ function Search() {
 
       // to use dummyData, set environement variable to true
       if (import.meta.env.VITE_USE_DUMMY_DATA === "true") {
+        setQueryResults(dummyData);
         return dummyData;
       }
 
