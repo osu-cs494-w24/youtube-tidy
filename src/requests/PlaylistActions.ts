@@ -90,7 +90,7 @@ const removeVideoFromPlaylistRequest = async (
  * @param playlistID - (required) the ID of the playlist to update
  * @param title - (required) the title to change to
  */
-const renamePlaylistRequest = async (
+const editNameDescriptionPlaylistRequest = async (
   accessToken: string,
   playlistID: string,
   title: string,
@@ -134,4 +134,4 @@ const renamePlaylistRequest = async (
   return response.json();
 };
 
-export { addVideoToPlaylistRequest, removeVideoFromPlaylistRequest, renamePlaylistRequest };
+export { addVideoToPlaylistRequest, removeVideoFromPlaylistRequest, editNameDescriptionPlaylistRequest };

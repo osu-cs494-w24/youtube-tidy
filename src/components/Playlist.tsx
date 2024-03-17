@@ -6,7 +6,7 @@ import {
   editNameDescriptionPlaylist,
 } from "../redux/playlistsSlice";
 import {
-  renamePlaylistRequest as editNameDescriptionPlaylistRequest,
+  editNameDescriptionPlaylistRequest,
 } from "../requests/PlaylistActions";
 
 const PlaylistRenamable = styled.input`
@@ -19,6 +19,16 @@ const PlaylistRenamable = styled.input`
   }
 `;
 
+const PlaylistDescriptionEdit = styled.textarea`
+  border: 0px;
+  color: gray;
+  &:hover {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+  }
+`
+
 
 export default function Playlist({
   playlist,
@@ -30,7 +40,7 @@ export default function Playlist({
   const user = useAppSelector((state) => state.user);
 
   const editNameRef = useRef() as MutableRefObject<HTMLInputElement>;
-  const editDescriptionRef = useRef() as MutableRefObject<HTMLInputElement>;
+  const editDescriptionRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
   const handleEditNameTitlePlaylist = async () => {
     const playlistID = playlist.id
@@ -47,8 +57,8 @@ export default function Playlist({
 
   return (
     <div>
-        <PlaylistRenamable type="text" defaultValue={playlist.name} ref={editNameRef} onBlur={handleEditNameTitlePlaylist} />
-        <PlaylistRenamable type="text" defaultValue={playlist.description} ref={editDescriptionRef} onBlur={handleEditNameTitlePlaylist} />
+      <PlaylistRenamable type="text" defaultValue={playlist.name} ref={editNameRef} onBlur={handleEditNameTitlePlaylist} />
+      <PlaylistDescriptionEdit defaultValue={playlist.description} ref={editDescriptionRef} onBlur={handleEditNameTitlePlaylist} />
       {playlist.items.map((video, index) => (
         <div key={video.id}>
           <input type="checkbox" id={video.id} />
