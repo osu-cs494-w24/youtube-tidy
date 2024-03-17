@@ -16,7 +16,6 @@ const StyledInput = styled.input`
 `;
 
 import dData from "../dummyData/SearchResults.json";
-import { object } from "prop-types";
 const dummyData = {
   ...dData,
   query: "cute cats",
@@ -93,9 +92,6 @@ function BottomScroll(callback) {
     const determineScroll = async () => {
       // Determine if user has scrolled to bottom of page.
       if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
-        console.log("Bottom of page");
-        // searchResults.map((object) => object.nextPageToken);
-        console.log("I have reached the callback function");
         callback();
       }
     };
@@ -110,12 +106,14 @@ function BottomScroll(callback) {
 
 function Search() {
   const dispatch = useAppDispatch();
-  const searchResults = useAppSelector((state) => state.search.searchResults);
+  const searchStore = useAppSelector((state) => state.search.searchResults);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
   const [inputQuery, setInputQuery] = useState(query || "");
   const [selectedVideoID, setSelectedVideoID] = useState<string | null>(null);
   const user = useAppSelector((state) => state.user.info);
+  const [queryResults, setQueryResults] =
+    useState<YoutubeSearchResponse | null>(null);
 
   // clicking a video will provide a pop-up modal with the video
   const handleVideoClick = (videoID: string) => {
@@ -126,6 +124,16 @@ function Search() {
   const handleCloseVideo = () => {
     setSelectedVideoID(null);
   };
+
+  useEffect(() => {
+    if (query) {
+      const searchResults = searchStore.find(
+        (result) => result.query === query
+      );
+      if (searchResults && searchResults.items)
+        setQueryResults(searchResults ?? null);
+    }
+  }, [query, searchStore]);
 
   // Just a reminder - When writing functionality, please try not to fill the API quota limit by endlessly testing an API endpoint fetch - otherwise we can't use it, or have to make another Google Cloud project with new API key. If you're worried about reaching the quota limit, export the response data from the endpoint, import it, and utilize it as dummy data (to prevent further API calls that may reach its limit for the day).
 
@@ -147,23 +155,18 @@ function Search() {
       }
 
       // check if searchResults already exists in store
-      const results = getFromStore(query, searchResults);
+      const results = getFromStore(query, searchStore);
       if (results) {
         return results;
       }
 
       console.log("No search results found in store, fetching from API...");
 
-      console.log("Loading inital videos from first search...");
       const searchRes = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=6&safeSearch=strict&part=snippet`
+        `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=50&safeSearch=strict&part=snippet`
       );
 
       const searchData = await searchRes.json();
-      console.log(
-        "Obtain next page token from initial videos: ",
-        searchData.nextPageToken
-      );
 
       // add to store
       dispatch(
@@ -178,13 +181,15 @@ function Search() {
   });
 
   const loadMore = async () => {
-    console.log("Load more videos..");
-    console.log("Key from first search?:", searchResults);
+    const nextPageToken = queryResults?.nextPageToken
+      ? queryResults?.nextPageToken
+      : "";
+
     const searchRes = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=6&safeSearch=strict&part=snippet&pageToken=${searchResults[0].nextPageToken}`
+      `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=50&safeSearch=strict&part=snippet&pageToken=${nextPageToken}`
     );
     const searchData = await searchRes.json();
-    console.log(searchData);
+
     // add to store.
     dispatch(
       addPaginated({
@@ -192,11 +197,6 @@ function Search() {
         query,
         queryTime: new Date().toISOString(),
       })
-    );
-
-    console.log(
-      "Next Page Token: ",
-      searchData && searchData.nextPageToken && searchData.nextPageToken
     );
   };
 
@@ -225,19 +225,17 @@ function Search() {
           {isLoading && <FoldingCube />}
           <ContainerCards>
             <Card>
-              {searchResults &&
-                searchResults.map((object) =>
-                  object.items.map((element) => (
-                    <CardTotal
-                      key={element.id.videoId}
-                      onClick={() => handleVideoClick(element.id.videoId)}
-                    >
-                      <h2>{element.snippet.title}</h2>
-                      <img src={element.snippet.thumbnails.high.url} />
-                      <p>{element.snippet.description}</p>
-                    </CardTotal>
-                  ))
-                )}
+              {queryResults &&
+                queryResults.items.map((element) => (
+                  <CardTotal
+                    key={element.id.videoId}
+                    onClick={() => handleVideoClick(element.id.videoId)}
+                  >
+                    <h2>{element.snippet.title}</h2>
+                    <img src={element.snippet.thumbnails.high.url} />
+                    <p>{element.snippet.description}</p>
+                  </CardTotal>
+                ))}
             </Card>
           </ContainerCards>
 

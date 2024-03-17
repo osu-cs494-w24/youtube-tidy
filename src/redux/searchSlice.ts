@@ -27,9 +27,17 @@ const searchSlice = createSlice({
       }
     },
     addPaginated(state, action: PayloadAction<YoutubeSearchResponse>) {
-      console.log("Did I reach here? Let's see...: ", action.payload);
-      state.searchResults.push(action.payload);
-      console.log("Check store...");
+      // get search results that match query
+      const search = state.searchResults.find(
+        (result) => result.query === action.payload.query
+      );
+
+      if (search) {
+        for (const item of action.payload.items) {
+          search.items.push(item);
+        }
+        search.nextPageToken = action.payload.nextPageToken;
+      }
     },
   },
 });
