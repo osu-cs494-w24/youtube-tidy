@@ -3,10 +3,10 @@ import { MutableRefObject, useRef } from "react";
 import { SinglePlaylistObj } from "../assets/interfaces";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
-  renamePlaylist,
+  editNameDescriptionPlaylist,
 } from "../redux/playlistsSlice";
 import {
-  renamePlaylistRequest,
+  renamePlaylistRequest as editNameDescriptionPlaylistRequest,
 } from "../requests/PlaylistActions";
 
 const PlaylistRenamable = styled.input`
@@ -29,25 +29,26 @@ export default function Playlist({
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
-  const renameInputRef = useRef() as MutableRefObject<HTMLInputElement>;
+  const editNameRef = useRef() as MutableRefObject<HTMLInputElement>;
+  const editDescriptionRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-  const handleRenamePlaylist = async () => {
-    console.log(renameInputRef ? renameInputRef.current.value : "")
+  const handleEditNameTitlePlaylist = async () => {
     const playlistID = playlist.id
     if (user.info) {
-      const updatedPlaylist = await renamePlaylistRequest(
+      const updatedPlaylist = await editNameDescriptionPlaylistRequest(
         user.info.access_token,
         playlistID,
-        renameInputRef.current.value,
+        editNameRef.current.value,
+        editDescriptionRef.current.value,
       );
-      dispatch(renamePlaylist({ playlistID, updatedPlaylist }));
+      dispatch(editNameDescriptionPlaylist({ playlistID, updatedPlaylist }));
     }
   }
 
   return (
     <div>
-        <PlaylistRenamable type="text" defaultValue={playlist.name} ref={renameInputRef} onBlur={handleRenamePlaylist} />
-      <p>{playlist.description}</p>
+        <PlaylistRenamable type="text" defaultValue={playlist.name} ref={editNameRef} onBlur={handleEditNameTitlePlaylist} />
+        <PlaylistRenamable type="text" defaultValue={playlist.description} ref={editDescriptionRef} onBlur={handleEditNameTitlePlaylist} />
       {playlist.items.map((video, index) => (
         <div key={video.id}>
           <input type="checkbox" id={video.id} />

@@ -115,7 +115,7 @@ const playlistsSlice = createSlice({
         }
       }
     },
-    renamePlaylist(
+    editNameDescriptionPlaylist(
       state,
       action: PayloadAction<{ playlistID: string; updatedPlaylist: PlaylistsObj }>
     ) {
@@ -127,9 +127,10 @@ const playlistsSlice = createSlice({
         (playlist) => playlist.id === playlistID
       ) : null;
       if (playlist && playlistsOverviewItem) {
-        console.log("renamed!", playlist, updatedPlaylist.snippet.title)
-        playlist.name = updatedPlaylist.snippet.title
-        playlistsOverviewItem.snippet.title = updatedPlaylist.snippet.title
+        playlist.name = updatedPlaylist.snippet.title;
+        playlist.description = updatedPlaylist.snippet.description;
+        playlistsOverviewItem.snippet.title = updatedPlaylist.snippet.title;
+        playlistsOverviewItem.snippet.description = updatedPlaylist.snippet.description;
       }
     },
   },
@@ -158,5 +159,5 @@ export const {
   addPlaylist,
   addVideoToPlaylist,
   removeVideoFromPlaylist,
-  renamePlaylist,
+  editNameDescriptionPlaylist,
 } = playlistsSlice.actions;

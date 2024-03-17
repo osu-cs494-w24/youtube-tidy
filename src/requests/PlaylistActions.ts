@@ -94,6 +94,7 @@ const renamePlaylistRequest = async (
   accessToken: string,
   playlistID: string,
   title: string,
+  description: string,
 ) => {
   if (!accessToken || !playlistID) {
     throw new Error("Access token or playlist ID not found.");
@@ -109,6 +110,7 @@ const renamePlaylistRequest = async (
     body: JSON.stringify({
       id: playlistID,
       snippet: {
+        description: description,
         title: title
       }
     })
