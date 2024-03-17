@@ -1,4 +1,5 @@
 const YoutubeKey = import.meta.env.VITE_YOUTUBE_API;
+// import dData from "../dummyData/playlists.json";
 
 /*
  *  Sends a post request to add a video to a playlist, on success, returns a YT PlaylistItem object
@@ -82,7 +83,7 @@ const removeVideoFromPlaylistRequest = async (
 
 
 /*
- *  Sends an update request to change the title of a playlist
+ *  Sends a put request to change the title of a playlist; on success, returns a YT Playlists object
  *  Reference: https://developers.google.com/youtube/v3/docs/playlists/update
  *
  * @param accessToken - (required) the user's access token
@@ -98,7 +99,7 @@ const renamePlaylistRequest = async (
     throw new Error("Access token or playlist ID not found.");
   }
 
-  const url = `https://www.googleapis.com/youtube/v3/playlist?key=${YoutubeKey}`;
+  const url = `https://www.googleapis.com/youtube/v3/playlists?part=id,snippet&key=${YoutubeKey}`;
 
   const requestOptions = {
     method: "PUT",
@@ -112,6 +113,15 @@ const renamePlaylistRequest = async (
       }
     })
   };
+
+
+  // if (import.meta.env.VITE_USE_DUMMY_DATA === "true") {
+  //   const dummyData = {
+  //   ...dData,
+  //   title: title,
+  //   };
+  //   return dummyData;
+  // }
 
   const response = await fetch(url, requestOptions);
 

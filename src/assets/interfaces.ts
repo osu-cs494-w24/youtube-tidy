@@ -98,6 +98,40 @@ interface SinglePlaylistObj {
   }[];
 }
 
+// this represents a single playlist from /playlists endpoint
+interface PlaylistsObj {
+  "id": string,
+  "snippet": {
+    "publishedAt": string,
+    "channelId": string,
+    "title": string,
+    "description": string,
+    "thumbnails": {
+      default: {
+        url: string;
+      };
+      medium: {
+        url: string;
+      };
+      high: {
+        url: string;
+      };
+      standard: {
+        url: string;
+      };
+      maxres: {
+        url: string;
+      };
+    },
+    "channelTitle": string,
+    "defaultLanguage": string,
+    "localized": {
+      "title": string,
+      "description": string
+    }
+  },
+}
+
 interface UserInfo {
   id: string;
   email: string;
@@ -194,6 +228,7 @@ export type {
   UserInfo,
   SinglePlaylistObj,
   Subscription,
+  PlaylistsObj,
   Video,
   Comment,
 };
