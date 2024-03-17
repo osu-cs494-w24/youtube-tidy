@@ -9,7 +9,7 @@ export default function AllPlaylists() {
   // Implementation of dynamic nav bar.
   // Code is dependent upon window.matchMedia function, recommended by this post.
   // See: 'Using JavaScript'.
-  // Source: https://stackoverflow.com/questions/50156069/how-can-i-make-my-existing-responsive-navigation-bar-into-a-hamburger-menu-for-s
+  // Source: https://stackoverflow.com/a/50160249
   // Tablet
   useEffect(() => {
     const screen = window.matchMedia("(min-width: 720px)");

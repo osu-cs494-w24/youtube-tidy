@@ -11,6 +11,9 @@ interface AllPlaylistSearchResponse {
         default: {
           url: string;
         };
+        high: {
+          url: string;
+        };
       };
     };
     contentDetails: {
