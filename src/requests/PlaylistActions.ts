@@ -80,4 +80,46 @@ const removeVideoFromPlaylistRequest = async (
   return null;
 };
 
-export { addVideoToPlaylistRequest, removeVideoFromPlaylistRequest };
+
+/*
+ *  Sends an update request to change the title of a playlist
+ *  Reference: https://developers.google.com/youtube/v3/docs/playlists/update
+ *
+ * @param accessToken - (required) the user's access token
+ * @param playlistID - (required) the ID of the playlist to update
+ * @param title - (required) the title to change to
+ */
+const renamePlaylistRequest = async (
+  accessToken: string,
+  playlistID: string,
+  title: string,
+) => {
+  if (!accessToken || !playlistID) {
+    throw new Error("Access token or playlist ID not found.");
+  }
+
+  const url = `https://www.googleapis.com/youtube/v3/playlist?key=${YoutubeKey}`;
+
+  const requestOptions = {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      id: playlistID,
+      snippet: {
+        title: title
+      }
+    })
+  };
+
+  const response = await fetch(url, requestOptions);
+
+  if (!response.ok) {
+    throw new Error("Failed to rename playlist.");
+  }
+
+  return response.json();
+};
+
+export { addVideoToPlaylistRequest, removeVideoFromPlaylistRequest, renamePlaylistRequest };
