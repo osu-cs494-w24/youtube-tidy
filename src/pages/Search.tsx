@@ -1,8 +1,8 @@
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import { addSearchResults } from "../redux/searchSlice";
+import { addSearchResults, addPaginated } from "../redux/searchSlice";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FoldingCube from "../components/FoldingCube";
 import styled from "@emotion/styled";
 import { YoutubeSearchResponse } from "../assets/interfaces";
@@ -87,14 +87,33 @@ function getFromStore(
   return null;
 }
 
+function BottomScroll(callback) {
+  useEffect(() => {
+    const determineScroll = async () => {
+      // Determine if user has scrolled to bottom of page.
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+        callback();
+      }
+    };
+    // Listen, update state.
+    window.addEventListener("scroll", determineScroll);
+    // Clean up.
+    return () => {
+      window.removeEventListener("scroll", determineScroll);
+    };
+  }, [callback]);
+}
+
 function Search() {
   const dispatch = useAppDispatch();
-  const searchResults = useAppSelector((state) => state.search.searchResults);
+  const searchStore = useAppSelector((state) => state.search.searchResults);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
   const [inputQuery, setInputQuery] = useState(query || "");
   const [selectedVideoID, setSelectedVideoID] = useState<string | null>(null);
   const user = useAppSelector((state) => state.user.info);
+  const [queryResults, setQueryResults] =
+    useState<YoutubeSearchResponse | null>(null);
 
   // clicking a video will provide a pop-up modal with the video
   const handleVideoClick = (videoID: string) => {
@@ -105,6 +124,16 @@ function Search() {
   const handleCloseVideo = () => {
     setSelectedVideoID(null);
   };
+
+  useEffect(() => {
+    if (query) {
+      const searchResults = searchStore.find(
+        (result) => result.query === query
+      );
+      if (searchResults && searchResults.items)
+        setQueryResults(searchResults ?? null);
+    }
+  }, [query, searchStore]);
 
   // Just a reminder - When writing functionality, please try not to fill the API quota limit by endlessly testing an API endpoint fetch - otherwise we can't use it, or have to make another Google Cloud project with new API key. If you're worried about reaching the quota limit, export the response data from the endpoint, import it, and utilize it as dummy data (to prevent further API calls that may reach its limit for the day).
 
@@ -126,7 +155,7 @@ function Search() {
       }
 
       // check if searchResults already exists in store
-      const results = getFromStore(query, searchResults);
+      const results = getFromStore(query, searchStore);
       if (results) {
         return results;
       }
@@ -134,16 +163,10 @@ function Search() {
       console.log("No search results found in store, fetching from API...");
 
       const searchRes = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=6&safeSearch=strict&part=snippet`
+        `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=50&safeSearch=strict&part=snippet`
       );
 
       const searchData = await searchRes.json();
-      // console.log("SEARCH DATA: ", searchData["items"]);
-
-      // const searchListIndices =
-      //   searchData["items"] &&
-      //   searchData["items"].map((item: any, index: number) => index);
-      // console.log("INDICES?: ", searchListIndices);
 
       // add to store
       dispatch(
@@ -153,10 +176,32 @@ function Search() {
           queryTime: new Date().toISOString(),
         })
       );
-
       return { ...searchData, query, queryTime: new Date().toISOString() };
     },
   });
+
+  const loadMore = async () => {
+    const nextPageToken = queryResults?.nextPageToken
+      ? queryResults?.nextPageToken
+      : "";
+
+    const searchRes = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?key=${YoutubeAPI}&q=${query}&type=video&maxResults=50&safeSearch=strict&part=snippet&pageToken=${nextPageToken}`
+    );
+    const searchData = await searchRes.json();
+
+    // add to store.
+    dispatch(
+      addPaginated({
+        ...searchData,
+        query,
+        queryTime: new Date().toISOString(),
+      })
+    );
+  };
+
+  BottomScroll(loadMore);
+
   return (
     <>
       {user && (
@@ -177,26 +222,18 @@ function Search() {
               <button type="submit">Search</button>
             </ControlForm>
           </form>
-          {/* {console.log("Data?: ", data)}
-      {console.log("Search Data: ", data?.searchData)}
-      {console.log(
-        data?.searchData,
-        "Testing generic data pull...",
-        data?.searchData
-      )} */}
           {isLoading && <FoldingCube />}
           <ContainerCards>
             <Card>
-              {data &&
-                data.items &&
-                data.items.map((video) => (
+              {queryResults &&
+                queryResults.items.map((element) => (
                   <CardTotal
-                    key={video.id.videoId}
-                    onClick={() => handleVideoClick(video.id.videoId)}
+                    key={element.id.videoId}
+                    onClick={() => handleVideoClick(element.id.videoId)}
                   >
-                    <h2>{video.snippet.title}</h2>
-                    <img src={video.snippet.thumbnails.high.url} />
-                    <p>{video.snippet.description}</p>
+                    <h2>{element.snippet.title}</h2>
+                    <img src={element.snippet.thumbnails.high.url} />
+                    <p>{element.snippet.description}</p>
                   </CardTotal>
                 ))}
             </Card>
