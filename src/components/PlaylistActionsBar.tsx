@@ -22,14 +22,15 @@ export default function PlaylistActionsBar({
         const accessToken = user.info?.access_token
         if (accessToken) {
             if (option === MOVE || option === COPY) {
-                items.forEach(async item => {
+                // Running these in parallel causes a 409 error, so calls are in sequence instead: https://stackoverflow.com/a/37576787
+                for (const item of items) {
                     const insertVideo = await addVideoToPlaylistRequest(
                         accessToken,
                         playlistID,
                         item.id,
                     );
                     dispatch(addVideoToPlaylist({ playlistID, playlistItem: insertVideo}));
-                });
+                }
             }
             if (option === MOVE || option === REMOVE) {
                 // Running these in parallel causes a 409 error, so calls are in sequence instead: https://stackoverflow.com/a/37576787
