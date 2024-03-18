@@ -8,6 +8,15 @@ import { removeChannelsFromSubscriptions } from "../requests/SubscriptionActions
 import SubscriptionControlPanel from "../components/SubscriptionControlPanel";
 import AllSubscriptions from "../components/AllSubscriptions";
 
+import styled from "@emotion/styled";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
 function Subscriptions() {
   const dispatch = useAppDispatch();
   const [allSelected, setAllSelected] = useState<boolean>(false);
@@ -92,21 +101,23 @@ function Subscriptions() {
               ? `${user.given_name}'s Subscriptions`
               : "Subscriptions"}
           </h1>
-          <SubscriptionControlPanel
-            handleSelectAll={handleSelectAll}
-            allSelected={allSelected}
-            unsubscribeClicked={unsubscribeClicked}
-            selectedSubscriptions={selectedSubscriptions}
-            handleUnsubscribe={handleUnsubscribe}
-            setUnsubscribedClicked={setUnsubscribedClicked}
-          />
-          <AllSubscriptions
-            subscriptionList={subscriptionList}
-            handleSelect={handleSelect}
-            allSelected={allSelected}
-            selectedSubscriptions={selectedSubscriptions}
-            status={status}
-          />
+          <Container>
+            <SubscriptionControlPanel
+              handleSelectAll={handleSelectAll}
+              allSelected={allSelected}
+              unsubscribeClicked={unsubscribeClicked}
+              selectedSubscriptions={selectedSubscriptions}
+              handleUnsubscribe={handleUnsubscribe}
+              setUnsubscribedClicked={setUnsubscribedClicked}
+            />
+            <AllSubscriptions
+              subscriptionList={subscriptionList}
+              handleSelect={handleSelect}
+              allSelected={allSelected}
+              selectedSubscriptions={selectedSubscriptions}
+              status={status}
+            />
+          </Container>
         </>
       )}
     </>
