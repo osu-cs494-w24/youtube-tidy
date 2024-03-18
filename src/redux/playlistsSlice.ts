@@ -4,6 +4,7 @@ import { getAllPlaylists } from "../requests/AllPlaylistsQuery";
 import { getPlaylist } from "../requests/SinglePlaylistQuery";
 import {
   AllPlaylistSearchResponse,
+  PlaylistItemObj,
   PlaylistsObj,
   SinglePlaylistObj,
 } from "../assets/interfaces";
@@ -66,7 +67,7 @@ const playlistsSlice = createSlice({
       state,
       action: PayloadAction<{
         playlistID: string;
-        playlistItem: SinglePlaylistObj["items"][0];
+        playlistItem: PlaylistItemObj;
       }>
     ) {
       const { playlistID, playlistItem } = action.payload;

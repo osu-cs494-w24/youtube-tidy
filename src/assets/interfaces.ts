@@ -67,46 +67,20 @@ interface SinglePlaylistObj {
     resultsPerPage: number;
   };
   //each item represents a video in the playlist
-  items: {
-    id: string;
-    snippet: {
-      title: string;
-      description: string;
-      publishedAt: string;
-      thumbnails: {
-        default: {
-          url: string;
-        };
-        medium: {
-          url: string;
-        };
-        high: {
-          url: string;
-        };
-        standard: {
-          url: string;
-        };
-        maxres: {
-          url: string;
-        };
-      };
-    };
-    contentDetails: {
-      videoId: string;
-      videoPublishedAt: string;
-    };
-  }[];
+  items: PlaylistItemObj[];
 }
 
-// this represents a single playlist from /playlists endpoint
-interface PlaylistsObj {
-  "id": string,
-  "snippet": {
-    "publishedAt": string,
-    "channelId": string,
-    "title": string,
-    "description": string,
-    "thumbnails": {
+
+
+// this represents a single playlistItem resource from the /playlistItems endpoint
+interface PlaylistItemObj {
+  id: string,
+  snippet: {
+    publishedAt: string,
+    channelId: string,
+    title: string,
+    description: string,
+    thumbnails: {
       default: {
         url: string;
       };
@@ -123,12 +97,46 @@ interface PlaylistsObj {
         url: string;
       };
     },
-    "channelTitle": string,
-    "defaultLanguage": string,
-    "localized": {
-      "title": string,
-      "description": string
-    }
+    videoOwnerChannelTitle: string,
+    videoOwnerChannelId: string,
+    position: number,
+    resourceId: {
+      kind: string,
+      videoId: string,
+    },
+  },
+  contentDetails: {
+    videoId: string;
+    videoPublishedAt: string;
+  }
+}
+
+// this represents a single playlist from /playlists endpoint
+interface PlaylistsObj {
+  id: string,
+  snippet: {
+    publishedAt: string,
+    channelId: string,
+    title: string,
+    description: string,
+    thumbnails: {
+      default: {
+        url: string;
+      };
+      medium: {
+        url: string;
+      };
+      high: {
+        url: string;
+      };
+      standard: {
+        url: string;
+      };
+      maxres: {
+        url: string;
+      };
+    },
+    channelTitle: string,
   },
 }
 
@@ -229,6 +237,7 @@ export type {
   SinglePlaylistObj,
   Subscription,
   PlaylistsObj,
+  PlaylistItemObj,
   Video,
   Comment,
 };
