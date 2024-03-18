@@ -146,7 +146,7 @@ function Homepage() {
           <ContainerTrending>
             {trendingObj &&
               trendingObj.map((video) => (
-                <CardTrending>
+                <CardTrending key={video.id}>
                   <ControlIFrame
                     src={`https://www.youtube.com/embed/${video.id}`}
                   />
@@ -154,8 +154,8 @@ function Homepage() {
                   <TrendingMedia>
                     Likes: {video.statistics.likeCount}
                   </TrendingMedia>
-                  {console.log("Check me out...: ", video)}
-                  {console.log("Stats: ", video.statistics.likeCount)}
+                  {/* {console.log("Check me out...: ", video)}
+                  {console.log("Stats: ", video.statistics.likeCount)} */}
                 </CardTrending>
               ))}
           </ContainerTrending>
