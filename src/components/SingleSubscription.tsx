@@ -60,7 +60,8 @@ interface SingleSubscriptionProps {
 
 const SubscriptionItem = styled.div<SubScriptionItemProps>`
   display: flex;
-  background-color: ${(props) => (props.isSelected ? "lightpink" : "white")};
+  /* background-color: ${(props) =>
+    props.isSelected ? "lightpink" : "white"}; */
 `;
 
 export default function SingleSubscription({

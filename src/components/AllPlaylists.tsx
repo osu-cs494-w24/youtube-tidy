@@ -116,7 +116,6 @@ export default function AllPlaylists() {
               {/* <p>{playlist.snippet.description}</p> */}
             </VideoInfo>
           </Cards>
-          // </div>
         ))}
       </Container>
     </>

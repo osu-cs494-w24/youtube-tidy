@@ -80,15 +80,6 @@ function Homepage() {
     flex-direction: column;
   `;
 
-  // const ContainSubsHomepage = styled.div`
-  //   display: flex;
-  //   flex-direction: row;
-  //   overflow-x: auto; /* Enables horizontal scrolling */
-  //   -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
-  //   scrollbar-width: thin; /* Optional: makes scrollbar less obtrusive */
-  //   scrollbar-color: #888 #e0e0e0; /* Optional: colors for the scrollbar */
-  // `;
-
   useEffect(() => {
     const screen = window.matchMedia("(min-width: 720px)");
     const handleScreenChange = (e: MediaQueryListEvent) => {
@@ -172,8 +163,6 @@ function Homepage() {
                       {video.statistics.likeCount}
                     </ThumbsUp>
                   </TrendingMedia>
-                  {/* {console.log("Check me out...: ", video)}
-                  {console.log("Stats: ", video.statistics.likeCount)} */}
                 </CardTrending>
               ))}
           </ContainerTrending>
@@ -228,15 +217,10 @@ function Homepage() {
               ) : (
                 <AllPlaylists />
               )}
-              {/* {playlistToggle && !subscriptionsToggle && <AllPlaylists />} */}
-
               {window.innerWidth < 720
                 ? subscriptionsToggle && !playlistToggle && <Subscriptions />
-                : // <Subscriptions />
-                  null}
-              {/* // null} */}
+                : null}
             </ContainerShowAll>
-            {/* {subscriptionsToggle && !playlistToggle && <Subscriptions />} */}
           </ContainerDesktop>
         </>
       )}
