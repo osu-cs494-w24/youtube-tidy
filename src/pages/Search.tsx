@@ -46,7 +46,6 @@ const Cards = styled.div`
   border-radius: 15px;
   width: 310px;
   padding: 5px;
-  cursor: pointer;
 
   @media (min-width: 720px) {
     flex-direction: column;
@@ -61,19 +60,25 @@ const Cards = styled.div`
 
 const VideoInfo = styled.div`
   width: 100%;
-  flex-direction: column;
-  padding-left: 1rem;
+  height: 100%;
+  display: flex;
+  padding: 0 1rem;
   text-align: center;
+  align-items: center;
+
+  input {
+    accent-color: red;
+    margin-right: 15px;
+  }
 
   h3 {
-    margin: 0px;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin: 0px 8px;
   }
 `;
 
 const Thumbnail = styled.img`
   border-radius: 15px;
+  cursor: pointer;
 
   @media (min-width: 720px) {
     width: 300px;
@@ -134,6 +139,7 @@ function Search() {
   const user = useAppSelector((state) => state.user.info);
   const [queryResults, setQueryResults] =
     useState<YoutubeSearchResponse | null>(null);
+  const [checkedVideos, setCheckedVideos] = useState<string[]>([]);
 
   // clicking a video will provide a pop-up modal with the video
   const handleVideoClick = (videoID: string) => {
@@ -223,6 +229,20 @@ function Search() {
 
   BottomScroll(loadMore);
 
+  const handleCheckboxChange = (videoID: string, isChecked: boolean) => {
+    if (isChecked) {
+      setCheckedVideos((prevChecked) => [...prevChecked, videoID]);
+    } else {
+      setCheckedVideos((prevChecked) =>
+        prevChecked.filter((id) => id !== videoID)
+      );
+    }
+  };
+
+  useEffect(() => {
+    console.log("checked videos: ", checkedVideos);
+  }, [checkedVideos]);
+
   return (
     <>
       {user && (
@@ -247,15 +267,22 @@ function Search() {
           <CardContainer>
             {queryResults &&
               queryResults.items.map((element) => (
-                <Cards
-                  key={element.id.videoId}
-                  onClick={() => handleVideoClick(element.id.videoId)}
-                >
+                <Cards key={element.id.videoId}>
                   <Thumbnail
                     src={element.snippet.thumbnails.high.url}
                     alt="thumbnail"
+                    onClick={() => handleVideoClick(element.id.videoId)}
                   />
                   <VideoInfo>
+                    <input
+                      type="checkbox"
+                      onChange={(e) =>
+                        handleCheckboxChange(
+                          element.id.videoId,
+                          e.target.checked
+                        )
+                      }
+                    ></input>
                     <h2>{element.snippet.title}</h2>
                   </VideoInfo>
                 </Cards>
