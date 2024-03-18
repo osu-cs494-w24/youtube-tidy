@@ -5,6 +5,9 @@ import Subscriptions from "./Subscriptions";
 import SinglePlaylist from "../components/SinglePlaylist";
 import styled from "@emotion/styled";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+
 const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
 
 function Homepage() {
@@ -16,6 +19,11 @@ function Homepage() {
   const [trendingObj, setTrendingObj] = useState([]);
 
   const maxCharsForTitle = 40;
+
+  const ThumbsUp = styled.div`
+    color: red;
+    font-size: 1.4rem;
+  `;
 
   useEffect(() => {
     const trendingVideo = async () => {
@@ -60,7 +68,7 @@ function Homepage() {
 
   const ControlIFrame = styled.iframe`
     display: flex;
-    max-width: 250px;
+    max-width: 100%;
   `;
 
   const totalVids = playlists
@@ -159,7 +167,10 @@ function Homepage() {
                     {video.snippet.title.slice(0, maxCharsForTitle) + "..."}
                   </TrendingMedia>
                   <TrendingMedia>
-                    Likes: {video.statistics.likeCount}
+                    <ThumbsUp>
+                      <FontAwesomeIcon icon={faThumbsUp} />:{" "}
+                      {video.statistics.likeCount}
+                    </ThumbsUp>
                   </TrendingMedia>
                   {/* {console.log("Check me out...: ", video)}
                   {console.log("Stats: ", video.statistics.likeCount)} */}

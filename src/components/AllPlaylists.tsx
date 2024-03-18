@@ -113,7 +113,7 @@ export default function AllPlaylists() {
                 {playlist.contentDetails.itemCount}{" "}
                 {playlist.contentDetails.itemCount === 1 ? "video" : "videos"}
               </p>
-              <p>{playlist.snippet.description}</p>
+              {/* <p>{playlist.snippet.description}</p> */}
             </VideoInfo>
           </Cards>
           // </div>
