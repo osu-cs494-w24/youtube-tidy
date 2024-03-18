@@ -13,8 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const StyledInput = styled.input`
-  /* padding-top: 1rem;
-  padding-bottom: 1rem; */
   font-size: 2rem;
   border-radius: 7px;
 `;
@@ -122,6 +120,14 @@ const PlaylistsContainer = styled.div`
 const ControlForm = styled.div`
   margin-bottom: 1rem;
   display: flex;
+  flex-wrap: wrap;
+`;
+
+const SearchButton = styled.button`
+  @media (max-width: 587px) {
+    margin-top: 0.5rem;
+    margin-left: 0;
+  }
 `;
 
 const CardContainer = styled.div`
@@ -398,7 +404,7 @@ function Search() {
                 placeholder="Cute Cats"
                 onChange={(e) => setInputQuery(e.target.value)}
               />
-              <button type="submit">Search</button>
+              <SearchButton type="submit">Search</SearchButton>
             </ControlForm>
           </form>
           {isLoading && <FoldingCube />}
