@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { MutableRefObject, useRef } from "react";
-import { SinglePlaylistObj } from "../assets/interfaces";
+import { MutableRefObject, useRef, useState } from "react";
+import { PlaylistItemObj, SinglePlaylistObj } from "../assets/interfaces";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
   editNameDescriptionPlaylist,
@@ -21,7 +21,7 @@ const PlaylistRenamable = styled.input`
 
 const PlaylistDescriptionEdit = styled.textarea`
   border: 0px;
-  color: gray;
+  color: darkslategray;
   &:hover {
     border-color: black;
     border-style: solid;
@@ -35,12 +35,13 @@ export default function Playlist({
 }: {
   playlist: SinglePlaylistObj;
 }) {
-
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
   const editNameRef = useRef() as MutableRefObject<HTMLInputElement>;
   const editDescriptionRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
+
+  const [ selectedPlaylistItems, setSelectedPlaylistItems ] = useState<PlaylistItemObj[]>([]);
 
   const handleEditNameTitlePlaylist = async () => {
     const playlistID = playlist.id
@@ -55,18 +56,32 @@ export default function Playlist({
     }
   }
 
+  const handleSelectPlaylistItem = (
+    item: PlaylistItemObj,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (e.target.checked) {
+      setSelectedPlaylistItems([...selectedPlaylistItems, item])
+    }
+    else {
+      setSelectedPlaylistItems(selectedPlaylistItems.filter(
+        (playlistItem) => playlistItem !== item
+      ))
+    }
+  };
+
   return (
     <div>
       <PlaylistRenamable type="text" defaultValue={playlist.name} ref={editNameRef} onBlur={handleEditNameTitlePlaylist} />
       <PlaylistDescriptionEdit defaultValue={playlist.description} ref={editDescriptionRef} onBlur={handleEditNameTitlePlaylist} />
-      {playlist.items.map((video, index) => (
-        <div key={video.id}>
-          <input type="checkbox" id={video.id} />
+      {playlist.items.map((item, index) => (
+        <div key={item.id}>
+          <input type="checkbox" id={item.id} onChange={(e) => handleSelectPlaylistItem(item, e)} />
           <h3>
-            {index + 1}: {video.snippet.title}
+            {index + 1}: {item.snippet.title}
           </h3>
-          <p>{video.snippet.description.slice(0, 100)}</p>
-          <img src={video.snippet.thumbnails.default.url} alt="thumbnail" />
+          <p>{item.snippet.description.slice(0, 100)}...</p>
+          <img src={item.snippet.thumbnails.default.url} alt="thumbnail" />
         </div>
       ))}
     </div>

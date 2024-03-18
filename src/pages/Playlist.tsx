@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom'
 import { useAppSelector } from "../redux/hooks";
 import Playlist from '../components/Playlist';
 import PlaylistActionsBar from '../components/PlaylistActionsBar';
-import { useEffect, useState } from 'react';
 
 function PlaylistPage() {
   const params = useParams()
