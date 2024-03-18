@@ -32,7 +32,8 @@ export default function PlaylistActionsBar({
                 });
             }
             if (option === MOVE || option === REMOVE) {
-                items.forEach(async item => {
+                // Running these in parallel causes a 409 error, so calls are in sequence instead: https://stackoverflow.com/a/37576787
+                for (const item of items) {
                     const removeVideo = await removeVideoFromPlaylistRequest(
                         accessToken,
                         item.id
@@ -40,7 +41,7 @@ export default function PlaylistActionsBar({
                     if (!removeVideo) {
                         dispatch(removeVideoFromPlaylist({ playlistID, videoID: item.contentDetails.videoId}));
                     }
-                });
+                }
             }
         }
     }
