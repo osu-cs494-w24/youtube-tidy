@@ -70,17 +70,24 @@ export default function AllPlaylists() {
     flex-direction: column;
     padding-left: 1rem;
 
-    p,
+    p {
+      margin: 0px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      color: black;
+    }
     h3 {
       margin: 0px;
       margin-top: 8px;
       margin-bottom: 8px;
-      text-decoration: none;
+      color: red;
     }
+  `;
+
+  const Details = styled.div`
     a {
       text-decoration: none;
     }
-    color: red;
   `;
 
   const Thumbnail = styled.img`
@@ -101,32 +108,34 @@ export default function AllPlaylists() {
       <Container>
         {userPlaylists.playlistsOverview?.items.map((playlist) => (
           <div key={playlist.id}>
-            <NavLink to={`/playlists/${playlist.id}`}>
-              <Cards>
-                {isDesktop ? (
-                  <Thumbnail
-                    src={playlist.snippet.thumbnails.high.url}
-                    alt="thumbnail"
-                  />
-                ) : (
-                  <Thumbnail
-                    src={playlist.snippet.thumbnails.default.url}
-                    alt="thumbnail"
-                  />
-                )}
+            <Details>
+              <NavLink to={`/playlists/${playlist.id}`}>
+                <Cards>
+                  {isDesktop ? (
+                    <Thumbnail
+                      src={playlist.snippet.thumbnails.high.url}
+                      alt="thumbnail"
+                    />
+                  ) : (
+                    <Thumbnail
+                      src={playlist.snippet.thumbnails.default.url}
+                      alt="thumbnail"
+                    />
+                  )}
 
-                <VideoInfo>
-                  <h3>{playlist.snippet.title}</h3>
-                  <p>
-                    {playlist.contentDetails.itemCount}{" "}
-                    {playlist.contentDetails.itemCount === 1
-                      ? "video"
-                      : "videos"}
-                  </p>
-                  {/* <p>{playlist.snippet.description}</p> */}
-                </VideoInfo>
-              </Cards>
-            </NavLink>
+                  <VideoInfo>
+                    <h3>{playlist.snippet.title}</h3>
+                    <p>
+                      {playlist.contentDetails.itemCount}{" "}
+                      {playlist.contentDetails.itemCount === 1
+                        ? "video"
+                        : "videos"}
+                    </p>
+                    {/* <p>{playlist.snippet.description}</p> */}
+                  </VideoInfo>
+                </Cards>
+              </NavLink>
+            </Details>
           </div>
           // </div>
         ))}
