@@ -295,8 +295,12 @@ export default function VideoModal({
         <VideoModalBackdrop />
         <ContainerForModalOverall>
           <VideoModalContainer>
-            <h3>Failed to load video</h3>
-            <CloseButton onClick={onClose}>X</CloseButton>
+            <div className="modal-header">
+              <h3>Failed to load video</h3>
+              <CloseButton>
+                <FontAwesomeIcon icon={faXmark} onClick={onClose} />
+              </CloseButton>
+            </div>
           </VideoModalContainer>
         </ContainerForModalOverall>
       </>
