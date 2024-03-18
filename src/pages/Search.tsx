@@ -22,47 +22,67 @@ const dummyData = {
   queryTime: new Date().toISOString(),
 };
 
-const ContainerCards = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-`;
-
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-self: center;
-  align-content: center;
-  justify-content: center;
-  @media (min-width: 587px) {
-    flex-direction: row;
-  }
-`;
-
-const CardTotal = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: #000000;
-  border: 1px solid #e3e3e3;
-  margin-bottom: 1rem;
-  border-radius: 7px;
-  padding: 1rem;
-  max-width: 50%;
-  margin: 1rem;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  @media (min-width: 587px) {
-    max-width: 35%;
-  }
-  @media (min-width: 720px) {
-    max-width: 25%;
-  }
-`;
-
 const ControlForm = styled.div`
   margin-bottom: 1rem;
   display: flex;
+`;
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 720px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 5rem;
+  }
+`;
+
+const Cards = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  align-items: center;
+  box-shadow: 0 0 10px 0 gray;
+  border-radius: 15px;
+  width: 310px;
+  padding: 5px;
+  cursor: pointer;
+
+  @media (min-width: 720px) {
+    flex-direction: column;
+    margin-right: 1rem;
+    padding-top: 8px;
+  }
+
+  @media (max-width: 719px) {
+    width: 98%;
+  }
+`;
+
+const VideoInfo = styled.div`
+  width: 100%;
+  flex-direction: column;
+  padding-left: 1rem;
+  text-align: center;
+
+  h3 {
+    margin: 0px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+`;
+
+const Thumbnail = styled.img`
+  border-radius: 15px;
+
+  @media (min-width: 720px) {
+    width: 300px;
+    height: 225px;
+  }
+
+  @media (max-width: 719px) {
+    width: 150px;
+  }
 `;
 
 function getFromStore(
@@ -224,21 +244,23 @@ function Search() {
             </ControlForm>
           </form>
           {isLoading && <FoldingCube />}
-          <ContainerCards>
-            <Card>
-              {queryResults &&
-                queryResults.items.map((element) => (
-                  <CardTotal
-                    key={element.id.videoId}
-                    onClick={() => handleVideoClick(element.id.videoId)}
-                  >
+          <CardContainer>
+            {queryResults &&
+              queryResults.items.map((element) => (
+                <Cards
+                  key={element.id.videoId}
+                  onClick={() => handleVideoClick(element.id.videoId)}
+                >
+                  <Thumbnail
+                    src={element.snippet.thumbnails.high.url}
+                    alt="thumbnail"
+                  />
+                  <VideoInfo>
                     <h2>{element.snippet.title}</h2>
-                    <img src={element.snippet.thumbnails.high.url} />
-                    <p>{element.snippet.description}</p>
-                  </CardTotal>
-                ))}
-            </Card>
-          </ContainerCards>
+                  </VideoInfo>
+                </Cards>
+              ))}
+          </CardContainer>
 
           {selectedVideoID && (
             <VideoModal videoID={selectedVideoID} onClose={handleCloseVideo} />
