@@ -5,8 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import FoldingCube from "../components/FoldingCube";
 import styled from "@emotion/styled";
-import { YoutubeSearchResponse } from "../assets/interfaces";
+import { YoutubeSearchResponse, SinglePlaylistObj } from "../assets/interfaces";
 import VideoModal from "../components/VideoModal";
+import { addVideoToPlaylist } from "../redux/playlistsSlice";
+import { addVideoToPlaylistRequest } from "../requests/PlaylistActions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const StyledInput = styled.input`
   /* padding-top: 1rem;
@@ -21,6 +25,99 @@ const dummyData = {
   query: "cute cats",
   queryTime: new Date().toISOString(),
 };
+
+// playlist container styling
+
+const PlaylistToolTip = styled.span`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 0.75rem;
+  background-color: rgb(161, 161, 161);
+  box-shadow: 0 0 10px 0 black;
+  color: white;
+  border-radius: 6px;
+  padding: 3px;
+  max-width: 80%;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  p {
+    margin: 0;
+    padding-left: 5px;
+    width: fit-content;
+    text-align: center;
+  }
+`;
+
+const PlaylistItem = styled.div`
+  position: relative;
+  cursor: pointer;
+  margin-right: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+  img {
+    border-radius: 10px;
+    height: 100%;
+  }
+
+  :hover {
+    transform: scale(1.1);
+  }
+
+  &:hover ${PlaylistToolTip} {
+    visibility: visible;
+    opacity: 0.9;
+  }
+`;
+
+const PlaylistsContainer = styled.div`
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  width: 90%;
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  /* display: flex;
+  flex-direction: column; */
+  align-self: center;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  .body {
+    border-top: 1px solid gray;
+    padding: 10px;
+    cursor: default;
+  }
+
+  .playlists {
+    display: flex;
+    height: fit-content;
+    padding: 10px;
+    margin: 10px;
+    overflow-y: hidden;
+    overflow-x: auto; /* add horizontal scrolling */
+    scrollbar-width: thin;
+  }
+`;
+
+// end playlist container styling
 
 const ControlForm = styled.div`
   margin-bottom: 1rem;
@@ -131,6 +228,7 @@ function BottomScroll(callback) {
 
 function Search() {
   const dispatch = useAppDispatch();
+  const playlists = useAppSelector((state) => state.playlists);
   const searchStore = useAppSelector((state) => state.search.searchResults);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("q");
@@ -229,6 +327,20 @@ function Search() {
 
   BottomScroll(loadMore);
 
+  // check if current video is in a given playlist, returns the video if it is
+  // in the form of a playlistItem, which is nested in the SinglePlaylistObj interface
+  const videoInPlaylist = (playlistID: string, videoID: string) => {
+    const playlist = playlists.playlists?.find(
+      (playlist: SinglePlaylistObj) => playlist.id === playlistID
+    );
+    if (playlist) {
+      const videoInPlaylist = playlist.items.find(
+        (video) => video.contentDetails.videoId === videoID
+      );
+      return videoInPlaylist;
+    }
+  };
+
   const handleCheckboxChange = (videoID: string, isChecked: boolean) => {
     if (isChecked) {
       setCheckedVideos((prevChecked) => [...prevChecked, videoID]);
@@ -239,9 +351,35 @@ function Search() {
     }
   };
 
+  // this can be deleted later, used for testing right now
   useEffect(() => {
     console.log("checked videos: ", checkedVideos);
   }, [checkedVideos]);
+
+  // either add or remove a video from a playlist
+  const handlePlaylistClick = async (playlistID: string) => {
+    for (const videoID of checkedVideos) {
+      const isInPlaylist = videoInPlaylist(playlistID, videoID);
+
+      // add the video to the playlist if it's not already in it
+      if (!isInPlaylist && user) {
+        const playlistItem = await addVideoToPlaylistRequest(
+          user.access_token,
+          playlistID,
+          videoID
+        );
+        dispatch(addVideoToPlaylist({ playlistID, playlistItem }));
+      }
+    }
+
+    alert("Added all videos that were not already in your playlist");
+    // Uncheck all checkboxes
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+    setCheckedVideos([]);
+  };
 
   return (
     <>
@@ -264,6 +402,32 @@ function Search() {
             </ControlForm>
           </form>
           {isLoading && <FoldingCube />}
+
+          {/* playlists will only show if videoes are queried and user has playlists */}
+          {queryResults &&
+            playlists.playlistsOverview &&
+            checkedVideos.length > 0 && (
+              <PlaylistsContainer>
+                <div className="header">
+                  <h4>Playlists</h4>
+                </div>
+                <div className="body playlists">
+                  {playlists.playlistsOverview.items.map((playlist) => (
+                    <PlaylistItem
+                      key={playlist.id}
+                      onClick={() => handlePlaylistClick(playlist.id)}
+                    >
+                      <img src={playlist.snippet.thumbnails.default.url} />
+                      <PlaylistToolTip>
+                        <FontAwesomeIcon icon={faPlus} />
+                        <p>{playlist.snippet.title}</p>
+                      </PlaylistToolTip>
+                    </PlaylistItem>
+                  ))}
+                </div>
+              </PlaylistsContainer>
+            )}
+
           <CardContainer>
             {queryResults &&
               queryResults.items.map((element) => (
