@@ -15,6 +15,8 @@ function Homepage() {
   const subscriptionList = useAppSelector((state) => state.subscriptions);
   const [trendingObj, setTrendingObj] = useState([]);
 
+  const maxCharsForTitle = 40;
+
   useEffect(() => {
     const trendingVideo = async () => {
       const trendingRes = await fetch(
@@ -48,6 +50,9 @@ function Homepage() {
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    h4 {
+      max-width: 65%;
+    }
     @media (min-width: 1080px) {
       padding-right: 1rem;
     }
@@ -55,7 +60,7 @@ function Homepage() {
 
   const ControlIFrame = styled.iframe`
     display: flex;
-    max-width: 100%;
+    max-width: 250px;
   `;
 
   const totalVids = playlists
@@ -150,7 +155,9 @@ function Homepage() {
                   <ControlIFrame
                     src={`https://www.youtube.com/embed/${video.id}`}
                   />
-                  <TrendingMedia>{video.snippet.title}</TrendingMedia>
+                  <TrendingMedia>
+                    {video.snippet.title.slice(0, maxCharsForTitle) + "..."}
+                  </TrendingMedia>
                   <TrendingMedia>
                     Likes: {video.statistics.likeCount}
                   </TrendingMedia>
