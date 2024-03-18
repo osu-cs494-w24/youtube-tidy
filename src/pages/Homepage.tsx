@@ -166,7 +166,6 @@ function Homepage() {
                   <SideBarSpan>Stats</SideBarSpan>
                   <SidebarLi>{totalPlaylistCount} playlists</SidebarLi>
                   <SidebarLi>{totalVids} videos</SidebarLi>
-                  <SidebarLi>redux data</SidebarLi>
                 </SideBarUL>
                 <SideBarUL>
                   <SideBarSpan>Playlists</SideBarSpan>
