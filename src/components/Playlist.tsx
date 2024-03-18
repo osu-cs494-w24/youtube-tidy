@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { MutableRefObject, useRef, useState } from "react";
+import { MutableRefObject, useRef } from "react";
 import { PlaylistItemObj, SinglePlaylistObj } from "../assets/interfaces";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
@@ -32,16 +32,18 @@ const PlaylistDescriptionEdit = styled.textarea`
 
 export default function Playlist({
   playlist,
+  selectedPlaylistItems,
+  setSelectedPlaylistItems,
 }: {
   playlist: SinglePlaylistObj;
+  selectedPlaylistItems: PlaylistItemObj[];
+  setSelectedPlaylistItems: any;
 }) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
   const editNameRef = useRef() as MutableRefObject<HTMLInputElement>;
   const editDescriptionRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
-
-  const [ selectedPlaylistItems, setSelectedPlaylistItems ] = useState<PlaylistItemObj[]>([]);
 
   const handleEditNameTitlePlaylist = async () => {
     const playlistID = playlist.id
@@ -61,7 +63,7 @@ export default function Playlist({
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (e.target.checked) {
-      setSelectedPlaylistItems([...selectedPlaylistItems, item])
+      setSelectedPlaylistItems([...selectedPlaylistItems, item]);
     }
     else {
       setSelectedPlaylistItems(selectedPlaylistItems.filter(
