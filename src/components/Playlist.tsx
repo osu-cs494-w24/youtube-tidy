@@ -61,7 +61,7 @@ const ContainerCards = styled.div`
   }
 `;
 
-const Card = styled.div`
+const Card = styled.label`
   border: 1px solid #e3e3e3;
   margin-bottom: 1rem;
   padding: 1rem;
@@ -133,7 +133,7 @@ export default function Playlist({
       </ControlEditable>
       <ContainerCards>
         {playlist.items.map((item, index) => (
-          <Card key={item.id}>
+          <Card key={item.id} htmlFor={item.id}>
             <div>
               <BigCheckbox
                 type="checkbox"
