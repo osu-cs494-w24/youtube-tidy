@@ -39,6 +39,7 @@ const PlaylistDescriptionEdit = styled.textarea`
     border-color: black;
     border-style: solid;
   }
+
   @media (min-width: 720px) {
     font-size: 1rem;
   }
