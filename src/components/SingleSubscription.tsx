@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Subscription } from "../assets/interfaces";
+import { BigCheckbox } from "./BigCheckbox";
 
 const ControlItems = styled.div`
   display: flex;
@@ -94,14 +95,13 @@ export default function SingleSubscription({
           <ControlItems>
             <ContainText>{description}</ContainText>
             <ControlInput>
-              <input
+              <BigCheckbox
                 type="checkbox"
                 checked={isSelected}
                 onChange={handleCheckboxChange}
-              ></input>
+              ></BigCheckbox>
             </ControlInput>
           </ControlItems>
-          {/* <hr></hr> */}
         </SubscriptionItem>
       </Card>
     </>
