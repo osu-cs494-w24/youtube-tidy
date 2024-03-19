@@ -18,8 +18,11 @@ const ContainerButtons = styled.div`
 
 const Bottons = styled.button`
   margin-bottom: 1rem;
-  :hover {
+  &:hover:enabled {
     box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
+  }
+  &:hover:disabled {
+    cursor: not-allowed;
   }
 `;
 
@@ -51,9 +54,13 @@ export async function bulkRemoveFromPlaylist(
 export default function PlaylistActionsBar({
   playlist,
   items,
+  selectedPlaylistItems,
+  setSelectedPlaylistItems,
 }: {
   playlist: SinglePlaylistObj;
   items: PlaylistItemObj[];
+  selectedPlaylistItems: PlaylistItemObj[];
+  setSelectedPlaylistItems: any;
 }) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
@@ -69,7 +76,7 @@ export default function PlaylistActionsBar({
             setCurrentAction(MOVE);
             setShowDestModal(true);
           }}
-          disabled={!accessToken}
+          disabled={!accessToken || !selectedPlaylistItems.length}
         >
           Move to...
         </Bottons>
@@ -79,7 +86,7 @@ export default function PlaylistActionsBar({
             setCurrentAction(COPY);
             setShowDestModal(true);
           }}
-          disabled={!accessToken}
+          disabled={!accessToken || !selectedPlaylistItems.length}
         >
           Copy to...
         </Bottons>
@@ -88,8 +95,9 @@ export default function PlaylistActionsBar({
           onClick={() => {
             setCurrentAction(REMOVE);
             bulkRemoveFromPlaylist(accessToken, items, playlist.id, dispatch);
+            setSelectedPlaylistItems([]);
           }}
-          disabled={!accessToken}
+          disabled={!accessToken || !selectedPlaylistItems.length}
         >
           Remove
         </Bottons>
@@ -101,6 +109,7 @@ export default function PlaylistActionsBar({
           action={currentAction}
           hideModal={() => setShowDestModal(false)}
           accessToken={accessToken}
+          setSelectedPlaylistItems={setSelectedPlaylistItems}
         />
       ) : null}
     </>

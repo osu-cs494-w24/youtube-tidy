@@ -90,6 +90,10 @@ const playlistsSlice = createSlice({
           );
           if (playlistOverviewItem) {
             playlistOverviewItem.contentDetails.itemCount++;
+            playlistOverviewItem.snippet.thumbnails.default =
+              playlist.items[0].snippet.thumbnails.default;
+            playlistOverviewItem.snippet.thumbnails.high =
+              playlist.items[0].snippet.thumbnails.high;
           }
         }
       }
@@ -113,6 +117,13 @@ const playlistsSlice = createSlice({
         );
         if (playlistOverviewItem) {
           playlistOverviewItem.contentDetails.itemCount--;
+          playlistOverviewItem.snippet.thumbnails.default = playlist.items
+            .length
+            ? playlist.items[0].snippet.thumbnails.default
+            : { url: "https://i.ytimg.com/img/no_thumbnail.jpg" };
+          playlistOverviewItem.snippet.thumbnails.high = playlist.items.length
+            ? playlist.items[0].snippet.thumbnails.high
+            : { url: "https://i.ytimg.com/img/no_thumbnail.jpg" };
         }
       }
     },

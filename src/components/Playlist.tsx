@@ -4,11 +4,20 @@ import { PlaylistItemObj, SinglePlaylistObj } from "../assets/interfaces";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { editNameDescriptionPlaylist } from "../redux/playlistsSlice";
 import { editNameDescriptionPlaylistRequest } from "../requests/PlaylistActions";
+import { BigCheckbox } from "./BigCheckbox";
+
+const PlaylistHeader = styled.div`
+  display: flex;
+  padding: 1rem;
+`;
 
 const ControlEditable = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   margin-bottom: 2rem;
+  margin-right: 1rem;
+  flex-grow: 1;
   @media (min-width: 587px) {
     justify-content: center;
   }
@@ -25,6 +34,9 @@ const PlaylistRenamable = styled.input`
     /* border-width: 1px; */
     cursor: pointer;
   }
+  &:active {
+    cursor: text;
+  }
   @media (min-width: 720px) {
     margin-right: 2rem;
     font-size: 2rem;
@@ -33,15 +45,25 @@ const PlaylistRenamable = styled.input`
 
 const PlaylistDescriptionEdit = styled.textarea`
   resize: none;
-  border: 0px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: white;
   color: darkslategray;
   &:hover {
-    border-color: black;
+    border-color: darkgray;
+    border-width: 1px;
     border-style: solid;
   }
 
   @media (min-width: 720px) {
     font-size: 1rem;
+  }
+`;
+
+const SelectAllButton = styled.button`
+  height: fit-content;
+  &:disabled {
+    cursor: not-allowed;
   }
 `;
 
@@ -56,16 +78,38 @@ const ContainerCards = styled.div`
   }
 `;
 
-const Card = styled.div`
+const Card = styled.label`
+  display: flex;
   border: 1px solid #e3e3e3;
   margin-bottom: 1rem;
   padding: 1rem;
   box-shadow: 0 0 10px 0 gray;
   border-radius: 15px;
+  &:hover {
+    background-color: #e3e3e3;
+    transform: scale(0.99);
+  }
   @media (min-width: 720px) {
     min-width: 40%;
     max-width: 40%;
     margin-right: 2%;
+  }
+`;
+
+const VideoInfo = styled.div`
+  flex-grow: 1;
+  margin-left: 2rem;
+`;
+
+const VideoTitle = styled.a`
+  text-decoration: none;
+  color: black;
+  &:hover {
+    color: red;
+    text-decoration: underline;
+  }
+  &:active {
+    color: darkred;
   }
 `;
 
@@ -110,37 +154,69 @@ export default function Playlist({
     }
   };
 
+  const handleSelectAll = () => {
+    if (selectedPlaylistItems.length !== playlist.items.length) {
+      setSelectedPlaylistItems(playlist.items);
+    } else {
+      setSelectedPlaylistItems([]);
+    }
+  };
+
+  const BASE_URL = "https://www.youtube.com/watch?v=";
+
   return (
     <div>
-      <ControlEditable>
-        <PlaylistRenamable
-          type="text"
-          defaultValue={playlist.name}
-          ref={editNameRef}
-          onBlur={handleEditNameTitlePlaylist}
-        />
-        <PlaylistDescriptionEdit
-          defaultValue={playlist.description}
-          ref={editDescriptionRef}
-          onBlur={handleEditNameTitlePlaylist}
-          placeholder="Edit Description..."
-        />
-      </ControlEditable>
+      <PlaylistHeader>
+        <ControlEditable>
+          <PlaylistRenamable
+            type="text"
+            defaultValue={playlist.name}
+            ref={editNameRef}
+            onBlur={handleEditNameTitlePlaylist}
+          />
+          <PlaylistDescriptionEdit
+            defaultValue={playlist.description}
+            ref={editDescriptionRef}
+            onBlur={handleEditNameTitlePlaylist}
+            placeholder="Edit Description..."
+          />
+        </ControlEditable>
+        <SelectAllButton
+          onClick={handleSelectAll}
+          disabled={!playlist.items.length}
+        >
+          {!playlist.items.length ||
+          selectedPlaylistItems.length !== playlist.items.length
+            ? "Select all"
+            : "Unselect all"}
+        </SelectAllButton>
+      </PlaylistHeader>
       <ContainerCards>
         {playlist.items.map((item, index) => (
-          <Card key={item.id}>
-            <div>
-              <input
-                type="checkbox"
-                id={item.id}
-                onChange={(e) => handleSelectPlaylistItem(item, e)}
-              />
+          <Card key={item.id} htmlFor={item.id}>
+            <BigCheckbox
+              type="checkbox"
+              id={item.id}
+              onChange={(e) => handleSelectPlaylistItem(item, e)}
+              checked={selectedPlaylistItems.includes(item)}
+            />
+            <VideoInfo>
               <h3>
-                {index + 1}: {item.snippet.title}
+                {index + 1}:{" "}
+                <VideoTitle
+                  href={BASE_URL + item.contentDetails.videoId}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.snippet.title}
+                </VideoTitle>
               </h3>
-              <p>{item.snippet.description.slice(0, 100)}...</p>
+              <p>
+                {item.snippet.description.slice(0, 100)}
+                {item.snippet.description.length > 100 ? "..." : null}
+              </p>
               <img src={item.snippet.thumbnails.default.url} alt="thumbnail" />
-            </div>
+            </VideoInfo>
           </Card>
         ))}
       </ContainerCards>

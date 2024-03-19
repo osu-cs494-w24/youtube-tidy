@@ -2,11 +2,13 @@ import { useAppSelector } from "../redux/hooks";
 import { useState, useEffect } from "react";
 import AllPlaylists from "../components/AllPlaylists";
 import Subscriptions from "./Subscriptions";
-import SinglePlaylist from "../components/SinglePlaylist";
 import styled from "@emotion/styled";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { Video } from "../assets/interfaces";
+import { NavLink } from "react-router-dom";
+import { css } from "@emotion/react";
 
 const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
 
@@ -16,7 +18,7 @@ function Homepage() {
   const playlists = useAppSelector((state) => state.playlists.playlists);
   const totalPlaylistCount = playlists.length;
   const subscriptionList = useAppSelector((state) => state.subscriptions);
-  const [trendingObj, setTrendingObj] = useState([]);
+  const [trendingObj, setTrendingObj] = useState<Video[]>([]);
 
   const maxCharsForTitle = 40;
 
@@ -31,7 +33,7 @@ function Homepage() {
         `https://www.googleapis.com/youtube/v3/videos?key=${YoutubeAPI}&part=contentDetails,statistics,snippet&chart=mostPopular&regionCode=US&maxResults=5`
       );
       const trendingData = await trendingRes.json();
-      setTrendingObj(trendingData.items.map((object) => object));
+      setTrendingObj(trendingData.items.map((object: Video) => object));
     };
     trendingVideo();
   }, []);
@@ -140,6 +142,25 @@ function Homepage() {
     list-style-type: none;
     margin-bottom: 0.4rem;
     font-weight: 500;
+    text-decoration: none;
+  `;
+
+  const StatsLi = styled(SidebarLi)`
+    font-style: italic;
+  `;
+
+  const LinkStyle = css`
+    text-decoration: none;
+    color: black;
+    &:hover {
+      text-decoration: underline;
+    }
+  `;
+  const SidebarLink = styled.a`
+    ${LinkStyle}
+  `;
+  const SidebarNavLink = styled(NavLink)`
+    ${LinkStyle}
   `;
 
   return (
@@ -155,7 +176,10 @@ function Homepage() {
                     src={`https://www.youtube.com/embed/${video.id}`}
                   />
                   <TrendingMedia>
-                    {video.snippet.title.slice(0, maxCharsForTitle) + "..."}
+                    {video.snippet.title.slice(0, maxCharsForTitle)}
+                    {video.snippet.title.length > maxCharsForTitle
+                      ? "..."
+                      : null}
                   </TrendingMedia>
                   <TrendingMedia>
                     <ThumbsUp>
@@ -171,21 +195,29 @@ function Homepage() {
               <Sidebar>
                 <SideBarUL>
                   <SideBarSpan>Stats</SideBarSpan>
-                  <SidebarLi>{totalPlaylistCount} playlists</SidebarLi>
-                  <SidebarLi>{totalVids} videos</SidebarLi>
+                  <StatsLi>{totalPlaylistCount} playlists</StatsLi>
+                  <StatsLi>{totalVids} videos</StatsLi>
                 </SideBarUL>
                 <SideBarUL>
                   <SideBarSpan>Playlists</SideBarSpan>
                 </SideBarUL>
 
                 {playlists.map((object) => (
-                  <SidebarLi>{object.name}</SidebarLi>
+                  <SidebarNavLink to={`/playlists/${object.id}`}>
+                    <SidebarLi key={object.id}>{object.name}</SidebarLi>
+                  </SidebarNavLink>
                 ))}
                 <SideBarUL>
                   <SideBarSpan>Subscriptions</SideBarSpan>
                 </SideBarUL>
                 {subscriptionList.subscriptionList.map((object) => (
-                  <SidebarLi>{object.snippet.title}</SidebarLi>
+                  <SidebarLink
+                    href={`https://www.youtube.com/channel/${object.snippet.channelId}`}
+                  >
+                    <SidebarLi key={object.id}>
+                      {object.snippet.title}
+                    </SidebarLi>
+                  </SidebarLink>
                 ))}
               </Sidebar>
             ) : null}
