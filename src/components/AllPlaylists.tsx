@@ -1,6 +1,7 @@
 import { useAppSelector } from "../redux/hooks";
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { NavLink } from "react-router-dom";
 
 export default function AllPlaylists() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -8,7 +9,7 @@ export default function AllPlaylists() {
   // Implementation of dynamic nav bar.
   // Code is dependent upon window.matchMedia function, recommended by this post.
   // See: 'Using JavaScript'.
-  // Source: https://stackoverflow.com/questions/50156069/how-can-i-make-my-existing-responsive-navigation-bar-into-a-hamburger-menu-for-s
+  // Source: https://stackoverflow.com/a/50160249
   // Tablet
   useEffect(() => {
     const screen = window.matchMedia("(min-width: 720px)");
@@ -69,11 +70,23 @@ export default function AllPlaylists() {
     flex-direction: column;
     padding-left: 1rem;
 
-    p,
+    p {
+      margin: 0px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      color: black;
+    }
     h3 {
       margin: 0px;
       margin-top: 8px;
       margin-bottom: 8px;
+      color: red;
+    }
+  `;
+
+  const Details = styled.div`
+    a {
+      text-decoration: none;
     }
   `;
 
@@ -94,28 +107,37 @@ export default function AllPlaylists() {
     <>
       <Container>
         {userPlaylists.playlistsOverview?.items.map((playlist) => (
-          <Cards key={playlist.id}>
-            {isDesktop ? (
-              <Thumbnail
-                src={playlist.snippet.thumbnails.high.url}
-                alt="thumbnail"
-              />
-            ) : (
-              <Thumbnail
-                src={playlist.snippet.thumbnails.default.url}
-                alt="thumbnail"
-              />
-            )}
+          <div key={playlist.id}>
+            <Details>
+              <NavLink to={`/playlists/${playlist.id}`}>
+                <Cards>
+                  {isDesktop ? (
+                    <Thumbnail
+                      src={playlist.snippet.thumbnails.high.url}
+                      alt="thumbnail"
+                    />
+                  ) : (
+                    <Thumbnail
+                      src={playlist.snippet.thumbnails.default.url}
+                      alt="thumbnail"
+                    />
+                  )}
 
-            <VideoInfo>
-              <h3>{playlist.snippet.title}</h3>
-              <p>
-                {playlist.contentDetails.itemCount}{" "}
-                {playlist.contentDetails.itemCount === 1 ? "video" : "videos"}
-              </p>
-              {/* <p>{playlist.snippet.description}</p> */}
-            </VideoInfo>
-          </Cards>
+                  <VideoInfo>
+                    <h3>{playlist.snippet.title}</h3>
+                    <p>
+                      {playlist.contentDetails.itemCount}{" "}
+                      {playlist.contentDetails.itemCount === 1
+                        ? "video"
+                        : "videos"}
+                    </p>
+                    {/* <p>{playlist.snippet.description}</p> */}
+                  </VideoInfo>
+                </Cards>
+              </NavLink>
+            </Details>
+          </div>
+          // </div>
         ))}
       </Container>
     </>

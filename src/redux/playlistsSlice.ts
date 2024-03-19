@@ -4,6 +4,8 @@ import { getAllPlaylists } from "../requests/AllPlaylistsQuery";
 import { getPlaylist } from "../requests/SinglePlaylistQuery";
 import {
   AllPlaylistSearchResponse,
+  PlaylistItemObj,
+  PlaylistsObj,
   SinglePlaylistObj,
 } from "../assets/interfaces";
 
@@ -65,7 +67,7 @@ const playlistsSlice = createSlice({
       state,
       action: PayloadAction<{
         playlistID: string;
-        playlistItem: SinglePlaylistObj["items"][0];
+        playlistItem: PlaylistItemObj;
       }>
     ) {
       const { playlistID, playlistItem } = action.payload;
@@ -114,6 +116,24 @@ const playlistsSlice = createSlice({
         }
       }
     },
+    editNameDescriptionPlaylist(
+      state,
+      action: PayloadAction<{ playlistID: string; updatedPlaylist: PlaylistsObj }>
+    ) {
+      const { playlistID, updatedPlaylist } = action.payload;
+      const playlist = state.playlists.find(
+        (playlist) => playlist.id === playlistID
+      );
+      const playlistsOverviewItem = state.playlistsOverview ? state.playlistsOverview.items.find(
+        (playlist) => playlist.id === playlistID
+      ) : null;
+      if (playlist && playlistsOverviewItem) {
+        playlist.name = updatedPlaylist.snippet.title;
+        playlist.description = updatedPlaylist.snippet.description;
+        playlistsOverviewItem.snippet.title = updatedPlaylist.snippet.title;
+        playlistsOverviewItem.snippet.description = updatedPlaylist.snippet.description;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -140,4 +160,5 @@ export const {
   addPlaylist,
   addVideoToPlaylist,
   removeVideoFromPlaylist,
+  editNameDescriptionPlaylist,
 } = playlistsSlice.actions;
