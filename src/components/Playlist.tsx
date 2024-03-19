@@ -4,6 +4,7 @@ import { PlaylistItemObj, SinglePlaylistObj } from "../assets/interfaces";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { editNameDescriptionPlaylist } from "../redux/playlistsSlice";
 import { editNameDescriptionPlaylistRequest } from "../requests/PlaylistActions";
+import { BigCheckbox } from "./BigCheckbox";
 
 const ControlEditable = styled.div`
   display: flex;
@@ -131,7 +132,7 @@ export default function Playlist({
         {playlist.items.map((item, index) => (
           <Card key={item.id}>
             <div>
-              <input
+              <BigCheckbox
                 type="checkbox"
                 id={item.id}
                 onChange={(e) => handleSelectPlaylistItem(item, e)}
