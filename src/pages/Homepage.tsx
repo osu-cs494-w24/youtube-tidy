@@ -7,6 +7,8 @@ import styled from "@emotion/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { Video } from "../assets/interfaces";
+import { NavLink } from "react-router-dom";
+import { css } from "@emotion/react";
 
 const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
 
@@ -140,6 +142,25 @@ function Homepage() {
     list-style-type: none;
     margin-bottom: 0.4rem;
     font-weight: 500;
+    text-decoration: none;
+  `;
+
+  const StatsLi = styled(SidebarLi)`
+    font-style: italic;
+  `;
+
+  const LinkStyle = css`
+    text-decoration: none;
+    color: black;
+    &:hover {
+      text-decoration: underline;
+    }
+  `;
+  const SidebarLink = styled.a`
+    ${LinkStyle}
+  `;
+  const SidebarNavLink = styled(NavLink)`
+    ${LinkStyle}
   `;
 
   return (
@@ -174,21 +195,29 @@ function Homepage() {
               <Sidebar>
                 <SideBarUL>
                   <SideBarSpan>Stats</SideBarSpan>
-                  <SidebarLi>{totalPlaylistCount} playlists</SidebarLi>
-                  <SidebarLi>{totalVids} videos</SidebarLi>
+                  <StatsLi>{totalPlaylistCount} playlists</StatsLi>
+                  <StatsLi>{totalVids} videos</StatsLi>
                 </SideBarUL>
                 <SideBarUL>
                   <SideBarSpan>Playlists</SideBarSpan>
                 </SideBarUL>
 
                 {playlists.map((object) => (
-                  <SidebarLi key={object.id}>{object.name}</SidebarLi>
+                  <SidebarNavLink to={`/playlists/${object.id}`}>
+                    <SidebarLi key={object.id}>{object.name}</SidebarLi>
+                  </SidebarNavLink>
                 ))}
                 <SideBarUL>
                   <SideBarSpan>Subscriptions</SideBarSpan>
                 </SideBarUL>
                 {subscriptionList.subscriptionList.map((object) => (
-                  <SidebarLi key={object.id}>{object.snippet.title}</SidebarLi>
+                  <SidebarLink
+                    href={`https://www.youtube.com/channel/${object.snippet.channelId}`}
+                  >
+                    <SidebarLi key={object.id}>
+                      {object.snippet.title}
+                    </SidebarLi>
+                  </SidebarLink>
                 ))}
               </Sidebar>
             ) : null}
