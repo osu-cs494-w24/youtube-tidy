@@ -60,7 +60,11 @@ const PlaylistDescriptionEdit = styled.textarea`
   }
 `;
 
-const SelectAllButton = styled.button``;
+const SelectAllButton = styled.button`
+  &:disabled {
+    cursor: not-allowed;
+  }
+`;
 
 const ContainerCards = styled.div`
   display: flex;
@@ -175,8 +179,12 @@ export default function Playlist({
             placeholder="Edit Description..."
           />
         </ControlEditable>
-        <SelectAllButton onClick={handleSelectAll}>
-          {selectedPlaylistItems.length !== playlist.items.length
+        <SelectAllButton
+          onClick={handleSelectAll}
+          disabled={!playlist.items.length}
+        >
+          {!playlist.items.length ||
+          selectedPlaylistItems.length !== playlist.items.length
             ? "Select all"
             : "Unselect all"}
         </SelectAllButton>
