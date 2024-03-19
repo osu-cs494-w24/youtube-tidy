@@ -135,11 +135,13 @@ function handlePlaylistClick(
   srcPlaylistID: string,
   items: PlaylistItemObj[],
   accessToken: string,
-  dispatch: ThunkDispatch<any, any, any>
+  dispatch: ThunkDispatch<any, any, any>,
+  setSelectedPlaylistItems: any
 ) {
   bulkAddToPlaylist(accessToken, items, destPlaylistID, dispatch);
   if (action === "Move") {
     bulkRemoveFromPlaylist(accessToken, items, srcPlaylistID, dispatch);
+    setSelectedPlaylistItems([]);
   }
 }
 
@@ -149,12 +151,14 @@ export default function MoveCopyPlaylistModal({
   action,
   accessToken,
   hideModal,
+  setSelectedPlaylistItems,
 }: {
   items: PlaylistItemObj[];
   srcPlaylistID: string;
   action: string;
   accessToken: string | undefined;
   hideModal: () => void;
+  setSelectedPlaylistItems: any;
 }) {
   const dispatch = useAppDispatch();
   const playlists = useAppSelector((state) => state.playlists);
@@ -204,7 +208,8 @@ export default function MoveCopyPlaylistModal({
                             srcPlaylistID,
                             items,
                             accessToken,
-                            dispatch
+                            dispatch,
+                            setSelectedPlaylistItems
                           );
                           hideModal();
                         }}

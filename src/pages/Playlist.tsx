@@ -15,7 +15,7 @@ function PlaylistPage() {
   const params = useParams();
   const id = params.id;
   const playlists = useAppSelector((state) => state.playlists.playlists);
-  const playlist = playlists.find(p => p.id == id)  // TODO: Make a separate selector?
+  const playlist = playlists.find((p) => p.id == id); // TODO: Make a separate selector?
 
   const [selectedPlaylistItems, setSelectedPlaylistItems] = useState<
     PlaylistItemObj[]
@@ -24,7 +24,13 @@ function PlaylistPage() {
   if (playlist) {
     return (
       <>
-        <PlaylistActionsBar playlist={playlist} items={selectedPlaylistItems} />
+        <PlaylistActionsBar
+          playlist={playlist}
+          items={selectedPlaylistItems}
+          setSelectedPlaylistItems={(
+            selectedPlaylistItems: SetStateAction<PlaylistItemObj[]>
+          ) => setSelectedPlaylistItems(selectedPlaylistItems)}
+        />
         <Container>
           <Playlist
             playlist={playlist}
