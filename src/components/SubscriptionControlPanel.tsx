@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Subscription } from "../assets/interfaces";
 
 const SubButtons = styled.button`
   display: inline-flex;
@@ -7,6 +8,10 @@ const SubButtons = styled.button`
   :hover {
     box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
   }
+  &:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+  }
 `;
 
 const ContainerButtons = styled.div`
@@ -14,8 +19,8 @@ const ContainerButtons = styled.div`
 `;
 
 interface SubscriptionControlPanelProps {
+  subscriptionList: Subscription[];
   handleSelectAll: () => void;
-  allSelected: boolean;
   unsubscribeClicked: boolean;
   selectedSubscriptions: string[];
   handleUnsubscribe: () => void;
@@ -23,8 +28,8 @@ interface SubscriptionControlPanelProps {
 }
 
 export default function SubscriptionControlPanel({
+  subscriptionList,
   handleSelectAll,
-  allSelected,
   unsubscribeClicked,
   selectedSubscriptions,
   handleUnsubscribe,
@@ -32,15 +37,21 @@ export default function SubscriptionControlPanel({
 }: SubscriptionControlPanelProps) {
   return (
     <ContainerButtons>
-      <SubButtons onClick={handleSelectAll}>
-        {allSelected ? "Unselect" : "Select"} all
+      <SubButtons onClick={handleSelectAll} disabled={!subscriptionList.length}>
+        {!subscriptionList.length ||
+        subscriptionList.length !== selectedSubscriptions.length
+          ? "Select all"
+          : "Unselect all"}
       </SubButtons>
       {unsubscribeClicked && selectedSubscriptions.length > 0 ? (
         <SubButtons onClick={handleUnsubscribe}>
           Confirm unsubscribe from {selectedSubscriptions.length} channels?
         </SubButtons>
       ) : (
-        <SubButtons onClick={() => setUnsubscribedClicked(true)}>
+        <SubButtons
+          onClick={() => setUnsubscribedClicked(true)}
+          disabled={selectedSubscriptions.length == 0}
+        >
           Unsubscribe
         </SubButtons>
       )}

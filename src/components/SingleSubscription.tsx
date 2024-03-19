@@ -10,7 +10,7 @@ const ControlItems = styled.div`
 
 const ControlInput = styled.div`
   display: flex;
-  align-self: flex-start;
+  align-items: center;
 `;
 
 const Card = styled.label`
@@ -89,21 +89,22 @@ export default function SingleSubscription({
     <>
       <Card>
         <SubscriptionItem isSelected={isSelected}>
-          {/* <p> */}
+          <ControlInput>
+            <BigCheckbox
+              type="checkbox"
+              checked={isSelected}
+              onChange={handleCheckboxChange}
+            ></BigCheckbox>
+          </ControlInput>
           <Bundle>
-            {/* </p> */}
             <img src={thumbnail} alt="thumbnail" />
             <a href={channelUrl}>{title}</a>
           </Bundle>
           <ControlItems>
-            <ContainText>{description}</ContainText>
-            <ControlInput>
-              <BigCheckbox
-                type="checkbox"
-                checked={isSelected}
-                onChange={handleCheckboxChange}
-              ></BigCheckbox>
-            </ControlInput>
+            <ContainText>
+              {description.slice(0, 100)}
+              {description.length > 100 ? "..." : null}
+            </ContainText>
           </ControlItems>
         </SubscriptionItem>
       </Card>

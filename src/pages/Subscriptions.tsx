@@ -104,8 +104,8 @@ function Subscriptions() {
           </h1>
           <Container>
             <SubscriptionControlPanel
+              subscriptionList={subscriptionList}
               handleSelectAll={handleSelectAll}
-              allSelected={allSelected}
               unsubscribeClicked={unsubscribeClicked}
               selectedSubscriptions={selectedSubscriptions}
               handleUnsubscribe={handleUnsubscribe}
