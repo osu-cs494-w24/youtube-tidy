@@ -61,6 +61,7 @@ const PlaylistDescriptionEdit = styled.textarea`
 `;
 
 const SelectAllButton = styled.button`
+  height: fit-content;
   &:disabled {
     cursor: not-allowed;
   }
@@ -86,6 +87,7 @@ const Card = styled.label`
   border-radius: 15px;
   &:hover {
     background-color: #e3e3e3;
+    transform: scale(0.99);
   }
   @media (min-width: 720px) {
     min-width: 40%;

@@ -28,11 +28,6 @@ const CloseButton = styled.button`
 `;
 
 const ContainerForModalOverall = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const VideoModalContainer = styled.div`
   align-self: center;
   z-index: 10;
   border-radius: 10px;
@@ -41,7 +36,7 @@ const VideoModalContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  overflow: hidden;
+  overflow-y: scroll;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -52,55 +47,74 @@ const VideoModalContainer = styled.div`
     top: 5%;
     left: 5%;
   }
+`;
 
-  .modal-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    text-align: center;
-    background-color: red;
-    color: white;
+const ModalHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  max-width: 100%;
+  padding: 1rem;
+  text-align: center;
+  background-color: red;
+  color: white;
+  margin: 0;
 
-    h3 {
-      max-width: 80%;
-    }
-  }
-
-  .modal-body {
-    width: 100%;
-    overflow-y: scroll;
-    scrollbar-width: thin;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
+  h3 {
+    max-width: 80%;
   }
 `;
 
-const VideoModalBackdrop = styled.div`
+const ModalBody = styled.div`
+  max-width: 100%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 0;
+`;
+
+const ModalBackdrop = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
 `;
 
 const PlaylistItem = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   cursor: pointer;
-  margin-right: 15px;
   border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+  padding: 1rem;
+  width: fit-content;
+  margin: 1rem;
 
   img {
     border-radius: 10px;
-    height: 100%;
-    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    margin: 1rem;
+  }
+  a {
+    color: black;
+    text-decoration: none;
+    :hover {
+      text-decoration: underline;
+    }
   }
   :hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 `;
 
@@ -166,12 +180,10 @@ export default function MoveCopyPlaylistModal({
   if (!playlists) {
     return (
       <>
-        <VideoModalBackdrop />
+        <ModalBackdrop />
         <ContainerForModalOverall>
-          <VideoModalContainer>
-            <h3>No playlists found</h3>
-            <CloseButton onClick={hideModal}>X</CloseButton>
-          </VideoModalContainer>
+          <h3>No playlists found</h3>
+          <CloseButton onClick={hideModal}>X</CloseButton>
         </ContainerForModalOverall>
       </>
     );
@@ -182,47 +194,53 @@ export default function MoveCopyPlaylistModal({
   }
   return (
     <>
-      <VideoModalBackdrop />
+      <ModalBackdrop />
       <ContainerForModalOverall>
-        <VideoModalContainer>
-          <div className="modal-header">
-            <h3>{action} To...</h3>
-            <CloseButton>
-              <FontAwesomeIcon icon={faXmark} onClick={hideModal} />
-            </CloseButton>
-          </div>
-          <div className="modal-body">
-            {!accessToken ? (
-              <Login />
-            ) : (
-              playlists.playlistsOverview && (
-                <div className="body playlists">
-                  {playlists.playlistsOverview.items.map((playlist) =>
-                    playlist.id !== srcPlaylistID ? (
-                      <PlaylistItem
-                        key={playlist.id}
-                        onClick={() => {
-                          handlePlaylistClick(
-                            action,
-                            playlist.id,
-                            srcPlaylistID,
-                            items,
-                            accessToken,
-                            dispatch,
-                            setSelectedPlaylistItems
-                          );
-                          hideModal();
-                        }}
+        <ModalHeader>
+          <h3>{action} To...</h3>
+          <CloseButton>
+            <FontAwesomeIcon icon={faXmark} onClick={hideModal} />
+          </CloseButton>
+        </ModalHeader>
+        <ModalBody>
+          {!accessToken ? (
+            <Login />
+          ) : (
+            playlists.playlistsOverview && (
+              <div>
+                {playlists.playlistsOverview?.items.map((playlist) =>
+                  playlist.id !== srcPlaylistID ? (
+                    <PlaylistItem
+                      key={playlist.id}
+                      onClick={() => {
+                        handlePlaylistClick(
+                          action,
+                          playlist.id,
+                          srcPlaylistID,
+                          items,
+                          accessToken,
+                          dispatch,
+                          setSelectedPlaylistItems
+                        );
+                        hideModal();
+                      }}
+                    >
+                      <img src={playlist.snippet.thumbnails.default.url} />
+                      <a
+                        href={`https://www.youtube.com/playlist?list=${playlist.id}`}
+                        target="_blank"
+                        rel="nopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
                       >
-                        <img src={playlist.snippet.thumbnails.default.url} />
-                      </PlaylistItem>
-                    ) : null
-                  )}
-                </div>
-              )
-            )}
-          </div>
-        </VideoModalContainer>
+                        {playlist.snippet.title}
+                      </a>
+                    </PlaylistItem>
+                  ) : null
+                )}
+              </div>
+            )
+          )}
+        </ModalBody>
       </ContainerForModalOverall>
     </>
   );
