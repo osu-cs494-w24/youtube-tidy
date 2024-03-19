@@ -83,7 +83,7 @@ const removeVideoFromPlaylistRequest = async (
 
 
 /*
- *  Sends a put request to change the title of a playlist; on success, returns a YT Playlists object
+ *  Sends a put request to change the title or description of a playlist; on success, returns a YT Playlists object
  *  Reference: https://developers.google.com/youtube/v3/docs/playlists/update
  *
  * @param accessToken - (required) the user's access token

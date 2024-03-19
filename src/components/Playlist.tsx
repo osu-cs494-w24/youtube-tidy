@@ -2,12 +2,8 @@ import styled from "@emotion/styled";
 import { MutableRefObject, useRef } from "react";
 import { PlaylistItemObj, SinglePlaylistObj } from "../assets/interfaces";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import {
-  editNameDescriptionPlaylist,
-} from "../redux/playlistsSlice";
-import {
-  editNameDescriptionPlaylistRequest,
-} from "../requests/PlaylistActions";
+import { editNameDescriptionPlaylist } from "../redux/playlistsSlice";
+import { editNameDescriptionPlaylistRequest } from "../requests/PlaylistActions";
 
 const PlaylistRenamable = styled.input`
   border: 0px;
@@ -27,8 +23,7 @@ const PlaylistDescriptionEdit = styled.textarea`
     border-style: solid;
     border-width: 1px;
   }
-`
-
+`;
 
 export default function Playlist({
   playlist,
@@ -46,17 +41,17 @@ export default function Playlist({
   const editDescriptionRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
   const handleEditNameTitlePlaylist = async () => {
-    const playlistID = playlist.id
+    const playlistID = playlist.id;
     if (user.info) {
       const updatedPlaylist = await editNameDescriptionPlaylistRequest(
         user.info.access_token,
         playlistID,
         editNameRef.current.value,
-        editDescriptionRef.current.value,
+        editDescriptionRef.current.value
       );
       dispatch(editNameDescriptionPlaylist({ playlistID, updatedPlaylist }));
     }
-  }
+  };
 
   const handleSelectPlaylistItem = (
     item: PlaylistItemObj,
@@ -64,21 +59,33 @@ export default function Playlist({
   ) => {
     if (e.target.checked) {
       setSelectedPlaylistItems([...selectedPlaylistItems, item]);
-    }
-    else {
-      setSelectedPlaylistItems(selectedPlaylistItems.filter(
-        (playlistItem) => playlistItem !== item
-      ))
+    } else {
+      setSelectedPlaylistItems(
+        selectedPlaylistItems.filter((playlistItem) => playlistItem !== item)
+      );
     }
   };
 
   return (
     <div>
-      <PlaylistRenamable type="text" defaultValue={playlist.name} ref={editNameRef} onBlur={handleEditNameTitlePlaylist} />
-      <PlaylistDescriptionEdit defaultValue={playlist.description} ref={editDescriptionRef} onBlur={handleEditNameTitlePlaylist} />
+      <PlaylistRenamable
+        type="text"
+        defaultValue={playlist.name}
+        ref={editNameRef}
+        onBlur={handleEditNameTitlePlaylist}
+      />
+      <PlaylistDescriptionEdit
+        defaultValue={playlist.description}
+        ref={editDescriptionRef}
+        onBlur={handleEditNameTitlePlaylist}
+      />
       {playlist.items.map((item, index) => (
         <div key={item.id}>
-          <input type="checkbox" id={item.id} onChange={(e) => handleSelectPlaylistItem(item, e)} />
+          <input
+            type="checkbox"
+            id={item.id}
+            onChange={(e) => handleSelectPlaylistItem(item, e)}
+          />
           <h3>
             {index + 1}: {item.snippet.title}
           </h3>

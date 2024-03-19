@@ -9,7 +9,7 @@ function PlaylistPage() {
   const params = useParams()
   const id = params.id
   const playlists = useAppSelector((state) => state.playlists.playlists);
-  const playlist = playlists.find(p => p.id == id)  // TODO: Make an separate selector?
+  const playlist = playlists.find(p => p.id == id)  // TODO: Make a separate selector?
 
   const [ selectedPlaylistItems, setSelectedPlaylistItems ] = useState<PlaylistItemObj[]>([]);
 
