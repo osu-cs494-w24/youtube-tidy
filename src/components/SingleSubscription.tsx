@@ -66,6 +66,9 @@ const SubscriptionItem = styled.div<SubScriptionItemProps>`
   display: flex;
   /* background-color: ${(props) =>
     props.isSelected ? "lightpink" : "white"}; */
+  :hover {
+    transform: scale(0.99);
+  }
 `;
 
 export default function SingleSubscription({
