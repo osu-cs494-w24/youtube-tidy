@@ -1,6 +1,4 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
-import FoldingCube from "../components/FoldingCube";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addVideoToPlaylist } from "../redux/playlistsSlice";
 import { addVideoToPlaylistRequest } from "../requests/PlaylistActions";
@@ -119,7 +117,7 @@ export async function bulkAddToPlaylist(
       const insertVideo = await addVideoToPlaylistRequest(
         accessToken,
         destPlaylistID,
-        item.id
+        item.contentDetails.videoId
       );
       dispatch(
         addVideoToPlaylist({

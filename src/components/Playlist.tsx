@@ -7,6 +7,7 @@ import { editNameDescriptionPlaylistRequest } from "../requests/PlaylistActions"
 
 const ControlEditable = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   margin-bottom: 2rem;
   @media (min-width: 587px) {
