@@ -203,8 +203,11 @@ function Homepage() {
                 </SideBarUL>
 
                 {playlists.map((object) => (
-                  <SidebarNavLink to={`/playlists/${object.id}`}>
-                    <SidebarLi key={object.id}>{object.name}</SidebarLi>
+                  <SidebarNavLink
+                    to={`/playlists/${object.id}`}
+                    key={object.id}
+                  >
+                    <SidebarLi>{object.name}</SidebarLi>
                   </SidebarNavLink>
                 ))}
                 <SideBarUL>
@@ -213,10 +216,9 @@ function Homepage() {
                 {subscriptionList.subscriptionList.map((object) => (
                   <SidebarLink
                     href={`https://www.youtube.com/channel/${object.snippet.channelId}`}
+                    key={object.id}
                   >
-                    <SidebarLi key={object.id}>
-                      {object.snippet.title}
-                    </SidebarLi>
+                    <SidebarLi>{object.snippet.title}</SidebarLi>
                   </SidebarLink>
                 ))}
               </Sidebar>

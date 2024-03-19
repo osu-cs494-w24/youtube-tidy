@@ -148,6 +148,10 @@ const Cards = styled.div`
   border-radius: 15px;
   width: 310px;
   padding: 5px;
+  :hover {
+    background-color: #e3e3e3;
+    transform: scale(0.99);
+  }
 
   @media (min-width: 720px) {
     flex-direction: column;

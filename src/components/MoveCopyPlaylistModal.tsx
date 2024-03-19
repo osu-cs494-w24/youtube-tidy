@@ -86,6 +86,11 @@ const ModalBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
 `;
 
+const ContainerModalItems = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const PlaylistItem = styled.div`
   position: relative;
   display: flex;
@@ -99,6 +104,11 @@ const PlaylistItem = styled.div`
   padding: 1rem;
   width: fit-content;
   margin: 1rem;
+  flex-grow: 1;
+  :hover {
+    background-color: #e3e3e3;
+    transform: scale(0.99);
+  }
 
   img {
     border-radius: 10px;
@@ -210,31 +220,33 @@ export default function MoveCopyPlaylistModal({
               <div>
                 {playlists.playlistsOverview?.items.map((playlist) =>
                   playlist.id !== srcPlaylistID ? (
-                    <PlaylistItem
-                      key={playlist.id}
-                      onClick={() => {
-                        handlePlaylistClick(
-                          action,
-                          playlist.id,
-                          srcPlaylistID,
-                          items,
-                          accessToken,
-                          dispatch,
-                          setSelectedPlaylistItems
-                        );
-                        hideModal();
-                      }}
-                    >
-                      <img src={playlist.snippet.thumbnails.default.url} />
-                      <a
-                        href={`https://www.youtube.com/playlist?list=${playlist.id}`}
-                        target="_blank"
-                        rel="nopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
+                    <ContainerModalItems>
+                      <PlaylistItem
+                        key={playlist.id}
+                        onClick={() => {
+                          handlePlaylistClick(
+                            action,
+                            playlist.id,
+                            srcPlaylistID,
+                            items,
+                            accessToken,
+                            dispatch,
+                            setSelectedPlaylistItems
+                          );
+                          hideModal();
+                        }}
                       >
-                        {playlist.snippet.title}
-                      </a>
-                    </PlaylistItem>
+                        <img src={playlist.snippet.thumbnails.default.url} />
+                        <a
+                          href={`https://www.youtube.com/playlist?list=${playlist.id}`}
+                          target="_blank"
+                          rel="nopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {playlist.snippet.title}
+                        </a>
+                      </PlaylistItem>
+                    </ContainerModalItems>
                   ) : null
                 )}
               </div>
