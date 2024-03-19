@@ -5,6 +5,7 @@ import { removeVideoFromPlaylist } from "../redux/playlistsSlice";
 import { removeVideoFromPlaylistRequest } from "../requests/PlaylistActions";
 import MoveCopyPlaylistModal from "./MoveCopyPlaylistModal";
 import { ThunkDispatch } from "@reduxjs/toolkit";
+import styled from "@emotion/styled";
 
 const MOVE = "Move";
 const COPY = "Copy";
@@ -61,38 +62,38 @@ export default function PlaylistActionsBar({
   const [currentAction, setCurrentAction] = useState(REMOVE);
   return (
     <>
-   <ContainerButtons>
-      <Bottons
-        type="submit"
-        onClick={() => {
-          setCurrentAction(MOVE);
-          setShowDestModal(true);
-        }}
-        disabled={!accessToken}
-      >
-        Move to...
-      </Bottons>
-      <Bottons
-        type="submit"
-        onClick={() => {
-          setCurrentAction(COPY);
-          setShowDestModal(true);
-        }}
-        disabled={!accessToken}
-      >
-        Copy to...
-      </Bottons>
-      <Bottons
-        type="submit"
-        onClick={() => {
-          setCurrentAction(REMOVE);
-          bulkRemoveFromPlaylist(accessToken, items, playlist.id, dispatch);
-        }}
-        disabled={!accessToken}
-      >
-        Remove
-      </Bottons>
-  </ContainerButtons>
+      <ContainerButtons>
+        <Bottons
+          type="submit"
+          onClick={() => {
+            setCurrentAction(MOVE);
+            setShowDestModal(true);
+          }}
+          disabled={!accessToken}
+        >
+          Move to...
+        </Bottons>
+        <Bottons
+          type="submit"
+          onClick={() => {
+            setCurrentAction(COPY);
+            setShowDestModal(true);
+          }}
+          disabled={!accessToken}
+        >
+          Copy to...
+        </Bottons>
+        <Bottons
+          type="submit"
+          onClick={() => {
+            setCurrentAction(REMOVE);
+            bulkRemoveFromPlaylist(accessToken, items, playlist.id, dispatch);
+          }}
+          disabled={!accessToken}
+        >
+          Remove
+        </Bottons>
+      </ContainerButtons>
       {showDestModal ? (
         <MoveCopyPlaylistModal
           items={items}
