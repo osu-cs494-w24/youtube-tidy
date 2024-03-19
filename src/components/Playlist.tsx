@@ -60,6 +60,8 @@ const PlaylistDescriptionEdit = styled.textarea`
   }
 `;
 
+const SelectAllButton = styled.button``;
+
 const ContainerCards = styled.div`
   display: flex;
   flex-direction: column;
@@ -146,6 +148,14 @@ export default function Playlist({
     }
   };
 
+  const handleSelectAll = () => {
+    if (selectedPlaylistItems.length !== playlist.items.length) {
+      setSelectedPlaylistItems(playlist.items);
+    } else {
+      setSelectedPlaylistItems([]);
+    }
+  };
+
   const BASE_URL = "https://www.youtube.com/watch?v=";
 
   return (
@@ -165,7 +175,11 @@ export default function Playlist({
             placeholder="Edit Description..."
           />
         </ControlEditable>
-        <BigCheckbox type="checkbox" />
+        <SelectAllButton onClick={handleSelectAll}>
+          {selectedPlaylistItems.length !== playlist.items.length
+            ? "Select all"
+            : "Unselect all"}
+        </SelectAllButton>
       </PlaylistHeader>
       <ContainerCards>
         {playlist.items.map((item, index) => (
@@ -174,6 +188,7 @@ export default function Playlist({
               type="checkbox"
               id={item.id}
               onChange={(e) => handleSelectPlaylistItem(item, e)}
+              checked={selectedPlaylistItems.includes(item)}
             />
             <VideoInfo>
               <h3>

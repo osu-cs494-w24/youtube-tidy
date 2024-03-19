@@ -2,7 +2,6 @@ import { useAppSelector } from "../redux/hooks";
 import { useState, useEffect } from "react";
 import AllPlaylists from "../components/AllPlaylists";
 import Subscriptions from "./Subscriptions";
-import SinglePlaylist from "../components/SinglePlaylist";
 import styled from "@emotion/styled";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
