@@ -25,7 +25,6 @@ const dummyData = {
 };
 
 // playlist container styling
-
 const PlaylistToolTip = styled.span`
   display: flex;
   flex-direction: row;
@@ -265,8 +264,6 @@ function Search() {
     }
   }, [query, searchStore]);
 
-  // Just a reminder - When writing functionality, please try not to fill the API quota limit by endlessly testing an API endpoint fetch - otherwise we can't use it, or have to make another Google Cloud project with new API key. If you're worried about reaching the quota limit, export the response data from the endpoint, import it, and utilize it as dummy data (to prevent further API calls that may reach its limit for the day).
-
   const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
 
   const { isLoading, data } = useQuery<YoutubeSearchResponse>({
@@ -279,7 +276,7 @@ function Search() {
         return {};
       }
 
-      // to use dummyData, set environement variable to true
+      // to use dummyData, set environment variable to true
       if (import.meta.env.VITE_USE_DUMMY_DATA === "true") {
         setQueryResults(dummyData);
         return dummyData;

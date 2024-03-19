@@ -5,6 +5,9 @@ import Subscriptions from "./Subscriptions";
 import SinglePlaylist from "../components/SinglePlaylist";
 import styled from "@emotion/styled";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+
 const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
 
 function Homepage() {
@@ -14,6 +17,13 @@ function Homepage() {
   const totalPlaylistCount = playlists.length;
   const subscriptionList = useAppSelector((state) => state.subscriptions);
   const [trendingObj, setTrendingObj] = useState([]);
+
+  const maxCharsForTitle = 40;
+
+  const ThumbsUp = styled.div`
+    color: red;
+    font-size: 1.4rem;
+  `;
 
   useEffect(() => {
     const trendingVideo = async () => {
@@ -48,6 +58,9 @@ function Homepage() {
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    h4 {
+      max-width: 65%;
+    }
     @media (min-width: 1080px) {
       padding-right: 1rem;
     }
@@ -66,15 +79,6 @@ function Homepage() {
     display: flex;
     flex-direction: column;
   `;
-
-  // const ContainSubsHomepage = styled.div`
-  //   display: flex;
-  //   flex-direction: row;
-  //   overflow-x: auto; /* Enables horizontal scrolling */
-  //   -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
-  //   scrollbar-width: thin; /* Optional: makes scrollbar less obtrusive */
-  //   scrollbar-color: #888 #e0e0e0; /* Optional: colors for the scrollbar */
-  // `;
 
   useEffect(() => {
     const screen = window.matchMedia("(min-width: 720px)");
@@ -150,12 +154,15 @@ function Homepage() {
                   <ControlIFrame
                     src={`https://www.youtube.com/embed/${video.id}`}
                   />
-                  <TrendingMedia>{video.snippet.title}</TrendingMedia>
                   <TrendingMedia>
-                    Likes: {video.statistics.likeCount}
+                    {video.snippet.title.slice(0, maxCharsForTitle) + "..."}
                   </TrendingMedia>
-                  {/* {console.log("Check me out...: ", video)}
-                  {console.log("Stats: ", video.statistics.likeCount)} */}
+                  <TrendingMedia>
+                    <ThumbsUp>
+                      <FontAwesomeIcon icon={faThumbsUp} />:{" "}
+                      {video.statistics.likeCount}
+                    </ThumbsUp>
+                  </TrendingMedia>
                 </CardTrending>
               ))}
           </ContainerTrending>
@@ -210,15 +217,10 @@ function Homepage() {
               ) : (
                 <AllPlaylists />
               )}
-              {/* {playlistToggle && !subscriptionsToggle && <AllPlaylists />} */}
-
               {window.innerWidth < 720
                 ? subscriptionsToggle && !playlistToggle && <Subscriptions />
-                : // <Subscriptions />
-                  null}
-              {/* // null} */}
+                : null}
             </ContainerShowAll>
-            {/* {subscriptionsToggle && !playlistToggle && <Subscriptions />} */}
           </ContainerDesktop>
         </>
       )}
