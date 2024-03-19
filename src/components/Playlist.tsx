@@ -6,11 +6,18 @@ import { editNameDescriptionPlaylist } from "../redux/playlistsSlice";
 import { editNameDescriptionPlaylistRequest } from "../requests/PlaylistActions";
 import { BigCheckbox } from "./BigCheckbox";
 
+const PlaylistHeader = styled.div`
+  display: flex;
+  padding: 1rem;
+`;
+
 const ControlEditable = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   margin-bottom: 2rem;
+  margin-right: 1rem;
+  flex-grow: 1;
   @media (min-width: 587px) {
     justify-content: center;
   }
@@ -71,6 +78,9 @@ const Card = styled.label`
   padding: 1rem;
   box-shadow: 0 0 10px 0 gray;
   border-radius: 15px;
+  &:hover {
+    background-color: #e3e3e3;
+  }
   @media (min-width: 720px) {
     min-width: 40%;
     max-width: 40%;
@@ -137,20 +147,23 @@ export default function Playlist({
 
   return (
     <div>
-      <ControlEditable>
-        <PlaylistRenamable
-          type="text"
-          defaultValue={playlist.name}
-          ref={editNameRef}
-          onBlur={handleEditNameTitlePlaylist}
-        />
-        <PlaylistDescriptionEdit
-          defaultValue={playlist.description}
-          ref={editDescriptionRef}
-          onBlur={handleEditNameTitlePlaylist}
-          placeholder="Edit Description..."
-        />
-      </ControlEditable>
+      <PlaylistHeader>
+        <ControlEditable>
+          <PlaylistRenamable
+            type="text"
+            defaultValue={playlist.name}
+            ref={editNameRef}
+            onBlur={handleEditNameTitlePlaylist}
+          />
+          <PlaylistDescriptionEdit
+            defaultValue={playlist.description}
+            ref={editDescriptionRef}
+            onBlur={handleEditNameTitlePlaylist}
+            placeholder="Edit Description..."
+          />
+        </ControlEditable>
+        <BigCheckbox type="checkbox" />
+      </PlaylistHeader>
       <ContainerCards>
         {playlist.items.map((item, index) => (
           <Card key={item.id} htmlFor={item.id}>

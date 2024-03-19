@@ -13,7 +13,7 @@ const ControlInput = styled.div`
   align-self: flex-start;
 `;
 
-const Card = styled.div`
+const Card = styled.label`
   border: 1px solid #e3e3e3;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   margin-bottom: 1rem;
@@ -23,6 +23,9 @@ const Card = styled.div`
   padding-right: 1rem;
   flex-grow: 1;
   max-width: 100%;
+  &:hover {
+    background-color: #e3e3e3;
+  }
   @media (min-width: 720px) {
     min-width: 40%;
     max-width: 40%;
