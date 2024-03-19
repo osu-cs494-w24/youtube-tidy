@@ -10,6 +10,18 @@ const MOVE = "Move";
 const COPY = "Copy";
 const REMOVE = "Remove";
 
+const ContainerButtons = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Bottons = styled.button`
+  margin-bottom: 1rem;
+  :hover {
+    box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
+  }
+`;
+
 export async function bulkRemoveFromPlaylist(
   accessToken: string | undefined,
   items: PlaylistItemObj[],
@@ -49,7 +61,8 @@ export default function PlaylistActionsBar({
   const [currentAction, setCurrentAction] = useState(REMOVE);
   return (
     <>
-      <button
+   <ContainerButtons>
+      <Bottons
         type="submit"
         onClick={() => {
           setCurrentAction(MOVE);
@@ -58,8 +71,8 @@ export default function PlaylistActionsBar({
         disabled={!accessToken}
       >
         Move to...
-      </button>
-      <button
+      </Bottons>
+      <Bottons
         type="submit"
         onClick={() => {
           setCurrentAction(COPY);
@@ -68,8 +81,8 @@ export default function PlaylistActionsBar({
         disabled={!accessToken}
       >
         Copy to...
-      </button>
-      <button
+      </Bottons>
+      <Bottons
         type="submit"
         onClick={() => {
           setCurrentAction(REMOVE);
@@ -78,7 +91,8 @@ export default function PlaylistActionsBar({
         disabled={!accessToken}
       >
         Remove
-      </button>
+      </Bottons>
+  </ContainerButtons>
       {showDestModal ? (
         <MoveCopyPlaylistModal
           items={items}

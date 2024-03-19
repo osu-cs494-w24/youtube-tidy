@@ -70,11 +70,23 @@ export default function AllPlaylists() {
     flex-direction: column;
     padding-left: 1rem;
 
-    p,
+    p {
+      margin: 0px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      color: black;
+    }
     h3 {
       margin: 0px;
       margin-top: 8px;
       margin-bottom: 8px;
+      color: red;
+    }
+  `;
+
+  const Details = styled.div`
+    a {
+      text-decoration: none;
     }
   `;
 
@@ -95,28 +107,36 @@ export default function AllPlaylists() {
     <>
       <Container>
         {userPlaylists.playlistsOverview?.items.map((playlist) => (
-          <Cards key={playlist.id}>
-            {isDesktop ? (
-              <Thumbnail
-                src={playlist.snippet.thumbnails.high.url}
-                alt="thumbnail"
-              />
-            ) : (
-              <Thumbnail
-                src={playlist.snippet.thumbnails.default.url}
-                alt="thumbnail"
-              />
-            )}
+          <div key={playlist.id}>
+            <Details>
+              <NavLink to={`/playlists/${playlist.id}`}>
+                <Cards>
+                  {isDesktop ? (
+                    <Thumbnail
+                      src={playlist.snippet.thumbnails.high.url}
+                      alt="thumbnail"
+                    />
+                  ) : (
+                    <Thumbnail
+                      src={playlist.snippet.thumbnails.default.url}
+                      alt="thumbnail"
+                    />
+                  )}
 
-            <VideoInfo>
-              <h3><NavLink to={`/playlists/${playlist.id}`}>{playlist.snippet.title}</NavLink></h3>
-              <p>
-                {playlist.contentDetails.itemCount}{" "}
-                {playlist.contentDetails.itemCount === 1 ? "video" : "videos"}
-              </p>
-              <p>{playlist.snippet.description}</p>
-            </VideoInfo>
-          </Cards>
+                  <VideoInfo>
+                    <h3>{playlist.snippet.title}</h3>
+                    <p>
+                      {playlist.contentDetails.itemCount}{" "}
+                      {playlist.contentDetails.itemCount === 1
+                        ? "video"
+                        : "videos"}
+                    </p>
+                    {/* <p>{playlist.snippet.description}</p> */}
+                  </VideoInfo>
+                </Cards>
+              </NavLink>
+            </Details>
+          </div>
           // </div>
         ))}
       </Container>

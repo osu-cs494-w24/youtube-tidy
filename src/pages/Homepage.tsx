@@ -1,18 +1,84 @@
 import { useAppSelector } from "../redux/hooks";
 import { useState, useEffect } from "react";
 import AllPlaylists from "../components/AllPlaylists";
+import Subscriptions from "./Subscriptions";
 import SinglePlaylist from "../components/SinglePlaylist";
 import styled from "@emotion/styled";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+
+const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
 
 function Homepage() {
   const [isDesktop, setIsDesktop] = useState(false);
   const user = useAppSelector((state) => state.user.info);
   const playlists = useAppSelector((state) => state.playlists.playlists);
   const totalPlaylistCount = playlists.length;
+  const subscriptionList = useAppSelector((state) => state.subscriptions);
+  const [trendingObj, setTrendingObj] = useState([]);
+
+  const maxCharsForTitle = 40;
+
+  const ThumbsUp = styled.div`
+    color: red;
+    font-size: 1.4rem;
+  `;
+
+  useEffect(() => {
+    const trendingVideo = async () => {
+      const trendingRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?key=${YoutubeAPI}&part=contentDetails,statistics,snippet&chart=mostPopular&regionCode=US&maxResults=5`
+      );
+      const trendingData = await trendingRes.json();
+      setTrendingObj(trendingData.items.map((object) => object));
+    };
+    trendingVideo();
+  }, []);
+
+  const ContainerTrending = styled.div`
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px 0 gray;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+    justify-content: center;
+    overflow-x: scroll;
+    @media (min-width: 1080px) {
+      flex-direction: row;
+    }
+  `;
+
+  const TrendingMedia = styled.h4`
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  `;
+
+  const CardTrending = styled.div`
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    h4 {
+      max-width: 65%;
+    }
+    @media (min-width: 1080px) {
+      padding-right: 1rem;
+    }
+  `;
+
+  const ControlIFrame = styled.iframe`
+    display: flex;
+    max-width: 100%;
+  `;
 
   const totalVids = playlists
     .map((object) => object.pageInfo.totalResults)
     .reduce((acc, curr) => acc + curr, 0);
+
+  const ContainerShowAll = styled.div`
+    display: flex;
+    flex-direction: column;
+  `;
 
   useEffect(() => {
     const screen = window.matchMedia("(min-width: 720px)");
@@ -53,8 +119,10 @@ function Homepage() {
   `;
 
   const Sidebar = styled.div`
-    border: 2px solid black;
+    box-shadow: 0 0 10px 0 gray;
+    border-radius: 15px;
     padding: 2rem;
+    margin-bottom: 1rem;
   `;
 
   const SideBarUL = styled.ul`
@@ -70,13 +138,34 @@ function Homepage() {
 
   const SidebarLi = styled.li`
     list-style-type: none;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
   `;
 
   return (
     <>
-      {/* <h1>Homepage</h1> */}
       {user?.access_token && (
         <>
+          <h1>Homepage</h1>
+          <ContainerTrending>
+            {trendingObj &&
+              trendingObj.map((video) => (
+                <CardTrending key={video.id}>
+                  <ControlIFrame
+                    src={`https://www.youtube.com/embed/${video.id}`}
+                  />
+                  <TrendingMedia>
+                    {video.snippet.title.slice(0, maxCharsForTitle) + "..."}
+                  </TrendingMedia>
+                  <TrendingMedia>
+                    <ThumbsUp>
+                      <FontAwesomeIcon icon={faThumbsUp} />:{" "}
+                      {video.statistics.likeCount}
+                    </ThumbsUp>
+                  </TrendingMedia>
+                </CardTrending>
+              ))}
+          </ContainerTrending>
           <ContainerDesktop>
             {isDesktop ? (
               <Sidebar>
@@ -84,20 +173,20 @@ function Homepage() {
                   <SideBarSpan>Stats</SideBarSpan>
                   <SidebarLi>{totalPlaylistCount} playlists</SidebarLi>
                   <SidebarLi>{totalVids} videos</SidebarLi>
-                  <SidebarLi>redux data</SidebarLi>
                 </SideBarUL>
                 <SideBarUL>
                   <SideBarSpan>Playlists</SideBarSpan>
                 </SideBarUL>
-                <SidebarLi>redux data</SidebarLi>
-                <SidebarLi>redux data</SidebarLi>
-                <SidebarLi>redux data</SidebarLi>
+
+                {playlists.map((object) => (
+                  <SidebarLi>{object.name}</SidebarLi>
+                ))}
                 <SideBarUL>
                   <SideBarSpan>Subscriptions</SideBarSpan>
                 </SideBarUL>
-                <SidebarLi>redux data</SidebarLi>
-                <SidebarLi>redux data</SidebarLi>
-                <SidebarLi>redux data</SidebarLi>
+                {subscriptionList.subscriptionList.map((object) => (
+                  <SidebarLi>{object.snippet.title}</SidebarLi>
+                ))}
               </Sidebar>
             ) : null}
             {window.innerWidth < 720 ? (
@@ -122,10 +211,16 @@ function Homepage() {
               </ContainerButtons>
             ) : null}
 
-            {playlistToggle && !subscriptionsToggle && <AllPlaylists />}
-            {subscriptionsToggle && !playlistToggle && (
-              <p>Place `AllSubscriptions` component here</p>
-            )}
+            <ContainerShowAll>
+              {window.innerWidth < 720 ? (
+                playlists && !subscriptionsToggle && <AllPlaylists />
+              ) : (
+                <AllPlaylists />
+              )}
+              {window.innerWidth < 720
+                ? subscriptionsToggle && !playlistToggle && <Subscriptions />
+                : null}
+            </ContainerShowAll>
           </ContainerDesktop>
         </>
       )}

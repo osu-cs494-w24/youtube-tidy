@@ -41,27 +41,23 @@ const CloseButton = styled.button`
   }
 `;
 
-const ContainerForModalOverall = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const VideoModalContainer = styled.div`
   align-self: center;
   z-index: 10;
   border-radius: 10px;
   background-color: white;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 5%;
+  left: 10%;
   overflow: hidden;
   max-height: 90vh;
+  max-width: 80vw;
   display: flex;
   flex-direction: column;
 
   @media (max-width: 700px) {
     transform: none;
+    max-width: 90vw;
     width: 90vw;
     top: 5%;
     left: 5%;
@@ -137,8 +133,8 @@ const PlaylistItem = styled.div`
   img {
     border-radius: 10px;
     height: 100%;
-    width: 100%;
   }
+
   :hover {
     transform: scale(1.1);
   }
@@ -190,7 +186,8 @@ const CollapsibleContainer = styled.div`
     height: fit-content;
     padding: 10px;
     margin: 10px;
-    overflow-x: scroll; /* add horizontal scrolling */
+    overflow-y: hidden;
+    overflow-x: auto; /* add horizontal scrolling */
     scrollbar-width: thin;
   }
 `;
@@ -280,11 +277,9 @@ export default function VideoModal({
     return (
       <>
         <VideoModalBackdrop />
-        <ContainerForModalOverall>
-          <VideoModalContainer>
-            <FoldingCube />
-          </VideoModalContainer>
-        </ContainerForModalOverall>
+        <VideoModalContainer>
+          <FoldingCube />
+        </VideoModalContainer>
       </>
     );
   }
@@ -293,12 +288,14 @@ export default function VideoModal({
     return (
       <>
         <VideoModalBackdrop />
-        <ContainerForModalOverall>
           <VideoModalContainer>
-            <h3>Failed to load video</h3>
-            <CloseButton onClick={onClose}>X</CloseButton>
+            <div className="modal-header">
+              <h3>Failed to load video</h3>
+              <CloseButton>
+                <FontAwesomeIcon icon={faXmark} onClick={onClose} />
+              </CloseButton>
+            </div>
           </VideoModalContainer>
-        </ContainerForModalOverall>
       </>
     );
   }
@@ -333,119 +330,117 @@ export default function VideoModal({
   return (
     <>
       <VideoModalBackdrop />
-      <ContainerForModalOverall>
-        <VideoModalContainer>
-          <div className="modal-header">
-            <h3>{video.snippet.title}</h3>
-            <CloseButton>
-              <FontAwesomeIcon icon={faXmark} onClick={onClose} />
-            </CloseButton>
-          </div>
-          <div className="modal-body">
-            <VideoContainer>
-              <VideoFrame
-                src={`https://www.youtube.com/embed/${videoID}`}
-                title="YouTube video player"
-              />
-            </VideoContainer>
+      <VideoModalContainer>
+        <div className="modal-header">
+          <h3>{video.snippet.title}</h3>
+          <CloseButton>
+            <FontAwesomeIcon icon={faXmark} onClick={onClose} />
+          </CloseButton>
+        </div>
+        <div className="modal-body">
+          <VideoContainer>
+            <VideoFrame
+              src={`https://www.youtube.com/embed/${videoID}`}
+              title="YouTube video player"
+            />
+          </VideoContainer>
 
-            {/* Playlists only show up if user is logged in */}
-            <CollapsibleContainer id="playlists">
-              <div
-                className="header"
-                onClick={() => setShowPlaylists(!showPlaylists)}
-              >
-                <h4>Playlists</h4>
-                {!user.info ? (
-                  <Login />
-                ) : showPlaylists ? (
-                  <FontAwesomeIcon icon={faChevronUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faChevronDown} />
-                )}
-              </div>
-              {playlists?.playlistsOverview && showPlaylists && (
-                <div className="body playlists">
-                  {playlists.playlistsOverview.items.map((playlist) => (
-                    <PlaylistItem
-                      key={playlist.id}
-                      onClick={() => handlePlaylistClick(playlist.id)}
-                    >
-                      <img src={playlist.snippet.thumbnails.default.url} />
-                      <PlaylistToolTip>
-                        {videoInPlaylist(playlist.id) ? (
-                          <FontAwesomeIcon icon={faMinus} />
-                        ) : (
-                          <FontAwesomeIcon icon={faPlus} />
-                        )}
-                        <p>{playlist.snippet.title}</p>
-                      </PlaylistToolTip>
-                    </PlaylistItem>
-                  ))}
-                </div>
+          {/* Playlists only show up if user is logged in */}
+          <CollapsibleContainer id="playlists">
+            <div
+              className="header"
+              onClick={() => setShowPlaylists(!showPlaylists)}
+            >
+              <h4>Playlists</h4>
+              {!user.info ? (
+                <Login />
+              ) : showPlaylists ? (
+                <FontAwesomeIcon icon={faChevronUp} />
+              ) : (
+                <FontAwesomeIcon icon={faChevronDown} />
               )}
-            </CollapsibleContainer>
-
-            {/* Description and Comments are collapsible, only one can be uncollapsed at a time */}
-            <CollapsibleContainer id="description">
-              <div
-                className="header"
-                onClick={() => {
-                  setShowDescription(!showDescription);
-                  setShowComments(false);
-                }}
-              >
-                <h4>Description</h4>
-                {showDescription ? (
-                  <FontAwesomeIcon icon={faChevronUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faChevronDown} />
-                )}
+            </div>
+            {playlists?.playlistsOverview && showPlaylists && (
+              <div className="body playlists">
+                {playlists.playlistsOverview.items.map((playlist) => (
+                  <PlaylistItem
+                    key={playlist.id}
+                    onClick={() => handlePlaylistClick(playlist.id)}
+                  >
+                    <img src={playlist.snippet.thumbnails.default.url} />
+                    <PlaylistToolTip>
+                      {videoInPlaylist(playlist.id) ? (
+                        <FontAwesomeIcon icon={faMinus} />
+                      ) : (
+                        <FontAwesomeIcon icon={faPlus} />
+                      )}
+                      <p>{playlist.snippet.title}</p>
+                    </PlaylistToolTip>
+                  </PlaylistItem>
+                ))}
               </div>
-              {showDescription && (
-                <div className="body">{video.snippet.description}</div>
+            )}
+          </CollapsibleContainer>
+
+          {/* Description and Comments are collapsible, only one can be uncollapsed at a time */}
+          <CollapsibleContainer id="description">
+            <div
+              className="header"
+              onClick={() => {
+                setShowDescription(!showDescription);
+                setShowComments(false);
+              }}
+            >
+              <h4>Description</h4>
+              {showDescription ? (
+                <FontAwesomeIcon icon={faChevronUp} />
+              ) : (
+                <FontAwesomeIcon icon={faChevronDown} />
               )}
-            </CollapsibleContainer>
+            </div>
+            {showDescription && (
+              <div className="body">{video.snippet.description}</div>
+            )}
+          </CollapsibleContainer>
 
-            <CollapsibleContainer id="comments">
-              <div
-                className="header"
-                onClick={() => {
-                  setShowComments(!showComments);
-                  setShowDescription(false);
-                }}
-              >
-                <h4>Comments Preview</h4>
-                {showComments ? (
-                  <FontAwesomeIcon icon={faChevronUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faChevronDown} />
-                )}
-              </div>
-              {showComments && (
-                <div className="body comments">
-                  {video.comments.map((comment: Comment) => (
-                    <SingleComment key={comment.id}>
-                      <div className="comment-header">
-                        <div className="user-info">
-                          <img src={comment.snippet.authorProfileImageUrl} />
-                          <p>{comment.snippet.authorDisplayName}</p>
-                        </div>
-                        <p>
-                          {new Date(
-                            comment.snippet.publishedAt
-                          ).toLocaleDateString()}
-                        </p>
+          <CollapsibleContainer id="comments">
+            <div
+              className="header"
+              onClick={() => {
+                setShowComments(!showComments);
+                setShowDescription(false);
+              }}
+            >
+              <h4>Comments Preview</h4>
+              {showComments ? (
+                <FontAwesomeIcon icon={faChevronUp} />
+              ) : (
+                <FontAwesomeIcon icon={faChevronDown} />
+              )}
+            </div>
+            {showComments && (
+              <div className="body comments">
+                {video.comments.map((comment: Comment) => (
+                  <SingleComment key={comment.id}>
+                    <div className="comment-header">
+                      <div className="user-info">
+                        <img src={comment.snippet.authorProfileImageUrl} />
+                        <p>{comment.snippet.authorDisplayName}</p>
                       </div>
-                      <p>{comment.snippet.textDisplay}</p>
-                    </SingleComment>
-                  ))}
-                </div>
-              )}
-            </CollapsibleContainer>
-          </div>
-        </VideoModalContainer>
-      </ContainerForModalOverall>
+                      <p>
+                        {new Date(
+                          comment.snippet.publishedAt
+                        ).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <p>{comment.snippet.textDisplay}</p>
+                  </SingleComment>
+                ))}
+              </div>
+            )}
+          </CollapsibleContainer>
+        </div>
+      </VideoModalContainer>
     </>
   );
 }
