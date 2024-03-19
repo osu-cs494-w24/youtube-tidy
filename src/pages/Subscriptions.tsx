@@ -47,6 +47,7 @@ function Subscriptions() {
       const updatedSelectedSubs = selectedSubscriptions.filter(
         (subscription) => subscription !== subscriptionId
       );
+      setAllSelected(false);
       setSelectedSubscriptions(updatedSelectedSubs);
     }
     setUnsubscribedClicked(false);
