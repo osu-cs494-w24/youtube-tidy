@@ -41,7 +41,8 @@ const PlaylistDescriptionEdit = styled.textarea`
   border: 0px;
   color: darkslategray;
   &:hover {
-    border-color: black;
+    border-color: darkgray;
+    border-width: 1px;
     border-style: solid;
   }
 
@@ -62,6 +63,7 @@ const ContainerCards = styled.div`
 `;
 
 const Card = styled.label`
+  display: flex;
   border: 1px solid #e3e3e3;
   margin-bottom: 1rem;
   padding: 1rem;
@@ -72,6 +74,11 @@ const Card = styled.label`
     max-width: 40%;
     margin-right: 2%;
   }
+`;
+
+const VideoInfo = styled.div`
+  flex-grow: 1;
+  margin-left: 2rem;
 `;
 
 export default function Playlist({
@@ -115,6 +122,8 @@ export default function Playlist({
     }
   };
 
+  const BASE_URL = "https://www.youtube.com/watch?v=";
+
   return (
     <div>
       <ControlEditable>
@@ -134,16 +143,16 @@ export default function Playlist({
       <ContainerCards>
         {playlist.items.map((item, index) => (
           <Card key={item.id} htmlFor={item.id}>
-            <div>
-              <BigCheckbox
-                type="checkbox"
-                id={item.id}
-                onChange={(e) => handleSelectPlaylistItem(item, e)}
-              />
+            <BigCheckbox
+              type="checkbox"
+              id={item.id}
+              onChange={(e) => handleSelectPlaylistItem(item, e)}
+            />
+            <VideoInfo>
               <h3>
                 {index + 1}:{" "}
                 <a
-                  href={`https://www.youtube.com/watch?v=${item.contentDetails.videoId}`}
+                  href={BASE_URL + item.contentDetails.videoId}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -152,7 +161,7 @@ export default function Playlist({
               </h3>
               <p>{item.snippet.description.slice(0, 100)}...</p>
               <img src={item.snippet.thumbnails.default.url} alt="thumbnail" />
-            </div>
+            </VideoInfo>
           </Card>
         ))}
       </ContainerCards>

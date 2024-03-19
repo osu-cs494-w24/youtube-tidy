@@ -18,8 +18,11 @@ const ContainerButtons = styled.div`
 
 const Bottons = styled.button`
   margin-bottom: 1rem;
-  :hover {
+  &:hover:enabled {
     box-shadow: 10px 5px 5px rgba(252, 210, 211, 0.5);
+  }
+  &:hover:disabled {
+    cursor: not-allowed;
   }
 `;
 
