@@ -36,7 +36,6 @@ const NavbarLi = styled.li`
   a.active {
     background-color: #000000;
     @media (min-width: 655px) {
-      border-radius: 7px;
     }
   }
   @media (min-width: 655px) {
