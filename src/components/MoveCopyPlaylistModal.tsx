@@ -130,26 +130,26 @@ const PlaylistItem = styled.div`
 
 export async function bulkAddToPlaylist(
   accessToken: string | undefined,
-  items: PlaylistItemObj[],
+  items: PlaylistItemObj[] | null,
   destPlaylistID: string,
   dispatch: ThunkDispatch<any, any, any>
 ) {
-  if (!accessToken) {
-  } else {
-    // Running these in parallel causes a 409 error, so calls are in sequence instead: https://stackoverflow.com/a/37576787
-    for (const item of items) {
-      const insertVideo = await addVideoToPlaylistRequest(
-        accessToken,
-        destPlaylistID,
-        item.contentDetails.videoId
-      );
-      dispatch(
-        addVideoToPlaylist({
-          playlistID: destPlaylistID,
-          playlistItem: insertVideo,
-        })
-      );
-    }
+  if (!accessToken || !items) {
+    return;
+  }
+  // Running these in parallel causes a 409 error, so calls are in sequence instead: https://stackoverflow.com/a/37576787
+  for (const item of items) {
+    const insertVideo = await addVideoToPlaylistRequest(
+      accessToken,
+      destPlaylistID,
+      item.contentDetails.videoId
+    );
+    dispatch(
+      addVideoToPlaylist({
+        playlistID: destPlaylistID,
+        playlistItem: insertVideo,
+      })
+    );
   }
 }
 
@@ -157,7 +157,7 @@ function handlePlaylistClick(
   action: string,
   destPlaylistID: string,
   srcPlaylistID: string,
-  items: PlaylistItemObj[],
+  items: PlaylistItemObj[] | null,
   accessToken: string,
   dispatch: ThunkDispatch<any, any, any>,
   setSelectedPlaylistItems: any
@@ -166,6 +166,7 @@ function handlePlaylistClick(
   if (action === "Move") {
     bulkRemoveFromPlaylist(accessToken, items, srcPlaylistID, dispatch);
     setSelectedPlaylistItems([]);
+    TODO;
   }
 }
 
@@ -177,7 +178,7 @@ export default function MoveCopyPlaylistModal({
   hideModal,
   setSelectedPlaylistItems,
 }: {
-  items: PlaylistItemObj[];
+  items: PlaylistItemObj[] | null;
   srcPlaylistID: string;
   action: string;
   accessToken: string | undefined;

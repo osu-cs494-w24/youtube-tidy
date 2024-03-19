@@ -28,43 +28,45 @@ const Bottons = styled.button`
 
 export async function bulkRemoveFromPlaylist(
   accessToken: string | undefined,
-  items: PlaylistItemObj[],
+  items: PlaylistItemObj[] | null,
   playlistID: string,
   dispatch: ThunkDispatch<any, any, any>
 ) {
-  if (accessToken) {
-    // Running these in parallel causes a 409 error, so calls are in sequence instead: https://stackoverflow.com/a/37576787
-    for (const item of items) {
-      const removeVideo = await removeVideoFromPlaylistRequest(
-        accessToken,
-        item.id
+  if (!items || !accessToken) {
+    return;
+  }
+  // Running these in parallel causes a 409 error, so calls are in sequence instead: https://stackoverflow.com/a/37576787
+  for (const item of items) {
+    const removeVideo = await removeVideoFromPlaylistRequest(
+      accessToken,
+      item.id
+    );
+    if (!removeVideo) {
+      dispatch(
+        removeVideoFromPlaylist({
+          playlistID,
+          videoID: item.contentDetails.videoId,
+        })
       );
-      if (!removeVideo) {
-        dispatch(
-          removeVideoFromPlaylist({
-            playlistID,
-            videoID: item.contentDetails.videoId,
-          })
-        );
-      }
     }
   }
 }
 
 export default function PlaylistActionsBar({
   playlist,
-  items,
   selectedPlaylistItems,
   setSelectedPlaylistItems,
 }: {
   playlist: SinglePlaylistObj;
-  items: PlaylistItemObj[];
-  selectedPlaylistItems: PlaylistItemObj[];
+  selectedPlaylistItems: Map<PlaylistItemObj, boolean> | undefined;
   setSelectedPlaylistItems: any;
 }) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const accessToken = user.info?.access_token;
+  const items = selectedPlaylistItems?.keys()
+    ? [...selectedPlaylistItems.keys()]
+    : null;
   const [showDestModal, setShowDestModal] = useState(false);
   const [currentAction, setCurrentAction] = useState(REMOVE);
   return (
@@ -76,7 +78,7 @@ export default function PlaylistActionsBar({
             setCurrentAction(MOVE);
             setShowDestModal(true);
           }}
-          disabled={!accessToken || !selectedPlaylistItems.length}
+          disabled={!accessToken || !selectedPlaylistItems}
         >
           Move to...
         </Bottons>
@@ -86,7 +88,7 @@ export default function PlaylistActionsBar({
             setCurrentAction(COPY);
             setShowDestModal(true);
           }}
-          disabled={!accessToken || !selectedPlaylistItems.length}
+          disabled={!accessToken || !selectedPlaylistItems}
         >
           Copy to...
         </Bottons>
@@ -97,7 +99,7 @@ export default function PlaylistActionsBar({
             bulkRemoveFromPlaylist(accessToken, items, playlist.id, dispatch);
             setSelectedPlaylistItems([]);
           }}
-          disabled={!accessToken || !selectedPlaylistItems.length}
+          disabled={!accessToken || !selectedPlaylistItems}
         >
           Remove
         </Bottons>

@@ -18,26 +18,27 @@ function PlaylistPage() {
   const playlist = playlists.find((p) => p.id == id); // TODO: Make a separate selector?
 
   const [selectedPlaylistItems, setSelectedPlaylistItems] = useState<
-    PlaylistItemObj[]
-  >([]);
-
+    Map<PlaylistItemObj, boolean>
+  >(new Map());
   if (playlist) {
+    playlist.items.map((item) => selectedPlaylistItems.set(item, false));
     return (
       <>
         <PlaylistActionsBar
           playlist={playlist}
-          items={selectedPlaylistItems}
           selectedPlaylistItems={selectedPlaylistItems}
           setSelectedPlaylistItems={(
-            selectedPlaylistItems: SetStateAction<PlaylistItemObj[]>
-          ) => setSelectedPlaylistItems(selectedPlaylistItems)}
+            selectedPlaylistItems: SetStateAction<Map<PlaylistItemObj, boolean>>
+          ) => setSelectedPlaylistItems(selectedPlaylistItems.entries())}
         />
         <Container>
           <Playlist
             playlist={playlist}
             selectedPlaylistItems={selectedPlaylistItems}
             setSelectedPlaylistItems={(
-              selectedPlaylistItems: SetStateAction<PlaylistItemObj[]>
+              selectedPlaylistItems: SetStateAction<
+                Map<PlaylistItemObj, boolean> | undefined
+              >
             ) => setSelectedPlaylistItems(selectedPlaylistItems)}
           />
         </Container>

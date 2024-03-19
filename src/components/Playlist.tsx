@@ -119,7 +119,7 @@ export default function Playlist({
   setSelectedPlaylistItems,
 }: {
   playlist: SinglePlaylistObj;
-  selectedPlaylistItems: PlaylistItemObj[];
+  selectedPlaylistItems: Map<PlaylistItemObj, boolean> | undefined;
   setSelectedPlaylistItems: any;
 }) {
   const dispatch = useAppDispatch();
@@ -146,7 +146,10 @@ export default function Playlist({
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (e.target.checked) {
-      setSelectedPlaylistItems([...selectedPlaylistItems, item]);
+      setSelectedPlaylistItems([
+        ...selectedPlaylistItems[Symbol.iterator](),
+        item,
+      ]);
     } else {
       setSelectedPlaylistItems(
         selectedPlaylistItems.filter((playlistItem) => playlistItem !== item)
@@ -155,10 +158,14 @@ export default function Playlist({
   };
 
   const handleSelectAll = () => {
-    if (selectedPlaylistItems.length !== playlist.items.length) {
-      setSelectedPlaylistItems(playlist.items);
+    if (!selectedPlaylistItems) {
+      return;
+    }
+    const allSelected = ![...selectedPlaylistItems.values()].includes(false);
+    if (allSelected) {
+      selectedPlaylistItems?.forEach((value) => (value = false));
     } else {
-      setSelectedPlaylistItems([]);
+      selectedPlaylistItems?.forEach((value) => (value = true));
     }
   };
 
