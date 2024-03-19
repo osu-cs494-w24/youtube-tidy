@@ -7,6 +7,7 @@ import styled from "@emotion/styled";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { Video } from "../assets/interfaces";
 
 const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
 
@@ -16,7 +17,7 @@ function Homepage() {
   const playlists = useAppSelector((state) => state.playlists.playlists);
   const totalPlaylistCount = playlists.length;
   const subscriptionList = useAppSelector((state) => state.subscriptions);
-  const [trendingObj, setTrendingObj] = useState([]);
+  const [trendingObj, setTrendingObj] = useState<Video[]>([]);
 
   const maxCharsForTitle = 40;
 
@@ -31,7 +32,7 @@ function Homepage() {
         `https://www.googleapis.com/youtube/v3/videos?key=${YoutubeAPI}&part=contentDetails,statistics,snippet&chart=mostPopular&regionCode=US&maxResults=5`
       );
       const trendingData = await trendingRes.json();
-      setTrendingObj(trendingData.items.map((object) => object));
+      setTrendingObj(trendingData.items.map((object: Video) => object));
     };
     trendingVideo();
   }, []);
@@ -155,7 +156,10 @@ function Homepage() {
                     src={`https://www.youtube.com/embed/${video.id}`}
                   />
                   <TrendingMedia>
-                    {video.snippet.title.slice(0, maxCharsForTitle) + "..."}
+                    {video.snippet.title.slice(0, maxCharsForTitle)}
+                    {video.snippet.title.length > maxCharsForTitle
+                      ? "..."
+                      : null}
                   </TrendingMedia>
                   <TrendingMedia>
                     <ThumbsUp>
@@ -179,13 +183,13 @@ function Homepage() {
                 </SideBarUL>
 
                 {playlists.map((object) => (
-                  <SidebarLi>{object.name}</SidebarLi>
+                  <SidebarLi key={object.id}>{object.name}</SidebarLi>
                 ))}
                 <SideBarUL>
                   <SideBarSpan>Subscriptions</SideBarSpan>
                 </SideBarUL>
                 {subscriptionList.subscriptionList.map((object) => (
-                  <SidebarLi>{object.snippet.title}</SidebarLi>
+                  <SidebarLi key={object.id}>{object.snippet.title}</SidebarLi>
                 ))}
               </Sidebar>
             ) : null}

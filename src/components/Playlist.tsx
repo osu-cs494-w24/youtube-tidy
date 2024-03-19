@@ -100,6 +100,9 @@ const VideoTitle = styled.a`
     color: red;
     text-decoration: underline;
   }
+  &:active {
+    color: darkred;
+  }
 `;
 
 export default function Playlist({
@@ -183,7 +186,10 @@ export default function Playlist({
                   {item.snippet.title}
                 </VideoTitle>
               </h3>
-              <p>{item.snippet.description.slice(0, 100)}...</p>
+              <p>
+                {item.snippet.description.slice(0, 100)}
+                {item.snippet.description.length > 100 ? "..." : null}
+              </p>
               <img src={item.snippet.thumbnails.default.url} alt="thumbnail" />
             </VideoInfo>
           </Card>
