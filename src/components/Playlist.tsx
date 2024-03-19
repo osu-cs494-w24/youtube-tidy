@@ -27,6 +27,9 @@ const PlaylistRenamable = styled.input`
     /* border-width: 1px; */
     cursor: pointer;
   }
+  &:active {
+    cursor: text;
+  }
   @media (min-width: 720px) {
     margin-right: 2rem;
     font-size: 2rem;

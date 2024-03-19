@@ -51,10 +51,12 @@ export async function bulkRemoveFromPlaylist(
 export default function PlaylistActionsBar({
   playlist,
   items,
+  selectedPlaylistItems,
   setSelectedPlaylistItems,
 }: {
   playlist: SinglePlaylistObj;
   items: PlaylistItemObj[];
+  selectedPlaylistItems: PlaylistItemObj[];
   setSelectedPlaylistItems: any;
 }) {
   const dispatch = useAppDispatch();
@@ -71,7 +73,7 @@ export default function PlaylistActionsBar({
             setCurrentAction(MOVE);
             setShowDestModal(true);
           }}
-          disabled={!accessToken}
+          disabled={!accessToken || !selectedPlaylistItems.length}
         >
           Move to...
         </Bottons>
@@ -81,7 +83,7 @@ export default function PlaylistActionsBar({
             setCurrentAction(COPY);
             setShowDestModal(true);
           }}
-          disabled={!accessToken}
+          disabled={!accessToken || !selectedPlaylistItems.length}
         >
           Copy to...
         </Bottons>
@@ -92,7 +94,7 @@ export default function PlaylistActionsBar({
             bulkRemoveFromPlaylist(accessToken, items, playlist.id, dispatch);
             setSelectedPlaylistItems([]);
           }}
-          disabled={!accessToken}
+          disabled={!accessToken || !selectedPlaylistItems.length}
         >
           Remove
         </Bottons>

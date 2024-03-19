@@ -27,6 +27,7 @@ function PlaylistPage() {
         <PlaylistActionsBar
           playlist={playlist}
           items={selectedPlaylistItems}
+          selectedPlaylistItems={selectedPlaylistItems}
           setSelectedPlaylistItems={(
             selectedPlaylistItems: SetStateAction<PlaylistItemObj[]>
           ) => setSelectedPlaylistItems(selectedPlaylistItems)}
