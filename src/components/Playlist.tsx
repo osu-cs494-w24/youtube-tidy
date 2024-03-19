@@ -141,7 +141,14 @@ export default function Playlist({
                 onChange={(e) => handleSelectPlaylistItem(item, e)}
               />
               <h3>
-                {index + 1}: {item.snippet.title}
+                {index + 1}:{" "}
+                <a
+                  href={`https://www.youtube.com/watch?v=${item.contentDetails.videoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.snippet.title}
+                </a>
               </h3>
               <p>{item.snippet.description.slice(0, 100)}...</p>
               <img src={item.snippet.thumbnails.default.url} alt="thumbnail" />
