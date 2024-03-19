@@ -38,7 +38,9 @@ const PlaylistRenamable = styled.input`
 
 const PlaylistDescriptionEdit = styled.textarea`
   resize: none;
-  border: 0px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: white;
   color: darkslategray;
   &:hover {
     border-color: darkgray;
@@ -79,6 +81,15 @@ const Card = styled.label`
 const VideoInfo = styled.div`
   flex-grow: 1;
   margin-left: 2rem;
+`;
+
+const VideoTitle = styled.a`
+  text-decoration: none;
+  color: black;
+  &:hover {
+    color: red;
+    text-decoration: underline;
+  }
 `;
 
 export default function Playlist({
@@ -151,13 +162,13 @@ export default function Playlist({
             <VideoInfo>
               <h3>
                 {index + 1}:{" "}
-                <a
+                <VideoTitle
                   href={BASE_URL + item.contentDetails.videoId}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   {item.snippet.title}
-                </a>
+                </VideoTitle>
               </h3>
               <p>{item.snippet.description.slice(0, 100)}...</p>
               <img src={item.snippet.thumbnails.default.url} alt="thumbnail" />
