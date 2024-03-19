@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { MutableRefObject, useRef } from "react";
+import { ChangeEventHandler, MutableRefObject, useRef, useState } from "react";
 import { PlaylistItemObj, SinglePlaylistObj } from "../assets/interfaces";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { editNameDescriptionPlaylist } from "../redux/playlistsSlice";
@@ -124,6 +124,7 @@ export default function Playlist({
 }) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+  const [lastChecked, setLastChecked] = useState(-1);
 
   const editNameRef = useRef() as MutableRefObject<HTMLInputElement>;
   const editDescriptionRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
@@ -147,10 +148,29 @@ export default function Playlist({
   ) => {
     if (e.target.checked) {
       setSelectedPlaylistItems([...selectedPlaylistItems, item]);
-    } else {
+      const newIndex = playlist.items.indexOf(item);
+      if (e.shiftKey) {
+        if (newIndex > lastChecked) {
+          for (let i = lastChecked + 1; i <= newIndex; i++) {
+            const singleItem = playlist.items[i];
+            selectedPlaylistItems.indexOf(singleItem) >= 0
+              ? setSelectedPlaylistItems([...selectedPlaylistItems, singleItem])
+              : selectedPlaylistItems;
+          }
+        } else {
+          for (let i = newIndex; i < lastChecked; i++) {
+            const singleItem = playlist.items[i];
+            selectedPlaylistItems.indexOf(singleItem) >= 0
+              ? setSelectedPlaylistItems([...selectedPlaylistItems, singleItem])
+              : selectedPlaylistItems;
+          }
+        }
+      }
+      setLastChecked(newIndex);
       setSelectedPlaylistItems(
         selectedPlaylistItems.filter((playlistItem) => playlistItem !== item)
       );
+      setLastChecked(-1);
     }
   };
 
