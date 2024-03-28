@@ -91,7 +91,7 @@ function Login() {
             <p>
               This web application was built with React, the YouTube Data API,
               and some other helpful libraries. Login with your Google/YouTube
-              account, and use YouTube Tidy to quickly move vidoes between
+              account, and use YouTube Tidy to quickly move videos between
               playlists, mass delete or add videos to playlists, and more!
             </p>
             <LoginButton onClick={() => login()}>
