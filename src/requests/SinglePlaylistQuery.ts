@@ -61,6 +61,7 @@ const getPlaylist = async (
         title: video.snippet.title,
         description: video.snippet.description,
         publishedAt: video.snippet.publishedAt,
+        channelId: video.snippet.channelId,
         thumbnails: {
           default: {
             url: video.snippet.thumbnails.default?.url,
@@ -77,6 +78,13 @@ const getPlaylist = async (
           maxres: {
             url: video.snippet.thumbnails.maxres?.url,
           },
+        },
+        videoOwnerChannelTitle: video.snippet.videoOwnerChannelTitle,
+        videoOwnerChannelId: video.snippet.videoOwnerChannelId,
+        position: video.snippet.position,
+        resourceId: {
+          kind: video.snippet.resourceId.kind,
+          videoId: video.snippet.resourceId.videoId,
         },
       },
       contentDetails: {
