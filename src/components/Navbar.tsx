@@ -147,7 +147,7 @@ const MobileNavButton = styled.button`
 function Navbar() {
   const user = useAppSelector((state) => state.user.info);
   const [menu, setMenu] = useState(false);
-  const [mobileNav, setMobileNav] = useState(false);
+  const [, setMobileNav] = useState(false);
   const toggleStatus = () => {
     setMenu((prevIsOn) => !prevIsOn);
   };
