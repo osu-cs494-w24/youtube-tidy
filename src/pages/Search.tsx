@@ -218,7 +218,7 @@ function getFromStore(
   return null;
 }
 
-function BottomScroll(callback) {
+function BottomScroll(callback: () => Promise<void>) {
   useEffect(() => {
     const determineScroll = async () => {
       // Determine if user has scrolled to bottom of page.
@@ -270,7 +270,7 @@ function Search() {
 
   const YoutubeAPI = import.meta.env.VITE_YOUTUBE_API;
 
-  const { isLoading, data } = useQuery<YoutubeSearchResponse>({
+  const { isLoading } = useQuery<YoutubeSearchResponse>({
     queryKey: ["searchVideos", query],
     queryFn: async () => {
       if (!query) {
@@ -381,10 +381,10 @@ function Search() {
 
     alert("Added all videos that were not already in your playlist");
     // Uncheck all checkboxes
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
+    // const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    // checkboxes.forEach((checkbox) => {
+    //   checkbox.checked = false;
+    // });
     setCheckedVideos([]);
   };
 
@@ -453,6 +453,7 @@ function Search() {
                           e.target.checked
                         )
                       }
+                      checked={checkedVideos.includes(element.id.videoId)}
                     ></input>
                     <h2>{element.snippet.title}</h2>
                   </VideoInfo>
