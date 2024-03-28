@@ -1,9 +1,7 @@
 import { useAppSelector } from "../redux/hooks";
 import AllPlaylists from "../components/AllPlaylists";
-import SinglePlaylist from "../components/SinglePlaylist";
 
 function Playlists() {
-  const playlists = useAppSelector((state) => state.playlists.playlists);
   const user = useAppSelector((state) => state.user.info);
 
   return (
