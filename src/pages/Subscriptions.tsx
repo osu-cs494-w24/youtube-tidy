@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import {
-  loadSubscriptions,
-  removeSubscriptions,
-} from "../redux/subscriptionsSlice";
+import { removeSubscriptions } from "../redux/subscriptionsSlice";
 import { removeChannelsFromSubscriptions } from "../requests/SubscriptionActions";
 import SubscriptionControlPanel from "../components/SubscriptionControlPanel";
 import AllSubscriptions from "../components/AllSubscriptions";
