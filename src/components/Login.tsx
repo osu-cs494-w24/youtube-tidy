@@ -13,6 +13,17 @@ import ReCAPTCHA from "react-google-recaptcha";
 import styled from "@emotion/styled";
 
 const reCAPTCHA_SITE_KEY = import.meta.env.VITE_reCAPTCHA_SITE_KEY;
+const reCAPTCHA_DEV_SITE_KEY = import.meta.env.VITE_DEVONLY_reCAPTCHA_SITE_KEY;
+
+const gatherSiteKey = () => {
+  if (window.location.hostname === "localhost") {
+    return reCAPTCHA_DEV_SITE_KEY;
+  } else {
+    return reCAPTCHA_SITE_KEY;
+  }
+};
+
+const desiredSiteKey = gatherSiteKey();
 
 const LoginContainer = styled.div`
   display: flex;
@@ -99,7 +110,8 @@ function Login() {
               playlists, mass delete or add videos to playlists, and more!
             </p>
             <ReCAPTCHA
-              sitekey={reCAPTCHA_SITE_KEY}
+              // sitekey={reCAPTCHA_SITE_KEY}
+              sitekey={desiredSiteKey}
               onChange={() => {
                 setRenderLogin(true);
               }}
