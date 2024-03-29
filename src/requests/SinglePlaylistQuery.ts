@@ -55,43 +55,7 @@ const getPlaylist = async (
       totalResults: data.pageInfo.totalResults,
       resultsPerPage: data.pageInfo.resultsPerPage,
     },
-    items: videos.map((video) => ({
-      id: video.id,
-      snippet: {
-        title: video.snippet.title,
-        description: video.snippet.description,
-        publishedAt: video.snippet.publishedAt,
-        channelId: video.snippet.channelId,
-        thumbnails: {
-          default: {
-            url: video.snippet.thumbnails.default?.url,
-          },
-          medium: {
-            url: video.snippet.thumbnails.medium?.url,
-          },
-          high: {
-            url: video.snippet.thumbnails.high?.url,
-          },
-          standard: {
-            url: video.snippet.thumbnails.standard?.url,
-          },
-          maxres: {
-            url: video.snippet.thumbnails.maxres?.url,
-          },
-        },
-        videoOwnerChannelTitle: video.snippet.videoOwnerChannelTitle,
-        videoOwnerChannelId: video.snippet.videoOwnerChannelId,
-        position: video.snippet.position,
-        resourceId: {
-          kind: video.snippet.resourceId.kind,
-          videoId: video.snippet.resourceId.videoId,
-        },
-      },
-      contentDetails: {
-        videoId: video.contentDetails.videoId,
-        videoPublishedAt: video.contentDetails.videoPublishedAt,
-      },
-    })),
+    items: videos,
   };
 
   return playlist;
