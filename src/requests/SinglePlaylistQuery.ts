@@ -1,6 +1,6 @@
 import { SinglePlaylistObj } from "../assets/interfaces";
 
-/*
+/**
  * This function is used to get all videos from a single playlist,
  * utilizing YouTube's playlistItems endpoint https://developers.google.com/youtube/v3/docs/playlistItems
  * This endpoint does not return the playlist ID, name, or description, so we need to pass those in as arguments

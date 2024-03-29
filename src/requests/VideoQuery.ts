@@ -1,6 +1,6 @@
 import { Video, Comment } from "../assets/interfaces";
 
-/*
+/**
  * Fetches a single video from the YouTube API and returns it along with the first 10 comments
  * Video API: https://developers.google.com/youtube/v3/docs/videos/list
  * Comments API: https://developers.google.com/youtube/v3/docs/commentThreads/list
