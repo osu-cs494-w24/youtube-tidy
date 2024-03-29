@@ -18,9 +18,7 @@ const Card = styled.label`
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   margin-bottom: 1rem;
   border-radius: 15px;
-  padding-bottom: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 1rem;
   flex-grow: 1;
   max-width: 100%;
   &:hover {
@@ -36,20 +34,53 @@ const Card = styled.label`
 const Bundle = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  justify-content: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
   padding: 1rem;
-  max-width: 125px;
-  max-height: 125px;
+  width: 125px;
+  height: 125px;
   border: 1px solid #e3e3e3;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   img {
     flex-grow: 1;
+    max-height: 70%;
+    object-fit: contain;
+  }
+  h3 {
+    text-align: center;
+    display: block;
+    font-size: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+  }
+`;
+
+const SubscriptionTitle = styled.a`
+  text-decoration: none;
+  color: black;
+  max-height: 90%;
+  &:hover {
+    color: red;
+    text-decoration: underline;
+  }
+  &:active {
+    color: darkred;
   }
 `;
 
 const ContainText = styled.p`
   flex-wrap: wrap;
   word-break: break-word;
+`;
+
+const ContainPlaceholderText = styled(ContainText)`
+  font-style: italic;
 `;
 
 interface SubScriptionItemProps {
@@ -100,14 +131,31 @@ export default function SingleSubscription({
             ></BigCheckbox>
           </ControlInput>
           <Bundle>
-            <img src={thumbnail} alt="thumbnail" />
-            <a href={channelUrl}>{title}</a>
+            <img
+              src={thumbnail}
+              alt={"thumbnail for channel '" + title + "'"}
+            />
+            <h3>
+              <SubscriptionTitle
+                href={channelUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {title}
+              </SubscriptionTitle>
+            </h3>
           </Bundle>
           <ControlItems>
-            <ContainText>
-              {description.slice(0, 100)}
-              {description.length > 100 ? "..." : null}
-            </ContainText>
+            {description.length ? (
+              <ContainText>
+                {description.slice(0, 100)}
+                {description.length > 100 ? "..." : null}
+              </ContainText>
+            ) : (
+              <ContainPlaceholderText>
+                (No description provided)
+              </ContainPlaceholderText>
+            )}
           </ControlItems>
         </SubscriptionItem>
       </Card>

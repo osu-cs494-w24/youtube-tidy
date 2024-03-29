@@ -1,6 +1,6 @@
 import { AllPlaylistSearchResponse } from "../assets/interfaces";
 
-/*
+/**
  * Fetches all playlists for the authenticated user from the YouTube API,
  * but does not return info on the videos in each playlist. This is used
  * as a "playlist overview" in the store

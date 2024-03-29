@@ -236,7 +236,14 @@ export default function MoveCopyPlaylistModal({
                           hideModal();
                         }}
                       >
-                        <img src={playlist.snippet.thumbnails.default.url} />
+                        <img
+                          src={playlist.snippet.thumbnails.default.url}
+                          alt={
+                            "thumbnail for playlist '" +
+                            playlist.snippet.title +
+                            "'"
+                          }
+                        />
                         <a
                           href={`https://www.youtube.com/playlist?list=${playlist.id}`}
                           target="_blank"

@@ -424,7 +424,14 @@ function Search() {
                       key={playlist.id}
                       onClick={() => handlePlaylistClick(playlist.id)}
                     >
-                      <img src={playlist.snippet.thumbnails.default.url} />
+                      <img
+                        src={playlist.snippet.thumbnails.default.url}
+                        alt={
+                          "thumbnail for playlist '" +
+                          playlist.snippet.title +
+                          "'"
+                        }
+                      />
                       <PlaylistToolTip>
                         <FontAwesomeIcon icon={faPlus} />
                         <p>{playlist.snippet.title}</p>

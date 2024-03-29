@@ -1,9 +1,9 @@
 const YoutubeKey = import.meta.env.VITE_YOUTUBE_API;
 // import dData from "../dummyData/playlists.json";
 
-/*
- *  Sends a post request to add a video to a playlist, on success, returns a YT PlaylistItem object
- *  Reference: https://developers.google.com/youtube/v3/docs/playlistItems/insert
+/**
+ * Sends a post request to add a video to a playlist, on success, returns a YT PlaylistItem object
+ * Reference: https://developers.google.com/youtube/v3/docs/playlistItems/insert
  *
  * @param accessToken - (required) the user's access token
  * @param playlistID - (required) the ID of the playlist to add the video to
@@ -46,9 +46,9 @@ const addVideoToPlaylistRequest = async (
   return response.json();
 };
 
-/*
- *  Sends a delete request to remove a video from a playlist
- *  Reference: https://developers.google.com/youtube/v3/docs/playlistItems/delete
+/**
+ * Sends a delete request to remove a video from a playlist
+ * Reference: https://developers.google.com/youtube/v3/docs/playlistItems/delete
  *
  * @param accessToken - (required) the user's access token
  * @param playlistItemID - (required) the ID of the playlist item to remove (note that
@@ -81,10 +81,9 @@ const removeVideoFromPlaylistRequest = async (
   return null;
 };
 
-
-/*
- *  Sends a put request to change the title or description of a playlist; on success, returns a YT Playlists object
- *  Reference: https://developers.google.com/youtube/v3/docs/playlists/update
+/**
+ * Sends a put request to change the title or description of a playlist; on success, returns a YT Playlists object
+ * Reference: https://developers.google.com/youtube/v3/docs/playlists/update
  *
  * @param accessToken - (required) the user's access token
  * @param playlistID - (required) the ID of the playlist to update
@@ -94,7 +93,7 @@ const editNameDescriptionPlaylistRequest = async (
   accessToken: string,
   playlistID: string,
   title: string,
-  description: string,
+  description: string
 ) => {
   if (!accessToken || !playlistID) {
     throw new Error("Access token or playlist ID not found.");
@@ -111,11 +110,10 @@ const editNameDescriptionPlaylistRequest = async (
       id: playlistID,
       snippet: {
         description: description,
-        title: title
-      }
-    })
+        title: title,
+      },
+    }),
   };
-
 
   // if (import.meta.env.VITE_USE_DUMMY_DATA === "true") {
   //   const dummyData = {
@@ -134,4 +132,8 @@ const editNameDescriptionPlaylistRequest = async (
   return response.json();
 };
 
-export { addVideoToPlaylistRequest, removeVideoFromPlaylistRequest, editNameDescriptionPlaylistRequest };
+export {
+  addVideoToPlaylistRequest,
+  removeVideoFromPlaylistRequest,
+  editNameDescriptionPlaylistRequest,
+};

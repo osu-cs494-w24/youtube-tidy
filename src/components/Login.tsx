@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { queryUserName } from "../requests/UserInfoQuery";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -8,8 +8,22 @@ import { loadSubscriptions } from "../redux/subscriptionsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import Cookies from "js-cookie";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import styled from "@emotion/styled";
+
+const reCAPTCHA_SITE_KEY = import.meta.env.VITE_reCAPTCHA_SITE_KEY;
+const reCAPTCHA_DEV_SITE_KEY = import.meta.env.VITE_DEVONLY_reCAPTCHA_SITE_KEY;
+
+const gatherSiteKey = () => {
+  if (window.location.hostname === "localhost") {
+    return reCAPTCHA_DEV_SITE_KEY;
+  } else {
+    return reCAPTCHA_SITE_KEY;
+  }
+};
+
+const desiredSiteKey = gatherSiteKey();
 
 const LoginContainer = styled.div`
   display: flex;
@@ -49,6 +63,7 @@ const LoginButton = styled.button`
 function Login() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.info);
+  const [renderLogin, setRenderLogin] = useState(false);
 
   useEffect(() => {
     const access_token = Cookies.get("access_token");
@@ -94,9 +109,19 @@ function Login() {
               account, and use YouTube Tidy to quickly move videos between
               playlists, mass delete or add videos to playlists, and more!
             </p>
-            <LoginButton onClick={() => login()}>
-              Login with <FontAwesomeIcon icon={faGoogle} />
-            </LoginButton>
+            <ReCAPTCHA
+              // sitekey={reCAPTCHA_SITE_KEY}
+              sitekey={desiredSiteKey}
+              onChange={() => {
+                setRenderLogin(true);
+              }}
+              size="normal"
+            />
+            {renderLogin ? (
+              <LoginButton onClick={() => login()}>
+                Login with <FontAwesomeIcon icon={faGoogle} />
+              </LoginButton>
+            ) : null}
           </LoginModal>
         </LoginContainer>
       )}

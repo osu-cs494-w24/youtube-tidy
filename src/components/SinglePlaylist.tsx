@@ -23,7 +23,10 @@ export default function SinglePlaylist({
             {video.snippet.description.slice(0, 100)}
             {video.snippet.description.length > 100 ? "..." : null}
           </p>
-          <img src={video.snippet.thumbnails.default.url} alt="thumbnail" />
+          <img
+            src={video.snippet.thumbnails.default.url}
+            alt={"thumbnail for video '" + video.snippet.title + "'"}
+          />
         </div>
       ))}
     </div>
