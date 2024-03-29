@@ -197,6 +197,7 @@ function Navbar() {
                     <img
                       className="user-img"
                       src={user.picture}
+                      alt={"profile picture for user " + user.name}
                       onClick={logout}
                     />
                     <UserToolTip>Logout</UserToolTip>
@@ -244,7 +245,12 @@ function Navbar() {
             </NavbarLi>
             {user && (
               <UserContainer>
-                <img className="user-img" src={user.picture} onClick={logout} />
+                <img
+                  className="user-img"
+                  src={user.picture}
+                  alt={"profile picture for user " + user.name}
+                  onClick={logout}
+                />
                 <UserToolTip>Logout</UserToolTip>
               </UserContainer>
             )}

@@ -100,8 +100,19 @@ export default function SingleSubscription({
             ></BigCheckbox>
           </ControlInput>
           <Bundle>
-            <img src={thumbnail} alt="thumbnail" />
-            <a href={channelUrl}>{title}</a>
+            <img
+              src={thumbnail}
+              alt={"thumbnail for channel '" + title + "'"}
+            />
+            <h3>
+              <SubscriptionTitle
+                href={channelUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {title}
+              </SubscriptionTitle>
+            </h3>
           </Bundle>
           <ControlItems>
             <ContainText>

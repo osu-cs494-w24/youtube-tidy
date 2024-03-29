@@ -367,7 +367,14 @@ export default function VideoModal({
                     key={playlist.id}
                     onClick={() => handlePlaylistClick(playlist.id)}
                   >
-                    <img src={playlist.snippet.thumbnails.default.url} />
+                    <img
+                      src={playlist.snippet.thumbnails.default.url}
+                      alt={
+                        "thumbnail for playlist '" +
+                        playlist.snippet.title +
+                        "'"
+                      }
+                    />
                     <PlaylistToolTip>
                       {videoInPlaylist(playlist.id) ? (
                         <FontAwesomeIcon icon={faMinus} />
@@ -424,7 +431,14 @@ export default function VideoModal({
                   <SingleComment key={comment.id}>
                     <div className="comment-header">
                       <div className="user-info">
-                        <img src={comment.snippet.authorProfileImageUrl} />
+                        <img
+                          src={comment.snippet.authorProfileImageUrl}
+                          alt={
+                            "profile picture for author '" +
+                            comment.snippet.authorDisplayName +
+                            "' for comment"
+                          }
+                        />
                         <p>{comment.snippet.authorDisplayName}</p>
                       </div>
                       <p>

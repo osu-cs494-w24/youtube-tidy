@@ -215,7 +215,10 @@ export default function Playlist({
                 {item.snippet.description.slice(0, 100)}
                 {item.snippet.description.length > 100 ? "..." : null}
               </p>
-              <img src={item.snippet.thumbnails.default.url} alt="thumbnail" />
+              <img
+                src={item.snippet.thumbnails.default.url}
+                alt={"thumbnail for playlist item '" + item.snippet.title + "'"}
+              />
             </VideoInfo>
           </Card>
         ))}
