@@ -12,10 +12,6 @@ The web application is currently in testing. We utilized the Google Cloud Consol
 
 [If you're an OSU student or staff member, click here to login and checkout our web app](https://youtubetidy.netlify.app/)
 
-## Gif showcasing functionality of the Playlists featueres.
-![YouTube-Tidy](https://github.com/osu-cs494-w24/youtube-tidy/assets/98569819/b29751c9-1348-420a-95c5-00e0ee66a5a7)
-
-
 ## Screenshots (Homepage, playlists functionality, search)
 
 ![](https://i.ibb.co/rwDCgQB/Screenshot-2024-03-29-at-16-22-55-You-Tube-Tidy.png)
