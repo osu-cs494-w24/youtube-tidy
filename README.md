@@ -36,4 +36,4 @@ To contribute to YTT, follow these steps:
 
 5. Replace the variables in `.env` with the keys you just created.
 
-6. Run `npm run dev` and visit the `localhost` link in the output (usually [http://localhost:5173](http://localhost:5173)).
+6. Run `npm install` to install the dependencies and then `npm run dev` to start the site. Visit the `localhost` link in the output (usually [http://localhost:5173](http://localhost:5173)) in your browser to preview the site.

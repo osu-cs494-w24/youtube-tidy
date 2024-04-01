@@ -25,7 +25,6 @@ interface AllPlaylistSearchResponse {
 // This represents a single subscription item
 interface Subscription {
   kind: string;
-  etag: string;
   id: string;
   snippet: {
     publishedAt: string;
@@ -70,16 +69,14 @@ interface SinglePlaylistObj {
   items: PlaylistItemObj[];
 }
 
-
-
 // this represents a single playlistItem resource from the /playlistItems endpoint
 interface PlaylistItemObj {
-  id: string,
+  id: string;
   snippet: {
-    publishedAt: string,
-    channelId: string,
-    title: string,
-    description: string,
+    publishedAt: string;
+    channelId: string;
+    title: string;
+    description: string;
     thumbnails: {
       default: {
         url: string;
@@ -96,29 +93,29 @@ interface PlaylistItemObj {
       maxres: {
         url: string;
       };
-    },
-    videoOwnerChannelTitle: string,
-    videoOwnerChannelId: string,
-    position: number,
+    };
+    videoOwnerChannelTitle: string;
+    videoOwnerChannelId: string;
+    position: number;
     resourceId: {
-      kind: string,
-      videoId: string,
-    },
-  },
+      kind: string;
+      videoId: string;
+    };
+  };
   contentDetails: {
     videoId: string;
     videoPublishedAt: string;
-  }
+  };
 }
 
 // this represents a single playlist from /playlists endpoint
 interface PlaylistsObj {
-  id: string,
+  id: string;
   snippet: {
-    publishedAt: string,
-    channelId: string,
-    title: string,
-    description: string,
+    publishedAt: string;
+    channelId: string;
+    title: string;
+    description: string;
     thumbnails: {
       default: {
         url: string;
@@ -135,9 +132,9 @@ interface PlaylistsObj {
       maxres: {
         url: string;
       };
-    },
-    channelTitle: string,
-  },
+    };
+    channelTitle: string;
+  };
 }
 
 interface UserInfo {
