@@ -17,7 +17,7 @@ function Homepage() {
   const user = useAppSelector((state) => state.user.info);
   const playlists = useAppSelector((state) => state.playlists.playlists);
   const totalPlaylistCount = playlists.length;
-  const subscriptionList = useAppSelector((state) => state.subscriptions);
+  const { subscriptionList } = useAppSelector((state) => state.subscriptions);
   const [trendingObj, setTrendingObj] = useState<Video[]>([]);
 
   const maxCharsForTitle = 40;
@@ -213,10 +213,12 @@ function Homepage() {
                 <SideBarUL>
                   <SideBarSpan>Subscriptions</SideBarSpan>
                 </SideBarUL>
-                {subscriptionList.subscriptionList.map((object) => (
+                {subscriptionList.map((object) => (
                   <SidebarLink
-                    href={`https://www.youtube.com/channel/${object.snippet.channelId}`}
+                    href={`https://www.youtube.com/channel/${object.snippet.resourceId.channelId}`}
                     key={object.id}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <SidebarLi>{object.snippet.title}</SidebarLi>
                   </SidebarLink>
