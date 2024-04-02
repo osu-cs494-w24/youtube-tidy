@@ -109,7 +109,9 @@ function Login() {
               account, and use YouTube Tidy to quickly move videos between
               playlists, mass delete or add videos to playlists, and more!
             </p>
-            <p>Note: You must use an ONID account to login.</p>
+            <p>
+              Note: You must use an ONID account with a valid channel to login.
+            </p>
             <ReCAPTCHA
               // sitekey={reCAPTCHA_SITE_KEY}
               sitekey={desiredSiteKey}
