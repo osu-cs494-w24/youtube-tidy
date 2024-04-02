@@ -109,6 +109,10 @@ function Login() {
               account, and use YouTube Tidy to quickly move videos between
               playlists, mass delete or add videos to playlists, and more!
             </p>
+            <p>
+              Note, you must use your Oregon State Network ID (ONID) account to
+              login.
+            </p>
             <ReCAPTCHA
               // sitekey={reCAPTCHA_SITE_KEY}
               sitekey={desiredSiteKey}
