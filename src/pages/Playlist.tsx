@@ -16,6 +16,7 @@ function PlaylistPage() {
   const id = params.id;
   const playlists = useAppSelector((state) => state.playlists.playlists);
   const playlist = playlists.find((p) => p.id == id); // TODO: Make a separate selector?
+  const user = useAppSelector((state) => state.user.info);
 
   const [selectedPlaylistItems, setSelectedPlaylistItems] = useState<
     PlaylistItemObj[]
@@ -44,7 +45,7 @@ function PlaylistPage() {
       </>
     );
   }
-  return <p>Loading with ID...: {id}</p>;
+  return user && <p>Loading with ID...: {id}</p>;
 }
 
 export default PlaylistPage;
