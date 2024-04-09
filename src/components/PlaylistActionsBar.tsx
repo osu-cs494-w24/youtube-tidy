@@ -35,10 +35,15 @@ export async function bulkRemoveFromPlaylist(
   if (accessToken) {
     // Running these in parallel causes a 409 error, so calls are in sequence instead: https://stackoverflow.com/a/37576787
     for (const item of items) {
-      const removeVideo = await removeVideoFromPlaylistRequest(
-        accessToken,
-        item.id
-      );
+      let removeVideo = null;
+
+      if (accessToken !== "guest") {
+        removeVideo = await removeVideoFromPlaylistRequest(
+          accessToken,
+          item.id
+        );
+      }
+
       if (!removeVideo) {
         dispatch(
           removeVideoFromPlaylist({
