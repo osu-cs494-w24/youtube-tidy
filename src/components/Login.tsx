@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import Cookies from "js-cookie";
 import ReCAPTCHA from "react-google-recaptcha";
+import guestUser from "../dummyData/user.json";
 
 import styled from "@emotion/styled";
 
@@ -63,11 +64,13 @@ const LoginButton = styled.button`
 function Login() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.info);
-  const [renderLogin, setRenderLogin] = useState(false);
+  const [renderLogin, setRenderLogin] = useState(
+    window.location.hostname === "localhost"
+  );
 
   useEffect(() => {
     const access_token = Cookies.get("access_token");
-    if (access_token) {
+    if (access_token && access_token !== "guest") {
       handleUserInfo(access_token);
     }
   }, [dispatch]);
@@ -80,7 +83,7 @@ function Login() {
       // load playlists into store
       dispatch(loadPlaylists(access_token));
       // load subscriptions into store
-      dispatch(loadSubscriptions(combinedInfo.access_token));
+      dispatch(loadSubscriptions(access_token));
     });
   };
 
@@ -97,6 +100,12 @@ function Login() {
     },
   });
 
+  const handleGuestLogin = () => {
+    dispatch(setUser({ ...guestUser, access_token: "guest" }));
+    Cookies.set("access_token", "guest", { expires: 1 });
+    dispatch(loadPlaylists("guest"));
+  };
+
   return (
     <>
       {!user?.access_token && (
@@ -110,20 +119,37 @@ function Login() {
               playlists, mass delete or add videos to playlists, and more!
             </p>
             <p>
-              Note: You must use an ONID account with a valid channel to login.
+              Youtube Tidy is a group project developed by students, and is not
+              affiliated with or endorsed by YouTube or its parent company,
+              Google.
             </p>
-            <ReCAPTCHA
-              // sitekey={reCAPTCHA_SITE_KEY}
-              sitekey={desiredSiteKey}
-              onChange={() => {
-                setRenderLogin(true);
-              }}
-              size="normal"
-            />
+            {window.location.hostname !== "localhost" && (
+              <ReCAPTCHA
+                // sitekey={reCAPTCHA_SITE_KEY}
+                sitekey={desiredSiteKey}
+                onChange={() => {
+                  setRenderLogin(true);
+                }}
+                size="normal"
+              />
+            )}
             {renderLogin ? (
-              <LoginButton onClick={() => login()}>
-                Login with <FontAwesomeIcon icon={faGoogle} />
-              </LoginButton>
+              <>
+                <p>
+                  This app has not gone through the Google verification process,
+                  so you must use an ONID account with a valid channel to login.
+                </p>
+                <LoginButton onClick={() => login()}>
+                  Login with <FontAwesomeIcon icon={faGoogle} />
+                </LoginButton>
+                <p>
+                  If you don't have a valid account to login, you can click
+                  below to browse the app with testing data.
+                </p>
+                <LoginButton onClick={() => handleGuestLogin()}>
+                  Continue as Guest
+                </LoginButton>
+              </>
             ) : null}
           </LoginModal>
         </LoginContainer>

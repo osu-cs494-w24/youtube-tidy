@@ -6,6 +6,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { useAppSelector } from "../redux/hooks";
 import Cookies from "js-cookie";
+import guestPicture from "../assets/unnamed.jpg";
 
 const NavbarUl = styled.ul`
   display: flex;
@@ -196,8 +197,8 @@ function Navbar() {
                   <UserContainer>
                     <img
                       className="user-img"
-                      src={user.picture}
-                      alt={"profile picture for user " + user.name}
+                      src={user.name === "Guest" ? guestPicture : user.picture}
+                      alt={"profile picture"}
                       onClick={logout}
                     />
                     <UserToolTip>Logout</UserToolTip>
@@ -247,8 +248,8 @@ function Navbar() {
               <UserContainer>
                 <img
                   className="user-img"
-                  src={user.picture}
-                  alt={"profile picture for user " + user.name}
+                  src={user.name === "Guest" ? guestPicture : user.picture}
+                  alt={"profile picture"}
                   onClick={logout}
                 />
                 <UserToolTip>Logout</UserToolTip>

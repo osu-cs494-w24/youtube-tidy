@@ -1,0 +1,136 @@
+{
+  "kind": "youtube#playlistListResponse",
+  "etag": "etag",
+  "pageInfo": { "totalResults": 3, "resultsPerPage": 50 },
+  "items": [
+    {
+      "kind": "youtube#playlist",
+      "etag": "etag",
+      "id": "playlistId1",
+      "snippet": {
+        "publishedAt": "2024-03-10T22:40:56Z",
+        "channelId": "channelId",
+        "title": "Morning Coffee",
+        "description": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Oz6SxLxXcq4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Oz6SxLxXcq4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Oz6SxLxXcq4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Oz6SxLxXcq4/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Oz6SxLxXcq4/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Channel Title",
+        "localized": { "title": "Morning Coffee", "description": "" }
+      },
+      "contentDetails": { "itemCount": 1 }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "etag",
+      "id": "playlistId2",
+      "snippet": {
+        "publishedAt": "2024-03-10T21:35:43Z",
+        "channelId": "channelId",
+        "title": "Dog TV",
+        "description": "Videos to leave on for the dogs while we're gone",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/6D1K_bguPrc/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/6D1K_bguPrc/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/6D1K_bguPrc/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/6D1K_bguPrc/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/6D1K_bguPrc/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Channel Title",
+        "localized": {
+          "title": "Dog TV",
+          "description": "Videos to leave on for the dogs while we're gone"
+        }
+      },
+      "contentDetails": { "itemCount": 2 }
+    },
+    {
+      "kind": "youtube#playlist",
+      "etag": "etag",
+      "id": "playlistId3",
+      "snippet": {
+        "publishedAt": "2024-03-01T18:21:50Z",
+        "channelId": "channelId",
+        "title": "Lofi",
+        "description": "Lofi music to study to",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/4ZoTb9o0Lnw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/4ZoTb9o0Lnw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/4ZoTb9o0Lnw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/4ZoTb9o0Lnw/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/4ZoTb9o0Lnw/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Channel Title",
+        "localized": {
+          "title": "Lofi",
+          "description": "Lofi music to study to"
+        }
+      },
+      "contentDetails": { "itemCount": 8 }
+    }
+  ]
+}
