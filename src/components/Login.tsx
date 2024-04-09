@@ -139,6 +139,9 @@ function Login() {
                 <p>
                   This app has not gone through the Google verification process,
                   so you must use an ONID account with a valid channel to login.
+                  There is also a limit to the number of API calls per day, so
+                  if your actions are not reflected on Youtube, try again the
+                  next day.
                 </p>
                 <LoginButton onClick={() => login()}>
                   Login with <FontAwesomeIcon icon={faGoogle} />
