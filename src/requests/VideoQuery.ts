@@ -33,7 +33,7 @@ const getVideo = async (videoId: string) => {
   );
 
   if (!commentResponse.ok) {
-    throw new Error("Failed to fetch comments for video.");
+    return videoData.items[0];
   }
 
   const commentData = await commentResponse.json();
