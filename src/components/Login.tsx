@@ -104,6 +104,7 @@ function Login() {
     dispatch(setUser({ ...guestUser, access_token: "guest" }));
     Cookies.set("access_token", "guest", { expires: 1 });
     dispatch(loadPlaylists("guest"));
+    dispatch(loadSubscriptions("guest"));
   };
 
   return (

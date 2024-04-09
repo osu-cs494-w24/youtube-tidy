@@ -13,7 +13,10 @@ export const loadSubscriptions = createAsyncThunk<
   // Timeout used to test loading state
   // await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  if (import.meta.env.VITE_USE_DUMMY_DATA === "true") {
+  if (
+    import.meta.env.VITE_USE_DUMMY_DATA === "true" ||
+    accessToken === "guest"
+  ) {
     const response = await fetch("/dummyData/subscriptions.json");
     const dummySubscriptions = await response.json();
     return dummySubscriptions.items;

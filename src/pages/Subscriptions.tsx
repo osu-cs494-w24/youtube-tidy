@@ -75,7 +75,10 @@ function Subscriptions() {
   async function handleUnsubscribe() {
     let success = false;
 
-    if (import.meta.env.VITE_USE_DUMMY_DATA === "true") {
+    if (
+      import.meta.env.VITE_USE_DUMMY_DATA === "true" ||
+      user?.access_token === "guest"
+    ) {
       updateStateAfterUnsubscribe();
     } else {
       if (user) {
