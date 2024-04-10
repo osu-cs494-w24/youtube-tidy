@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { getSubscriptionList } from "../requests/SubscriptionActions";
 import { Subscription } from "../assets/interfaces";
+import guestSubscriptions from "../dummyData/subscriptions.json";
 
 export const loadSubscriptions = createAsyncThunk<
   Subscription[],
@@ -17,9 +18,42 @@ export const loadSubscriptions = createAsyncThunk<
     import.meta.env.VITE_USE_DUMMY_DATA === "true" ||
     accessToken === "guest"
   ) {
-    const response = await fetch("/dummyData/subscriptions.json");
-    const dummySubscriptions = await response.json();
-    return dummySubscriptions.items;
+    return new Promise<Subscription[]>((resolve) => {
+      let tempSubs: Subscription[] = [];
+      guestSubscriptions.items.map((sub) => {
+        tempSubs.push({
+          kind: sub.kind,
+          id: sub.id,
+          snippet: {
+            publishedAt: sub.snippet.publishedAt,
+            title: sub.snippet.title,
+            description: sub.snippet.description,
+            resourceId: {
+              kind: sub.snippet.resourceId.kind,
+              channelId: sub.snippet.resourceId.channelId,
+            },
+            channelId: sub.snippet.channelId,
+            thumbnails: {
+              default: {
+                url: sub.snippet.thumbnails.default.url,
+              },
+              medium: {
+                url: sub.snippet.thumbnails.default.url,
+              },
+              high: {
+                url: sub.snippet.thumbnails.default.url,
+              },
+            },
+          },
+          contentDetails: {
+            totalItemCount: sub.contentDetails.totalItemCount,
+            newItemCount: sub.contentDetails.newItemCount,
+            activityType: sub.contentDetails.activityType,
+          },
+        });
+      });
+      resolve(tempSubs);
+    });
   }
 
   const subscriptionList = await getSubscriptionList(accessToken);

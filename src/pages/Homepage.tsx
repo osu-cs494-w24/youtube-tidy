@@ -39,13 +39,32 @@ function Homepage() {
   }, []);
 
   const ContainerTrending = styled.div`
-    display: flex;
-    flex-direction: column;
     box-shadow: 0 0 10px 0 gray;
     border-radius: 15px;
     margin-bottom: 1rem;
     justify-content: center;
     overflow-x: scroll;
+    @media (min-width: 1080px) {
+      flex-direction: row;
+    }
+  `;
+
+  const TrendingTitle = styled.h2`
+    width: 100%;
+    margin: 0.5rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+
+    @media (max-width: 1080px) {
+      text-align: center;
+      margin: 0.5rem 0rem;
+    }
+  `;
+
+  const TrendingBody = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     @media (min-width: 1080px) {
       flex-direction: row;
     }
@@ -169,26 +188,29 @@ function Homepage() {
         <>
           <h1>Homepage</h1>
           <ContainerTrending>
-            {trendingObj &&
-              trendingObj.map((video) => (
-                <CardTrending key={video.id}>
-                  <ControlIFrame
-                    src={`https://www.youtube.com/embed/${video.id}`}
-                  />
-                  <TrendingMedia>
-                    {video.snippet.title.slice(0, maxCharsForTitle)}
-                    {video.snippet.title.length > maxCharsForTitle
-                      ? "..."
-                      : null}
-                  </TrendingMedia>
-                  <TrendingMedia>
-                    <ThumbsUp>
-                      <FontAwesomeIcon icon={faThumbsUp} />:{" "}
-                      {video.statistics.likeCount}
-                    </ThumbsUp>
-                  </TrendingMedia>
-                </CardTrending>
-              ))}
+            <TrendingTitle>Trending videos</TrendingTitle>
+            <TrendingBody>
+              {trendingObj &&
+                trendingObj.map((video) => (
+                  <CardTrending key={video.id}>
+                    <ControlIFrame
+                      src={`https://www.youtube.com/embed/${video.id}`}
+                    />
+                    <TrendingMedia>
+                      {video.snippet.title.slice(0, maxCharsForTitle)}
+                      {video.snippet.title.length > maxCharsForTitle
+                        ? "..."
+                        : null}
+                    </TrendingMedia>
+                    <TrendingMedia>
+                      <ThumbsUp>
+                        <FontAwesomeIcon icon={faThumbsUp} />:{" "}
+                        {video.statistics.likeCount}
+                      </ThumbsUp>
+                    </TrendingMedia>
+                  </CardTrending>
+                ))}
+            </TrendingBody>
           </ContainerTrending>
           <ContainerDesktop>
             {isDesktop ? (
