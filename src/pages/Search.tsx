@@ -7,6 +7,7 @@ import FoldingCube from "../components/FoldingCube";
 import styled from "@emotion/styled";
 import { YoutubeSearchResponse, SinglePlaylistObj } from "../assets/interfaces";
 import VideoModal from "../components/VideoModal";
+import { getVideo } from "../requests/VideoQuery";
 import { addVideoToPlaylist } from "../redux/playlistsSlice";
 import { addVideoToPlaylistRequest } from "../requests/PlaylistActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -358,11 +359,6 @@ function Search() {
     }
   };
 
-  // this can be deleted later, used for testing right now
-  useEffect(() => {
-    console.log("checked videos: ", checkedVideos);
-  }, [checkedVideos]);
-
   // either add or remove a video from a playlist
   const handlePlaylistClick = async (playlistID: string) => {
     for (const videoID of checkedVideos) {
@@ -370,11 +366,33 @@ function Search() {
 
       // add the video to the playlist if it's not already in it
       if (!isInPlaylist && user) {
-        const playlistItem = await addVideoToPlaylistRequest(
-          user.access_token,
-          playlistID,
-          videoID
-        );
+        let playlistItem;
+
+        if (user.access_token === "guest") {
+          const video = await getVideo(videoID);
+          playlistItem = {
+            id: videoID,
+            snippet: {
+              publishedAt: video.snippet.publishedAt,
+              channelId: video.snippet.channelId,
+              title: video.snippet.title,
+              description: video.snippet.description,
+              thumbnails: video.snippet.thumbnails,
+              videoOwnerChannelTitle: video.snippet.channelTitle,
+              videoOwnerChannelId: video.snippet.channelId,
+            },
+            contentDetails: {
+              videoId: videoID,
+              videoPublishedAt: video.snippet.publishedAt,
+            },
+          };
+        } else {
+          playlistItem = await addVideoToPlaylistRequest(
+            user.access_token,
+            playlistID,
+            videoID
+          );
+        }
         dispatch(addVideoToPlaylist({ playlistID, playlistItem }));
       }
     }

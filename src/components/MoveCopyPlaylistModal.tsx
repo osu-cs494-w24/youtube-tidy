@@ -138,11 +138,30 @@ export async function bulkAddToPlaylist(
   } else {
     // Running these in parallel causes a 409 error, so calls are in sequence instead: https://stackoverflow.com/a/37576787
     for (const item of items) {
-      const insertVideo = await addVideoToPlaylistRequest(
-        accessToken,
-        destPlaylistID,
-        item.contentDetails.videoId
-      );
+      let insertVideo;
+      if (accessToken === "guest") {
+        insertVideo = {
+          id: item.id,
+          snippet: {
+            publishedAt: item.snippet.publishedAt,
+            title: item.snippet.title,
+            channelId: item.snippet.channelId,
+            description: item.snippet.description,
+            thumbnails: item.snippet.thumbnails,
+            channelTitle: item.snippet.videoOwnerChannelTitle,
+          },
+          contentDetails: {
+            videoId: item.contentDetails.videoId,
+            videoPublishedAt: item.snippet.publishedAt,
+          },
+        };
+      } else {
+        insertVideo = await addVideoToPlaylistRequest(
+          accessToken,
+          destPlaylistID,
+          item.contentDetails.videoId
+        );
+      }
       dispatch(
         addVideoToPlaylist({
           playlistID: destPlaylistID,

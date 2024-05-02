@@ -129,14 +129,30 @@ export default function Playlist({
   const editDescriptionRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
 
   const handleEditNameTitlePlaylist = async () => {
+    const newTitle = editNameRef.current.value;
+    const newDescription = editDescriptionRef.current.value;
+
     const playlistID = playlist.id;
+    let updatedPlaylist;
+
     if (user.info) {
-      const updatedPlaylist = await editNameDescriptionPlaylistRequest(
-        user.info.access_token,
-        playlistID,
-        editNameRef.current.value,
-        editDescriptionRef.current.value
-      );
+      if (user.info.name === "Guest") {
+        updatedPlaylist = {
+          ...playlist,
+          snippet: {
+            title: newTitle,
+            description: newDescription,
+          },
+        };
+      } else {
+        updatedPlaylist = await editNameDescriptionPlaylistRequest(
+          user.info.access_token,
+          playlistID,
+          newTitle,
+          newDescription
+        );
+      }
+
       dispatch(editNameDescriptionPlaylist({ playlistID, updatedPlaylist }));
     }
   };

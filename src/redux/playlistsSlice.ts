@@ -8,6 +8,8 @@ import {
   PlaylistsObj,
   SinglePlaylistObj,
 } from "../assets/interfaces";
+import guestPlaylistOverview from "../dummyData/playlistOverview.json";
+import guestPlaylists from "../dummyData/playlists.json";
 
 interface LoadPlaylistsResult {
   playlistsOverview: AllPlaylistSearchResponse;
@@ -21,6 +23,37 @@ export const loadPlaylists = createAsyncThunk<
   if (!accessToken) {
     throw new Error("Access token not found.");
   }
+
+  if (accessToken === "guest") {
+    return new Promise<LoadPlaylistsResult>((resolve) => {
+      // build guest playlist from testing data
+      let tempPlaylists: SinglePlaylistObj[] = [];
+      guestPlaylists.playlists.map((playlist) => {
+        const singlePlaylist = {
+          name: playlist.name,
+          id: playlist.id,
+          description: playlist.description,
+          nextPageToken: null,
+          prevPageToken: null,
+          pageInfo: {
+            totalResults: playlist.pageInfo.totalResults,
+            resultsPerPage: playlist.pageInfo.resultsPerPage,
+          },
+          items: playlist.items,
+        };
+        tempPlaylists.push(singlePlaylist);
+      });
+
+      resolve({
+        playlistsOverview: {
+          ...guestPlaylistOverview,
+          queryTime: new Date().toISOString(),
+        },
+        playlists: tempPlaylists,
+      });
+    });
+  }
+
   const playlistsOverview = await getAllPlaylists(accessToken);
   console.log("playlistsOverview: ", playlistsOverview);
   const playlists = await Promise.all(

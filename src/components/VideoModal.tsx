@@ -51,7 +51,7 @@ const VideoModalContainer = styled.div`
   left: 10%;
   overflow: hidden;
   max-height: 90vh;
-  max-width: 80vw;
+  width: 80vw;
   display: flex;
   flex-direction: column;
 
@@ -223,6 +223,7 @@ const SingleComment = styled.div`
 // the VideoFrame in order to maintain aspect ratio of video but scale to container
 // https://stackoverflow.com/questions/35814653/automatic-height-when-embedding-a-youtube-video
 const VideoContainer = styled.div`
+  align-self: center;
   width: 95%;
   padding-top: calc(56.25% * 0.95); /* 16:9 */
   position: relative;
@@ -306,11 +307,35 @@ export default function VideoModal({
 
     // add the video to the playlist if it's not already in it
     if (!isInPlaylist && user.info) {
-      const playlistItem = await addVideoToPlaylistRequest(
-        user.info.access_token,
-        playlistID,
-        videoID
-      );
+      let playlistItem;
+
+      if (user.info.name === "Guest") {
+        const tempVideo = await getVideo(videoID);
+
+        playlistItem = {
+          id: videoID,
+          snippet: {
+            publishedAt: tempVideo.snippet.publishedAt,
+            channelId: tempVideo.snippet.channelId,
+            title: tempVideo.snippet.title,
+            description: tempVideo.snippet.description,
+            thumbnails: tempVideo.snippet.thumbnails,
+            videoOwnerChannelTitle: tempVideo.snippet.channelTitle,
+            videoOwnerChannelId: tempVideo.snippet.channelId,
+          },
+          contentDetails: {
+            videoId: videoID,
+            videoPublishedAt: tempVideo.snippet.publishedAt,
+          },
+        };
+      } else {
+        playlistItem = await addVideoToPlaylistRequest(
+          user.info.access_token,
+          playlistID,
+          videoID
+        );
+      }
+
       dispatch(addVideoToPlaylist({ playlistID, playlistItem }));
     }
 
@@ -318,10 +343,12 @@ export default function VideoModal({
     else if (user.info) {
       const playlistItemID = isInPlaylist?.id;
       if (playlistItemID) {
-        await removeVideoFromPlaylistRequest(
-          user.info.access_token,
-          playlistItemID
-        );
+        if (user.info.name !== "Guest") {
+          await removeVideoFromPlaylistRequest(
+            user.info.access_token,
+            playlistItemID
+          );
+        }
         dispatch(removeVideoFromPlaylist({ playlistID, videoID }));
       }
     }
@@ -427,29 +454,31 @@ export default function VideoModal({
             </div>
             {showComments && (
               <div className="body comments">
-                {video.comments.map((comment: Comment) => (
-                  <SingleComment key={comment.id}>
-                    <div className="comment-header">
-                      <div className="user-info">
-                        <img
-                          src={comment.snippet.authorProfileImageUrl}
-                          alt={
-                            "profile picture for author '" +
-                            comment.snippet.authorDisplayName +
-                            "' for comment"
-                          }
-                        />
-                        <p>{comment.snippet.authorDisplayName}</p>
-                      </div>
-                      <p>
-                        {new Date(
-                          comment.snippet.publishedAt
-                        ).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <p>{comment.snippet.textDisplay}</p>
-                  </SingleComment>
-                ))}
+                {video.comments
+                  ? video.comments.map((comment: Comment) => (
+                      <SingleComment key={comment.id}>
+                        <div className="comment-header">
+                          <div className="user-info">
+                            <img
+                              src={comment.snippet.authorProfileImageUrl}
+                              alt={
+                                "profile picture for author '" +
+                                comment.snippet.authorDisplayName +
+                                "' for comment"
+                              }
+                            />
+                            <p>{comment.snippet.authorDisplayName}</p>
+                          </div>
+                          <p>
+                            {new Date(
+                              comment.snippet.publishedAt
+                            ).toLocaleDateString()}
+                          </p>
+                        </div>
+                        <p>{comment.snippet.textDisplay}</p>
+                      </SingleComment>
+                    ))
+                  : "No comments available"}
               </div>
             )}
           </CollapsibleContainer>

@@ -1,92 +1,561 @@
 {
-    "kind": "youtube#playlistListResponse",
-    "etag": "dummyTag",
-    "pageInfo": {
-        "totalResults": 2,
-        "resultsPerPage": 5
-    },
-    "items": [
+  "playlists": [
+    {
+      "name": "Morning Coffee",
+      "id": "playlistId1",
+      "description": "",
+      "nextPageToken": null,
+      "pageInfo": { "totalResults": 1, "resultsPerPage": 50 },
+      "items": [
         {
-            "kind": "youtube#playlist",
-            "etag": "dummyTag",
-            "id": "youTubePlaylistId1",
-            "snippet": {
-                "publishedAt": "2024-02-28T10:11:08Z",
-                "channelId": "channelId1",
-                "title": "Music",
-                "description": "This is a description for a music playlist",
-                "thumbnails": {
-                    "default": {
-                        "url": "https://i.ytimg.com/vi/vv2DSmy3Tro/default.jpg",
-                        "width": 120,
-                        "height": 90
-                    },
-                    "medium": {
-                        "url": "https://i.ytimg.com/vi/vv2DSmy3Tro/mqdefault.jpg",
-                        "width": 320,
-                        "height": 180
-                    },
-                    "high": {
-                        "url": "https://i.ytimg.com/vi/vv2DSmy3Tro/hqdefault.jpg",
-                        "width": 480,
-                        "height": 360
-                    },
-                    "standard": {
-                        "url": "https://i.ytimg.com/vi/vv2DSmy3Tro/sddefault.jpg",
-                        "width": 640,
-                        "height": 480
-                    },
-                    "maxres": {
-                        "url": "https://i.ytimg.com/vi/vv2DSmy3Tro/maxresdefault.jpg",
-                        "width": 1280,
-                        "height": 720
-                    }
-                },
-                "channelTitle": "Channel Title",
-                "localized": {
-                    "title": "Music",
-                    "description": "This is a description for a music playlist"
-                }
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "playlistItem1",
+          "snippet": {
+            "publishedAt": "2024-03-10T22:40:56Z",
+            "channelId": "channelId",
+            "title": "𝙂𝙤𝙤𝙙 𝙈𝙤𝙧𝙣𝙞𝙣𝙜 ☀️ start your day with a cup of coffee and this playlist",
+            "description": "📻 Dreamhop Music on Apple Music and Spotify\nhttps://dreamhopmusic.com/SpotPlaylist\nhttps://dreamhop.fanlink.to/playlist \n\n🎹 Check out the release linked to this mix:\n› Kanyun - Where the Trail Leads https://open.spotify.com/track/11zgHTC19Xbl7QPWo1cWg4?si=b0af20d40d2c4671\n› Aniket - Daydreaming https://open.spotify.com/track/1xlvdC7N0ecO4kJad1qaaI?si=e6126d8b96064097\n› nytø - Echoes From Another Time https://open.spotify.com/track/6dHepTlHsKjOwWV0hR6bj7?si=71367324710448ae\n› UmeChokoreto, ilostmypick - petals and barks https://open.spotify.com/intl-fr/track/6Xf8UBfhsOewTq73e4282A?si=26b11eca2f8441d9\n› Ippi - Heartlands https://open.spotify.com/track/6effoZ9p8EoLGf2gAXKz5B?si=0218f6c32ea54a55\n\n🐻Want your Own Zekko Plush? Buy it on our official website:\nhttps://dreamhopmusic.com/product/zekko-plush/\n\n 📦 Music provided by\n› Dreamhop Music - @DreamhopMusic \n› The Jazz Hop Café - @TheJazzHopCafe \n› Retro Jungle - @retrojungle \n\n🎻 Follow the artists\n› Kanyun https://dreamhop.fanlink.to/kanyun\n› Aniket https://dreamhop.fanlink.to/aniket\n› nytø https://dreamhop.fanlink.to/nyto\n› UmeChokoreto https://dreamhop.fanlink.to/umechokoreto\n› ilostmypick https://dreamhop.fanlink.to/ilostmypick\n› Ippi https://dreamhop.fanlink.to/ippi\n› C4C https://dreamhop.fanlink.to/c4c\n› Evenbluer https://dreamhop.fanlink.to/evenbluer\n› S N U G https://dreamhop.fanlink.to/SNUG\n› Nuver https://dreamhop.fanlink.to/nuver\n› Bogomolove https://dreamhop.fanlink.to/bogomolove\n› Copacetik https://dreamhop.fanlink.to/copacetik\n› Refeeld https://dreamhop.fanlink.to/refeeld\n› yutaka hirasaka https://dreamhop.fanlink.to/yutakahirasaka\n› Astra https://dreamhop.fanlink.to/astra\n› Hayne https://sptfy.com/Q7bg\n› Nowun https://sptfy.com/PaIB\n› Hoogway https://dreamhop.fanlink.to/hoogway\n› Kainbeats https://dreamhop.fanlink.to/kainbeats\n› cxlt. https://dreamhop.fanlink.to/cxlt\n› Deerson https://dreamhop.fanlink.to/deerson\n› Høxde https://dreamhop.fanlink.to/hoxde\n› pepperonibeats https://dreamhop.fanlink.to/pepperonibeats\n› Cloud Break https://sptfy.com/P1OT\n› Full Skies https://sptfy.com/P1OU\n› Stuffed Tomato https://dreamhop.fanlink.to/stuffedtomato\n› Solitude 2:14am https://sptfy.com/Q7bl\n› A.T.P. https://dreamhop.fanlink.to/atp\n› jxsn https://dreamhop.fanlink.to/jxsn\n› Deli https://dreamhop.fanlink.to/deli\n\n🌺  Artwork by lumasi\nhttps://www.instagram.com/lumasi.png/\n\nMotion design by Divvay Bathia\nhttps://www.instagram.com/divvay_b/\n\n💻 Visit our Official Website:\nhttps://dreamhopmusic.com/\n\n🎶 Listen to our mixes\nhttps://www.youtube.com/playlist?list=PLwU43tJ71iG0YSdogQTqXBy36Bu7tQ7Ch\n\n🎨Edit made by Locolm\nhttps://www.youtube.com/channel/UCC3VhoNcThnvNxyIbJy847g\n\n🎶  Tracklist\n00:00 Kanyun - Where the Trail Leads\n01:51 Aniket - Daydreaming\n04:34 nytø - Echoes From Another Time\n06:40 UmeChokoreto, ilostmypick - petals and barks\n08:32 Ippi - Heartlands\n10:56 C4C - It Takes Time\n13:48 Evenbluer - Blue Prairie\n15:57 S N U G, Nuver - Grateful\n18:02 Bogomolove - Linn\n20:06 Copacetik - Forever in the sun\n22:28 C4C - Walking Together\n24:52 Refeeld, yutaka hirasaka - Trust Me\n27:41 Astra - Spring Break\n31:07 Hayne - Solitude\n33:55 Nowun, Hoogway - Park Life\n36:21 Kainbeats, cxlt. - light rays through the storm\n39:11 Bogomolove - Odorifer\n41:24 Deerson, Høxde - Breathtaking\n43:47 pepperonibeats - Fantasia\n45:53 Cloud Break, Full Skies - Unwind\n47:45 S N U G, Stuffed Tomato - Glad I Found You\n50:17 Kainbeats - Turquoise Sky\n52:19 Solitude 2:14am - One Spring Day\n55:05 Høxde, A.T.P. - Daydreaming\n57:32 jxsn - Learning To Love Life\n59:50 Deli - Today is the Day\n1:02:14 Kanyun - Where the Trail Leads\n1:04:03 Aniket - Daydreaming\n1:06:46 nytø - Echoes From Another Time\n1:08:52 UmeChokoreto, ilostmypick - petals and barks\n1:10:44 Ippi - Heartlands\n1:13:08 C4C - It Takes Time\n1:16:00 Evenbluer - Blue Prairie\n1:18:09 S N U G, Nuver - Grateful\n1:20:14 Bogomolove - Linn\n1:22:18 Copacetik - Forever in the sun\n1:24:40 C4C - Walking Together\n1:27:04 Refeeld, yutaka hirasaka - Trust Me\n1:29:53 Astra - Spring Break\n1:33:19 Hayne - Solitude\n1:36:07 Nowun, Hoogway - Park Life\n1:38:33 Kainbeats, cxlt. - light rays through the storm\n1:41:23 Bogomolove - Odorifer\n1:43:36 Deerson, Høxde - Breathtaking\n1:45:59 pepperonibeats - Fantasia\n1:48:05 Cloud Break, Full Skies - Unwind\n1:49:57 S N U G, Stuffed Tomato - Glad I Found You\n1:52:29 Kainbeats - Turquoise Sky\n1:54:31 Solitude 2:14am - One Spring Day\n1:57:17 Høxde, A.T.P. - Daydreaming\n1:59:44 jxsn - Learning To Love Life\n2:02:02 Deli - Today is the Day",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/Oz6SxLxXcq4/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/Oz6SxLxXcq4/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/Oz6SxLxXcq4/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/Oz6SxLxXcq4/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/Oz6SxLxXcq4/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
             },
-            "contentDetails": {
-                "itemCount": 15
-            }
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId1",
+            "position": 0,
+            "resourceId": { "kind": "youtube#video", "videoId": "Oz6SxLxXcq4" },
+            "videoOwnerChannelTitle": "Dreamhop Music",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "Oz6SxLxXcq4",
+            "videoPublishedAt": "2024-03-04T17:00:15Z"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dog TV",
+      "id": "playlistId2",
+      "description": "Videos to leave on for the dogs while we're gone",
+      "nextPageToken": null,
+      "pageInfo": { "totalResults": 2, "resultsPerPage": 50 },
+      "items": [
+        {
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "playListItem1",
+          "snippet": {
+            "publishedAt": "2024-03-10T21:35:43Z",
+            "channelId": "channelId",
+            "title": "Videos for Dogs to Watch Extravaganza : Dog Watch TV - 8 Hours of Birds and Squirrel Fun for Dogs ✅",
+            "description": "Videos for Dogs to Watch Extravaganza : Dog Watch TV - 8 Hours of Birds and Squirrel Fun for Dogs \n\nVideo Produced by Paul Dinning - Wildlife in Cornwall #PaulDinning",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/6D1K_bguPrc/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/6D1K_bguPrc/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/6D1K_bguPrc/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/6D1K_bguPrc/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/6D1K_bguPrc/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
+            },
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId2",
+            "position": 0,
+            "resourceId": { "kind": "youtube#video", "videoId": "6D1K_bguPrc" },
+            "videoOwnerChannelTitle": "Paul Dinning",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "6D1K_bguPrc",
+            "videoPublishedAt": "2017-08-22T06:45:51Z"
+          }
         },
         {
-            "kind": "youtube#playlist",
-            "etag": "dummyTag",
-            "id": "youTubePlaylistId2",
-            "snippet": {
-                "publishedAt": "2024-02-28T10:11:08Z",
-                "channelId": "youtubeChannelId2",
-                "title": "Music That Sounds Neat",
-                "description": "This is a playlist for neat sounding music",
-                "thumbnails": {
-                    "default": {
-                        "url": "https://i.ytimg.com/vi/-tRdBsnX4N4/default.jpg",
-                        "width": 120,
-                        "height": 90
-                    },
-                    "medium": {
-                        "url": "https://i.ytimg.com/vi/-tRdBsnX4N4/mqdefault.jpg",
-                        "width": 320,
-                        "height": 180
-                    },
-                    "high": {
-                        "url": "https://i.ytimg.com/vi/-tRdBsnX4N4/hqdefault.jpg",
-                        "width": 480,
-                        "height": 360
-                    }
-                },
-                "channelTitle": "Another Channel Title",
-                "localized": {
-                    "title": "Music That Sounds Neat",
-                    "description": "This is a playlist for neat sounding music"
-                }
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "playListItem2",
+          "snippet": {
+            "publishedAt": "2024-03-10T21:35:50Z",
+            "channelId": "channelId",
+            "title": "Relax Your Dog TV - 8 Hours of Relaxing TV for Dogs at The Babbling Brook ✅",
+            "description": "Dog TV Relaxation ~ 8 Hours of Relaxing TV for Dogs at The Babbling Brook with Gentle Bird Sounds ASMR Relaxation \n\nVideo Produced by Paul Dinning - Wildlife in Cornwall\n\nFilmed in May 2018",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/nYcHi9EgUHs/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/nYcHi9EgUHs/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/nYcHi9EgUHs/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/nYcHi9EgUHs/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/nYcHi9EgUHs/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
             },
-            "contentDetails": {
-                "itemCount": 61
-            }
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId2",
+            "position": 1,
+            "resourceId": { "kind": "youtube#video", "videoId": "nYcHi9EgUHs" },
+            "videoOwnerChannelTitle": "Paul Dinning",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "nYcHi9EgUHs",
+            "videoPublishedAt": "2018-05-09T12:19:01Z"
+          }
         }
-    ]
+      ]
+    },
+    {
+      "name": "Lofi",
+      "id": "playlistId3",
+      "description": "Lofi music to study to",
+      "nextPageToken": null,
+      "pageInfo": { "totalResults": 8, "resultsPerPage": 50 },
+      "items": [
+        {
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "playlistItem1",
+          "snippet": {
+            "publishedAt": "2024-03-01T18:21:50Z",
+            "channelId": "channelId",
+            "title": "Heavy Rain | Lofi HipHop",
+            "description": "🎵 Music provided by Purrple Cat:\n➤ https://open.spotify.com/artist/73aKnLT4O8G2pBEfdlQzrE\n➤ https://www.instagram.com/purrplecatmusic/\n➤ https://www.youtube.com/c/PurrpleCatmusic\n\nHeavy Rain | Lofi HipHop\n\n#lofi #lofihiphop #aestheticlofi\n➤ More Lofi music on Spotify playlist: https://spoti.fi/2XMnYq2\n\n🌞💕✨Help me reach 100,000 subscribers: 💕: bit.ly/AestheticLofi_Subscribe\n\n🎵 Similar content on channel: \n➤ https://youtu.be/1dn4h-k-2xc\n➤ https://youtu.be/yPShoEVyIpg\n➤ https://youtu.be/techmgGVOhk\n\n🎵 Music from Hayden\n➤ Spotify: https://spoti.fi/3CJHfc0 \n\n🎵 Follow Hikend for new release every week:\n ➤ Spotify: https://music.hitkend.me/Lofi  \n➤ Instagram: https://music.hitkend.me/ig  \n➤ Sub Instagram: https://music.hitkend.me/IG   \n➤Youtube: https://music.hitkend.me/YTB \n\n🌿 Music by Hitkend ChillLab\n➤ Spotify: https://music.hitkend.me/artist\n➤ Instagram: https://music.hitkend.me/iga\n\n// TRACKLIST //\n00:00:00 | 1. just a dream - Hayden Moeller\nhttps://open.spotify.com/track/62V94rLokXItXK90IeqS8z?si=9521818a29814031\n00:02:21 | 2. Rain - Rebecca Mardal\nhttps://open.spotify.com/track/3cdXF4ciHh2l97FjH6nq3B\n00:04:53 | 3. snowed in - Hayden Moeller\nhttps://open.spotify.com/track/68DMCGtSbvg2HEcr45HiaA?si=c5f316dcb38f4f1a\n00:07:30 | 4. jet lag - Hayden Moeller\nhttps://open.spotify.com/track/0axW6m2nnECyi3G3rEVd47?si=27f78685b35f4c64\n00:10:15 | 5. Faded Memories - BVG, Møndberg\nhttps://open.spotify.com/track/6zGb7TSXD7grmFYU3lcEaM?si=c1c066fe057d4735\n00:13:15 | 6. The End - kust\nhttps://open.spotify.com/track/0edUqIhyKWlr7HBh3UcE1Z?si=12b1589ba84d4b04\n00:15:39 | 7. The Shape - Uinzagui\nhttps://open.spotify.com/track/45xLQHpULTaqyxUSR9ZTsk\n00:17:39 | 8. Under The Stars - BVG, Møndberg\nhttps://open.spotify.com/track/2EzWQA3AgRlEP6yBBTHD0R?si=09dd45a1fcee4b6a\n00:20:39 | 9. Warm By The Fire - Dreamfield, Goson\nhttps://open.spotify.com/track/7N14ZdvxpsDnpvm7bJKftT\n00:23:01 | 10. Sunshine - aura, Hitkend ChillLab\nhttps://open.spotify.com/track/1jE588g3iqty76zfCDwm8O?si=b7fa2b9b37684115\n00:26:02 | 11. Timeless - Gerardo MillÃ¡n\nhttps://open.spotify.com/track/5AVCk4fJTQa9R3OpTAOOzy\n00:28:33 | 12. Lost and Found - Purrple Cat\nhttps://open.spotify.com/track/6BWZoXGJ0L7wrsFsJ3ZH0q\n00:31:12 | 13. Blurred Dreams -  Øneheart, Ahry\nhttps://open.spotify.com/track/4uMgP3M9RB86AEmZaIb6fU\n00:33:49 | 14. alone - Hayden Moeller\nhttps://open.spotify.com/track/6ssWyhA96mB6xD4KaGFEmw?si=1afbd9f5295d4241\n00:36:33 | 15. Butterflies - aura , Hitkend ChillLab\nhttps://open.spotify.com/track/3gXBO2pETRn512VvtI8Qyo?si=fae3d7295d314a53\n00:40:13 | 16. A Cup of Tea - aura , Hitkend ChillLab\nhttps://open.spotify.com/track/1EgEEJJTKTpOAOD5vxm3MM?si=6013b37eee7040d5\n00:43:49 | 17. Cherry Blossom - aura , Hitkend ChillLab\nhttps://open.spotify.com/track/3Lh1BOq2a4g8Q4vh80j96U?si=3b5c0553a242469f\n00:47:22 | 18. Cotton Candy - aura , Hitkend ChillLab\nhttps://open.spotify.com/track/77CGfj7MUSnX60uO9MMnmZ?si=5ce7bd0f1ea8453b\n00:49: 54 | 🔁\n\n🎨 The Fanarts is original created by [Aesthetic Lofi] -  Insprired by Mclelun Character\nCheck out Mclelun for more:\n► www.facebook.com/mclelun \n► www.mclelun.com/ \n► www.youtube.com/mclelun \n\n►All rights belong to their respective owners.\n✔ This video was given a special license directly from the artists and the right holders.\n❗ Any requirements please send us an email and we will get back to you soon.\n\n► IMAGES/ARTWORKS promotion: https://forms.gle/uGjpERK7PbtFBkhZA\n► VIDEOS/FOOTAGE promotion: https://forms.gle/a33dq1XS6d5HtBfV9\n► Music promotion: https://forms.gle/WBQgqr4oHfeZy1Qv8\n► GET YOUR MUSIC released on all platforms: https://forms.gle/GDvHPEfB47MU3xjy6\n\n📣 Contact email for any inquiries: ✉ speiserxgreilly@gmail.com ✉",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/4ZoTb9o0Lnw/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/4ZoTb9o0Lnw/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/4ZoTb9o0Lnw/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/4ZoTb9o0Lnw/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/4ZoTb9o0Lnw/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
+            },
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId3",
+            "position": 0,
+            "resourceId": { "kind": "youtube#video", "videoId": "4ZoTb9o0Lnw" },
+            "videoOwnerChannelTitle": "Aesthetic Lofi",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "4ZoTb9o0Lnw",
+            "videoPublishedAt": "2022-12-18T15:00:07Z"
+          }
+        },
+        {
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "PlaylistItem2",
+          "snippet": {
+            "publishedAt": "2024-03-06T19:51:03Z",
+            "channelId": "channelId",
+            "title": "𝐒𝐐𝐔𝐀𝐑𝐄 𝐄𝐍𝐈𝐗 𝐀𝐍𝐃 𝐂𝐇𝐈𝐋𝐋 ~ 1 Hour Mix (Lofi / Study / Relax)",
+            "description": "A mellow, calming, and nostalgic compilation of relaxing beats inspired and or sampled from Square (Enix) games. \n\nTRACKS:\n\n0:00 no one would miss me - a l e x (Kingdom Hearts)\nhttps://soundcloud.com/worsethanthis/no-one-would-miss-me\n\n2:47 Wandering Flame - mWind (FFX)\nhttps://www.youtube.com/watch?v=8cEkD1MtIj4\n\n5:14 Prelude - tael (FFVI)\nhttps://soundcloud.com/t_a_e_l/prelude-final-fantasy-6\n\n6:18  Wind Scene - ImSoSx (Chrono Trigger)\nhttps://soundcloud.com/imsosx/chrono-trigger-wind-scene-imsosx-lofi-remix\n\n10:27 Eternal Wind - Roy Samuel Clark (FFIII)\nhttps://www.youtube.com/watch?v=TjILU66il_g\n\n13:38 The Wish - ~Azure~ (FFXIII-2)\nhttps://soundcloud.com/azurefehr/the-wish-final-fantasy-13-2-lofi-remix\n\n15:17 Raining All Summer - Fragile (Kingdom Hearts)\nhttps://soundcloud.com/sbtxo/raining-all-summer\n\n17:47 600 AD - WABOSABO (Chrono Trigger)\nhttps://soundcloud.com/msf-999370872/chrono-trigger-600-ad-lofi\n\n19:44 Naminé - Will Raza (Kingdom Hearts)\nhttps://www.youtube.com/watch?v=b64KtOnC4T0\n\n21:50 Back to Besaid - Dj CUTMAN (FFX)\nhttps://soundcloud.com/djcutman/back-to-besaid\n\n24:31 Ashes of Dreams - TSII (Nier Automata)\nhttps://soundcloud.com/user-619499239/nier-ashes-of-dreamslo-fi-edit\n\n27:29 Theme of Love - senmei (FFIV)\nhttps://soundcloud.com/sentimelan/theme-of-love-ff4lofi-remix\n\n29:26 CORRIDORS - Mohmega (Chrono Trigger)\nhttps://www.youtube.com/watch?v=yvalJ4jPn7I\n\n31:46 return to traverse town - Finn (Kingdom Hearts)\nhttps://soundcloud.com/yuh_finn/return-to-traverse-town\n\n33:26 Back To Zanarkand - Kasetto Chops (FFX)\nhttps://www.youtube.com/watch?v=YJ1Ghc4JMW4\n\n36:08 Song of Ancients (Popola) - TSII (Nier Automata)\nhttps://soundcloud.com/user-619499239/nier-song-of-ancients-popolalo-fi-edit\n\n39:19 Lazy Afternoons - Yung Donut (Kingdom Hearts)\nhttps://soundcloud.com/jackson-michael-13/lazy-afternoons-lofi-mix\n\n41:34 Somnus - Alan Gee (FFXV)\nhttps://soundcloud.com/alangee15/somnus-final-fantasy-xv-ost-yoko-shimomura-hip-hop-remix\n\n43:28 Departed Souls - Haeri (Chrono Cross)\nhttps://soundcloud.com/choi-haeri/departed-souls\n\n45:53 X III - v e N (Kingdom Hearts)\nhttps://www.youtube.com/watch?v=W7k8-xFCrko\n\n48:35 Secret of the Forest - POWER REMIXER (Secret of Mana)\nhttps://www.youtube.com/watch?v=Ws_9wmMwMkk\n\n53:17 Final Destiny - J Smooth Soul (FFXII)\nhttps://www.youtube.com/watch?v=QXkK77JMvpQ\n\n57:21 Hollow Bastard - Pj Alston (Kingdom Hearts)\nhttps://soundcloud.com/morethanmusic91/hollow-bastard\n\n59:00 Late Nights at Balamb Garden - Noira (FFVIII)\nhttps://www.youtube.com/watch?v=S5a5fiGh_7o\n\n1:03:27 Chrono Trigger Peaceful Days - E.S.O (Chrono Trigger)\nhttps://www.youtube.com/watch?v=6xGvyJbHyB8\n\n1:05:12 Lenna's Theme - Roy Samuel Clark (FFV)\nhttps://www.youtube.com/watch?v=dQ2fK304HJs\n\n1:08:07 who - v e N (Kingdom Hearts)\nhttps://www.youtube.com/watch?v=1JiSDTu4ILo\n\n1:10:29 Spirit of the Night - UnseenSounds (Secret of Mana)\nhttps://www.youtube.com/watch?v=JrRX9lD1qqo\n\n1:13:10 We Had No Choice - GILL Studio (FFX-2)\nhttps://www.youtube.com/watch?v=31PxPZlfZ3s\n\n1:15:54 Epitaph - WABOSABO (FFVI) \nhttps://soundcloud.com/msf-999370872/final-fantasy-vi-epitaph-lofi-hiphop-remix\n\n1:18:02 Simple and Clean - Rifti Beats (Kingdom Hearts)\nhttps://soundcloud.com/rifti-beats/kingdom-hearts-simple-and-clean-lofi-hip-hop-remix\n\n1:22:01 Rose of May - UnseenSounds (FFIX)\nhttps://www.youtube.com/watch?v=_sQ26q6gDFg\n\n1:24:37 FFX To Zanarkand Mix - Joe Banks (FFX)\nhttps://www.youtube.com/watch?v=BXEi3ZlCbac\n\n1:27:48 Rays of Rain - Trust Your Chef (Nier Automata)\nhttps://soundcloud.com/kierenney/rays-of-rain-nier-automata-lofi\n\n1:29:41 Dearly Beloved - Ralfington (Kingdom Hearts)\nhttps://soundcloud.com/ralfington/dearly-beloved-lofi-remix-kingdom-hearts\n\n#square #chill #retro",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/wdokg_A8tOM/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/wdokg_A8tOM/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/wdokg_A8tOM/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/wdokg_A8tOM/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/wdokg_A8tOM/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
+            },
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId3",
+            "position": 1,
+            "resourceId": { "kind": "youtube#video", "videoId": "wdokg_A8tOM" },
+            "videoOwnerChannelTitle": "Courtar",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "wdokg_A8tOM",
+            "videoPublishedAt": "2019-05-04T09:57:31Z"
+          }
+        },
+        {
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "playlistItem3",
+          "snippet": {
+            "publishedAt": "2024-03-06T21:59:07Z",
+            "channelId": "channelId",
+            "title": "Zelda & Chill Trilogy",
+            "description": "The groundbreaking Legend of Zelda lofi / chillhop remix albums by Mikel, Zelda & Chill, Zelda & Chill II, and Zelda & Chill III in one video. Support ▸ https://vgm.fm/zeldachill ▸ https://vgm.fm/zeldachill2 ▸ https://vgm.fm/zeldachill3\n\nDue to the nature of this long video, we could really use your support!  \n\nVideos like this time time and energy to produce, and we do not want to interrupt the music with advertisements. \n\nPlease Save Zelda & Chill 1, 2, and 3 to your favorite music app like Spotify or Apple Music. It supports Mikel and GameChops directly! \n\nAdd your favorite tracks to your playlists, and be sure to share with your friends. This helps new listeners discover our music!\n\nFor listeners on Spotify, there are two great playlists\nZelda & Chill (Complete) \n– All of the GameChops chill beats and lofi albums, like Zelda & Chill. Over 7 hours of music! ▸ https://open.spotify.com/playlist/4XKH4rEyBy8kOXSPi3VVno?si=b9e9af17997641f7\n\nZelda & Chill Trilogy \n– All of Mikel's Zelda beats, identical tracklist as this video with a bonus track at the end. ▸ https://open.spotify.com/playlist/7qy40wjU7mAHWEsB1mESbM?si=7b176e40a931449a\n\nDownload / Stream the Zelda & Chill albums\nZelda & Chill ▸ https://vgm.fm/zeldachill3\nZelda & Chill 2 ▸ https://vgm.fm/zeldachill3\nZelda & Chill 3 ▸ https://vgm.fm/zeldachill3\n\nAll three Zelda & Chill albums are available on Bandcamp \n▸ http://music.gamechops.com\n\nVinyl records are available on Light in the Attic\n▸ https://lightintheattic.net/shop-the-catalog?filter%5Blabels%5D=522\n\n~ The History of Zelda & Chill ~ \nIn 2018, chill instrumental hip hop producer @MikelTBE  created an album that would inspire a worldwide movement of lofi video game music. The original Zelda & Chill included 14 remixes of The Legend of Zelda video game series. Tracks spanning the original Zelda title theme, to Link to the Past, through Ocarina of Time, Wind Waker, Majora's Mask, and Breath of the Wild. \n\nPartnering with @DjCutman  for mix and mastering, the two worked together to create the now legendary album Zelda & Chill. The following four years led to the release of Zelda & Chill 2 (2020), and finally Zelda & Chill III (2022). \n\nThe Zelda & Chill Trilogy contains 42 songs and 2 hours of music, all finely produced instrumental hip hop / chillhop / lo-fi style beats from The Legend of Zelda.\n\nWith nearly a quarter billion plays on Spotify and over ten thousand vinyl records pressed, Zelda & Chill holds the title as the most popular video game cover album series of all time. \n\nAnd it wouldn't be possible without all of the amazing support from our listeners like you. Thanks for listening to Zelda & Chill!\n\nThis video featuring gameplay footage by @GreatBitArcade and video editing and visuals by Dj Cutman.\n\nDownload / Stream Zelda & Chill\nZelda & Chill ▸ https://vgm.fm/zeldachill3\nZelda & Chill 2 ▸ https://vgm.fm/zeldachill3\nZelda & Chill 3 ▸ https://vgm.fm/zeldachill3\n\n▾ Our Playlists\nZelda & Chill (Complete) ▸ https://open.spotify.com/playlist/4XKH4rEyBy8kOXSPi3VVno?si=b9e9af17997641f7\nZelda & Chill Trilogy ▸ https://open.spotify.com/playlist/7qy40wjU7mAHWEsB1mESbM?si=7b176e40a931449a\nYouTube Playlists ▸ https://www.youtube.com/user/gamechops/playlists?flow=list&sort=dd&view=1 \nAll Our Spotify Playlists ▸ http://bit.ly/gamechopsplaylists\n\n~ Tracklist ~ \n00:00 Zelda's Medley\n00:36 ~ Zelda & Chill ~ \n00:38 Fairy Fountain\n03:22 Dark World\n06:09 Lost Woods\n08:47 Song of Storms\n12:25 Minuet of Forest\n15:19 Gerudo Valley\n18:23 Oath to Order\n21:23 Dragon Roost Island\n24:16 Kakariko Village\n26:52 Ballad of the Goddess\n29:32 Breath of the Wild\n31:50 Hateno Village\n35:32 Legend of Zelda\n38:34 Ocarina of Time\n41:02 ~ Zelda & Chill II ~ \n41:04 Zelda's Lullaby\n44:10 The Great Sea\n47:00 Korok Forest\n49:41 Kass' Theme\n52:27 Serenade of Water\n55:18 Hyrule Castle\n57:46 Song of Healing\n01:00:47 Revali's Theme\n01:03:15 Outset Island\n01:06:06 Spirit Tracks\n01:09:09 Midna's Lament\n01:12:21 Tal Tal Heights\n01:14:50 The Legendary Hero\n01:17:52 Fi's Farewell\n01:20:05 ~ Zelda & Chill III ~ \n01:20:07 Welcome Home\n01:22:59 Hyrule Field\n01:25:31 Kokiri Forest\n01:28:07 Link's Awakening\n01:30:47 Temple of Time\n01:33:16 Hyrule Castle II\n01:36:08 Final Hours\n01:39:07 Mipha's Theme\n01:41:48 Tears of the Kingdom\n01:45:18 Legend of Lorule\n01:48:03 Talus \n01:50:56 Astral Observatory\n01:53:41 Story Trailer\n01:56:36 Credits\n\n▾ Spotify Discography\nhttp://bit.ly/gamechopsspotify\n\n▾ Use Policy \nGameChops releases that appear on Spotify, Amazon, or other music platforms are licensed and offered for use Creative Commons. You may use our tracks in your videos, podcasts, and streams. We ask you give credit to the musician and link back to our upload.\n\n▾ Follow GameChops \nhttp://twitter.com/GameChops\nhttp://instagram.com/GameChops\nhttp://soundcloud.com/GameChops\nhttp://facebook.com/GameChops\nhttp://youtube.com/GameChops\n\n▸ http://www.GameChops.com",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/oCaOSz13h_o/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/oCaOSz13h_o/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/oCaOSz13h_o/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/oCaOSz13h_o/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/oCaOSz13h_o/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
+            },
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId3",
+            "position": 2,
+            "resourceId": { "kind": "youtube#video", "videoId": "oCaOSz13h_o" },
+            "videoOwnerChannelTitle": "GameChops",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "oCaOSz13h_o",
+            "videoPublishedAt": "2023-06-25T17:00:09Z"
+          }
+        },
+        {
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "playlistItem4",
+          "snippet": {
+            "publishedAt": "2024-03-10T20:09:59Z",
+            "channelId": "channelId",
+            "title": "The Abyss 🌿 Deep Lofi Beats",
+            "description": "📻 Dreamhop Music on Apple Music and Spotify\nhttps://dreamhopmusic.com/SpotPlaylist\nhttps://dreamhop.fanlink.to/playlist \n\n🎻 Follow the artists\n\n› Kupla https://dreamhop.fanlink.to/kupla\n› No Spirit https://dreamhop.fanlink.to/nospirit\n› Tonion https://open.spotify.com/artist/4tQMVafcBzEyxZqY81q3Fj?si=Wi3CAxqHSiGqux4llDrwFw\n› JazzyCal https://dreamhop.fanlink.to/jazzycal\n› Project AER https://dreamhop.fanlink.to/projectaer\n› HoKø https://dreamhop.fanlink.to/hoko\n› Theo Aabel https://dreamhop.fanlink.to/theoaabel\n› Goson https://dreamhop.fanlink.to/goson\n› Hoffy Beats https://dreamhop.fanlink.to/hoffybeats\n› Delayde https://open.spotify.com/artist/254ga0emOv4GhfUUw5J16h?si=090448b9376b4f6c\n› anybodyy https://open.spotify.com/artist/1aub8GgJikwSG4wUMWZrzl?si=ad2c99b7ee624aea\n› Mama Aiuto https://open.spotify.com/artist/1PSOEqcIZLUk8nkWH2rr9x?si=fa52af972444431e\n› Makzo https://open.spotify.com/artist/6EUNKAlDJLSmGZ1aQxnj96?si=767d283aa61e46b3\n› squeeda https://dreamhop.fanlink.to/squeeda\n› S N U G https://dreamhop.fanlink.to/SNUG\n› cxlt. https://dreamhop.fanlink.to/cxlt\n\n🌺  Artwork by Ani R\nhttps://twitter.com/anidraws\nhttps://www.instagram.com/anirosc/\n\n(& reinterpreted by Rafael Antunes\nhttps://www.instagram.com/rafarte_/)\n\n🧑‍🤝‍🧑  Join us on Twitter / Instagram / Soundcloud / Bandcamp\nhttps://dreamhop.biglink.to/socialmedia\n\n💻 Visit our Official Website:\nhttps://dreamhopmusic.com/\n\n📮 Submit your music/artworks\nhttps://bit.ly/dreamhop-submit\n\n🎶 Listen to our mixes\nhttps://www.youtube.com/playlist?list=PLwU43tJ71iG0YSdogQTqXBy36Bu7tQ7Ch\n\n🎨Edit made by Locolm\nhttps://www.youtube.com/channel/UCC3VhoNcThnvNxyIbJy847g\n\n🎶  Tracklist\n\n0:00 Kupla - Under The Bridge\n© Lofi Records\n\n2:14 No Spirit, Tonion - Running Out Of Time\n© Lofi Records\n\n5:28 Kupla - Weightless\n© Lofi Records\n\n8:21 JazzyCal, Project AER - Energy\n© Dreamhop Music\n\n10:59 Kupla - Sylvan\n© Lofi Records\n\n13:16 HoKø - Wake up\n© The Jazz Hop Café & Dreamhop Music\n\n15:33 Kupla - Lavender\n© Lofi Records\n\n18:05 Theo Aabel - Constellation\n© Dreamhop Music\n\n20:38 Kupla - Safe Haven\n© Lofi Records\n\n23:24 No Spirit - Shooting Stars\n© Lofi Records\n\n26:14 Theo Aabel - Endless Memories\n© Dreamhop Music\n\n29:34 Goson - Departure\n© Dreamhop Music\n\n31:47 Theo Aabel, Hoffy Beats - Eternity\n© Dreamhop Music\n\n33:44 No Spirit - Happy Moments\n© Lofi Records\n\n36:30 Kupla - Distant Lands\n© Lofi Records\n\n39:17 Delayde, anybodyy - Time Went By\n© Chillhop Music\n\n41:44 Kupla - Melody Mountain\n© Lofi Records\n\n44:43 Mama Aiuto, Makzo - Polaroid\n© Chillhop Music\n\n46:51 Theo Aabel, squeeda - Over The Clouds\n© Dreamhop Music\n\n49:22 S N U G - Imaginary Escape\n© Dreamhop Music\n\n51:56 Kupla - Fairies\n© Lofi Records\n\n54:39 Theo Aabel, cxlt. - Ascending\n© Dreamhop Music\n\n57:56 Goson - Leaving Home\n© Dreamhop Music\n\n1:00:09 Kupla - Tender Souls\n© Lofi Records\n\n1:02:23 Repeat Playlist\n\n#dreamhop #lofi #instrumental #beat #beats #chill #chillout #music #study #hiphop #dreamhopmusic #calmusic #intrumentalbeats #deepbeats #deepmusic #happybeats #happymusic #forest #losttales #mia #zekko #pianolofi #bestlofibeats #popularbeats #deepbeats #deepmusic #deep #piano #dreamybeats #losttales #lostales #mia #zekko #cavernmusic #madeinabyss #season 1 #season2 #madeinabyssseason2 #abyss",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/TWTV4T3yxzs/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/TWTV4T3yxzs/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/TWTV4T3yxzs/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/TWTV4T3yxzs/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/TWTV4T3yxzs/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
+            },
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId3",
+            "position": 3,
+            "resourceId": { "kind": "youtube#video", "videoId": "TWTV4T3yxzs" },
+            "videoOwnerChannelTitle": "Dreamhop Music",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "TWTV4T3yxzs",
+            "videoPublishedAt": "2021-12-21T15:00:29Z"
+          }
+        },
+        {
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "playlistItem5",
+          "snippet": {
+            "publishedAt": "2024-03-13T02:42:45Z",
+            "channelId": "channelId",
+            "title": "coffee & beats 🍵 jazzy japan lofi mix",
+            "description": "🍵 Streaming now across platforms https://fanlink.tv/roast\nJoin us for Coffee & Beats in Kyoto, Japan.\n\n00:00 Erwin Do, Joshua Hoe & MoonEra - That Kyoto Vibe\n02:06 JazzyCal - Kiss Me Better\n04:31 Fugee - Sunday Morning\n07:27 MoonEra & Erwin Do - Brewed By You\n09:35 RejSende & shin - Hottokōhī\n12:13 MoonEra & Lazy Elias - Early Energy\n14:23 Eastern Sage - Coffee Shop\n16:27 Lazy Elias & Dark Winter - Sunrise Espresso\n18:31 MAXGONZ - Zen Blend\n21:57 ElaZ & Atamatoki - Rōsuto\n24:07 forever dreaming - morning stroll\n26:47 Sheath & Fugee - Kyoto Nights\n29:28 MoonEra & Joshua Hoe - Trippy Beans\n31:54 Eastern Sage - Good Fortune\n34:15 eva gomi tenshi & MoonEra - wandering\n36:26 Sillage - Utopia\n39:37 eleven - Kaori\n42:08 Fabeats & MALIWA - Dalgona\n44:03 saint rumi - Red Bean Paste\n46:27 Eastern Sage - Dear Osaka\n48:53 MoonEra - Mellow Mornings\n51:06 Fugee - Coffee for Two\n\nDesign by Nam Hai Art https://namhaiart.com\nMastering by Aphrow https://www.instagram.com/aphrow.music\nAnimation by James Welch https://www.instagram.com/james.welch.1656\n\nMusic By ►\nEastern Sage - https://sptfy.com/Ov38\nErwin Do - https://sptfy.com/Ov39\nJoshua Hoe - https://sptfy.com/Ov3a\nMoonEra - https://sptfy.com/Ov3b\nElaZ - https://sptfy.com/Ov3o\nAtamatoki - https://sptfy.com/Ov3r\neleven - https://sptfy.com/Ov3E\neva gomi tenshi - https://sptfy.com/Ov3F\nFabeats - https://sptfy.com/Ov3G\nMALIWA - https://sptfy.com/Ov3S\nforever dreaming - https://sptfy.com/Ov46\nFugee - https://sptfy.com/Ov6h\nJazzyCal - https://sptfy.com/Ov6m\nLazy Elias - https://sptfy.com/Ov6w\nDark Winter - https://sptfy.com/Ov6J\nMAXGONZ - https://sptfy.com/Ov6U\nRejSende - https://sptfy.com/Ov7c\nshin - https://sptfy.com/Ov7f\nSheath - https://sptfy.com/Ov7g\nsaint rumi - https://sptfy.com/Ov7i\nSillage - https://sptfy.com/Ov7k\n\n💿 Download our full Digital Discography for only £15!\nhttps://www.thejazzhopcafe.com/albums",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/rt1mRnRp79A/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/rt1mRnRp79A/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/rt1mRnRp79A/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/rt1mRnRp79A/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/rt1mRnRp79A/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
+            },
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId3",
+            "position": 4,
+            "resourceId": { "kind": "youtube#video", "videoId": "rt1mRnRp79A" },
+            "videoOwnerChannelTitle": "The Jazz Hop Café",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "rt1mRnRp79A",
+            "videoPublishedAt": "2023-09-04T08:30:19Z"
+          }
+        },
+        {
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "playlistItem6",
+          "snippet": {
+            "publishedAt": "2024-03-14T17:09:06Z",
+            "channelId": "channelId",
+            "title": "morning walks. 🌻 anime lofi mix",
+            "description": "🌻 getting lost in the city.\n\n00:00 Yoann Garel – Moving Romance\n02:46 Jordy Chandra – Winter Memories\n04:34 Kalaido – Winter’s Love \n08:55 Greenface – Reflection (Summer Orange Beat Mix)\n11:42 Yoann Garel – Cloud Island  \n14:40 Quentin Charbit – JAL 123 \n18:38 HoKø & Lucie Cravero – Hortensia\n20:47 JazzyCal – Drifting Memories  \n22:18 JazzyCal – Out There\n25:01 Charlee Nguyen – Where It All Began  \n27:56 Yuforia – Reminiscence\n30:52 Refeeld – Bicycle \n33:20 Kirikoukiri & C4C – Wellspring\n35:42 HoKø & Lucie Cravero – High Tide\n38:42 Mr. Heiwa – Blossom Tree\n40:59 Nogymx – Passengers\n43:29 Prithvi & HoKø – Crickets and Fireflies\n45:59 Enzalla – Macalania Woods  \n48:06 Yoann Garel – Toxic Forest\n51:04 HoKø – Final Dream\n53:21 karasu. – miracle\n56:46 HoKø & Lucie Cravero - Anchor\n\n59:42 Yoann Garel – Moving Romance\n01:02:23 Jordy Chandra – Winter Memories\n01:04:10 Kalaido – Winter’s Love \n01:08:32 Greenface – Reflection (Summer Orange Beat Mix)\n01:11:18 Yoann Garel – Cloud Island  \n01:14:16 Quentin Charbit – JAL 123 \n01:18:15 HoKø & Lucie Cravero – Hortensia\n01:20:23 JazzyCal – Drifting Memories  \n01:21:55 JazzyCal – Out There\n01:24:38 Charlee Nguyen – Where It All Began  \n01:27:33 Yuforia – Reminiscence\n01:30:29 Refeeld – Bicycle \n01:32:57 Kirikoukiri & C4C – Wellspring\n01:35:19 HoKø & Lucie Cravero – High Tide\n01:38:19 Mr. Heiwa – Blossom Tree\n01:40:35 Nogymx – Passengers\n01:43:06 Prithvi & HoKø – Crickets and Fireflies\n01:45:36 Enzalla – Macalania Woods  \n01:47:43 Yoann Garel – Toxic Forest\n01:50:40 HoKø – Final Dream\n01:52:58 karasu. – miracle\n01:56:23 HoKø & Lucie Cravero - Anchor\n\n📷 Follow us on Instagram\nhttps://instagram.com/thejazzhopcafe\n\nMusic By ►\nCharlee Nguyen - https://fanlink.to/asia\nEnzalla - https://www.fanlink.to/brolly\nGreenface - https://spoti.fi/3KZWDoD\nHoKø - https://spoti.fi/345lQ0a\nJazzyCal - https://spoti.fi/3uemfba\nJordy Chandra - https://spoti.fi/34qg7BR\nKalaido - https://spoti.fi/3Hua8uE\nkarasu. - https://spoti.fi/3rlO1Rq\nKirikoukiri & C4C - https://spoti.fi/3L7u4FB\nLucie Cravero - https://spoti.fi/3Jukw63\nMr. Heiwa - https://spoti.fi/3rka7DC\nNogymx - https://www.fanlink.to/brolly\nPrithvi & Hokø - https://spoti.fi/3AOQyqk\nQuentin Charbit - https://spoti.fi/3rj02He\nRefeeld - https://www.fanlink.to/refeeld\nYoann Garel - https://spoti.fi/3rj0bKM\nYuforia - https://spoti.fi/34cyf2r\n\nDesign By ► Eugene Bright https://www.instagram.com/eugene_bright.art\nMotion By ► Yoann Garel https://www.instagram.com/yoanngarel\n\n☕ Find us across more platforms\nhttps://www.fanlink.to/jazzhopcafe",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/TGan48YE9Us/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/TGan48YE9Us/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/TGan48YE9Us/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/TGan48YE9Us/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/TGan48YE9Us/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
+            },
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId3",
+            "position": 5,
+            "resourceId": { "kind": "youtube#video", "videoId": "TGan48YE9Us" },
+            "videoOwnerChannelTitle": "The Jazz Hop Café",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "TGan48YE9Us",
+            "videoPublishedAt": "2022-02-16T10:53:57Z"
+          }
+        },
+        {
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "playlistItem7",
+          "snippet": {
+            "publishedAt": "2024-04-05T20:39:45Z",
+            "channelId": "channelId",
+            "title": "MedievaLo-Fi | Lofi Beats for the Medieval Knight you always wanted to be 👑",
+            "description": "\"The world sees the armor, the shield, the lance, but in private, to gentle beats, a knight shall dance.\"\n- Sir Cedric the Harmonious\n\nIn the hallowed halls of ancient castles, let these beats serenade thy weary spirit. Journey with us, kindred soul, as rhythm mingles with tales of yore.\n\nLofi Beats for the Medieval King you always wanted to be. 👑 beats inspired by Lord of the Rings, Zelda, Medieval and Fantasy music.\n\nTimestamps:\nThe Night before Battle 0:00\nThe Blacksmith 3:05\nThe Night Watch 5:25\nMorning Assembly 7:41\nThe Kingdom 10:16\nBallad of the Northmen 12:38\nTown Square 15:16\nThe Kings Wedding 18:06\nPeacetime 20:56 \nRepeat 23:20\n\n⚔ More Music on ⚔\n► Livestreams: http://tinyurl.com/we-are-live-24-7 \n► spotify: http://tinyurl.com/thehighsocietyspotify\n► apple music: https://tinyurl.com/thehighsocietyapple\n► bandcamp: https://highsociety.bandcamp.com/\n► We are also on every other streaming platform, just search for us :)\n► MedievaLo-Fi Playlist on Spotify with alot more tracks: http://tinyurl.com/medievalofi\n\n⚔ Become a Member ⚔\n► HQ Wallpapers + early video acces included\n► https://www.youtube.com/channel/UCWmXdeZHrYqSIYrWC73Tbjw/join\n\nThe music and video is original and owned by The High Society.\n© 2023 Melomane Records \n\nArtwork generated with the Help of AI.",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/eEZF9iIv5XM/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/eEZF9iIv5XM/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/eEZF9iIv5XM/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/eEZF9iIv5XM/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/eEZF9iIv5XM/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
+            },
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId3",
+            "position": 6,
+            "resourceId": { "kind": "youtube#video", "videoId": "eEZF9iIv5XM" },
+            "videoOwnerChannelTitle": "The High Society",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "eEZF9iIv5XM",
+            "videoPublishedAt": "2023-11-29T14:00:34Z"
+          }
+        },
+        {
+          "kind": "youtube#playlistItem",
+          "etag": "etag",
+          "id": "playlistItem8",
+          "snippet": {
+            "publishedAt": "2024-04-07T20:24:42Z",
+            "channelId": "channelId",
+            "title": "Lord of The Rings but it's lofi beats (slowed + reverb)",
+            "description": "✅  Listen to these songs now in our LOTR playlist on Spotify: https://ffm.to/LOTR-playlist 💍 \n✅  Find all our lofi fantasy covers here: https://ffm.link/fantasy-lofi 🎧\n✅  Not on Spotify? Find us on Amazon / Apple and more: https://ffm.bio/bitsandhits ✨: \n✅  Want to use our music? Here's how: https://www.bitsandhits.com/ 🎥👀\n\n💿Find all of our playlists on Spotify: https://spoti.fi/3HMmsWT 🎧✨\n\nLord of The Rings but it's lofi, slowed, reverbed, pixel art, nostalgic and most importantly: super chill 🧊😴\n\n✅  Subscribe to our channel for weekly Pixel Art videos!✨\n\nEnjoy 1 hour of slowed Lofi covers of \"The Fellowship of The Ring\", \"Concerning Hobbits\", \"The Breaking of The Fellowship\", \"The Riders of Rohan\" and \"May It Be\" from the original \"The Lord of The Rings\" trilogy when you need to study, chill or get that cozy nostalgic vibe 🌌\n\n0:00 bits & hits - The Fellowship of The Ring (Main Theme) (slowed + reverb)\n02:52 bits & hits - Concerning Hobbits (slowed + reverb)\n05:57 bits & hits - Breaking of The Fellowship (slowed + reverb)\n08:34 bits & hits - The Riders of Rohan (slowed + reverb)\n11:33 bits & hits - May It Be (slowed + reverb)\n14:41 bits & hits - The Fellowship of The Ring (Main Theme) (slowed + reverb)\n17:32 bits & hits - Concerning Hobbits (slowed + reverb)\n20:37 bits & hits - Breaking of The Fellowship (slowed + reverb)\n23:15 bits & hits - The Riders of Rohan (slowed + reverb)\n26:12 bits & hits - May It Be (slowed + reverb)\n29:21 bits & hits - The Fellowship of The Ring (Main Theme) (slowed + reverb)\n32:12 bits & hits - Concerning Hobbits (slowed + reverb)\n35:17 bits & hits - Breaking of The Fellowship (slowed + reverb)\n37:55 bits & hits - The Riders of Rohan (slowed + reverb)\n40:53 bits & hits - May It Be (slowed + reverb)\n44:01 bits & hits - The Fellowship of The Ring (Main Theme) (slowed + reverb)\n46:52 bits & hits - Concerning Hobbits (slowed + reverb)\n49:57 bits & hits - Breaking of The Fellowship (slowed + reverb)\n52:34 bits & hits - The Riders of Rohan (slowed + reverb)\n55:33 bits & hits - May It Be (slowed + reverb)\n58:42 bits & hits - The Fellowship of The Ring (Main Theme) (slowed + reverb)\n\nWelcome to a world of nostalgic pixel art, welcome to Bits&Hits 👾\n\nLord of The Rings Pixel Art = ❤️\n\nFind all of our playlists on Spotify: https://spoti.fi/3HMmsWT 🎧✨\n\nUse our video as your wallpaper here: https://steamcommunity.com/sharedfiles/filedetails/?id=3034285607 ❤️\n\nFollow us on TikTok: https://www.tiktok.com/@bitsandhits  🎶\nInstagram: https://www.instagram.com/bitsandhits/ 🎵\n\n✅  Let us know in the comments what you want to see next!\n\n#lofi #fantasylofi #lordoftherings #slowedandreverb #nostalgia #8bit #childhood #dream #ambience #pixelartrelax",
+            "thumbnails": {
+              "default": {
+                "url": "https://i.ytimg.com/vi/5jceNNZD4oY/default.jpg",
+                "width": 120,
+                "height": 90
+              },
+              "medium": {
+                "url": "https://i.ytimg.com/vi/5jceNNZD4oY/mqdefault.jpg",
+                "width": 320,
+                "height": 180
+              },
+              "high": {
+                "url": "https://i.ytimg.com/vi/5jceNNZD4oY/hqdefault.jpg",
+                "width": 480,
+                "height": 360
+              },
+              "standard": {
+                "url": "https://i.ytimg.com/vi/5jceNNZD4oY/sddefault.jpg",
+                "width": 640,
+                "height": 480
+              },
+              "maxres": {
+                "url": "https://i.ytimg.com/vi/5jceNNZD4oY/maxresdefault.jpg",
+                "width": 1280,
+                "height": 720
+              }
+            },
+            "channelTitle": "Channel Title",
+            "playlistId": "playlistId3",
+            "position": 7,
+            "resourceId": { "kind": "youtube#video", "videoId": "5jceNNZD4oY" },
+            "videoOwnerChannelTitle": "bits & hits",
+            "videoOwnerChannelId": "videoOwnerChannelId"
+          },
+          "contentDetails": {
+            "videoId": "5jceNNZD4oY",
+            "videoPublishedAt": "2023-10-12T17:30:01Z"
+          }
+        }
+      ]
+    }
+  ],
+  "loading": "fulfilled",
+  "error": null
 }

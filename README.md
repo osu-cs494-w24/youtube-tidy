@@ -10,9 +10,11 @@ This application was designed for mobile-first, and adapted to higher resolution
 
 ## Check out the app (Oregon State University faculty and students)
 
-The web application is currently in testing. We utilized the Google Cloud Console, which requires that we validate our application before publishing into production. Without publication, only students, faculty, and manually approved users may log in to the app.
+The web application is currently in testing. We utilized the Google Cloud Console, which requires that we validate our application before publishing into production. Without publication, only students, faculty, and manually approved users may log in to the app and make changes to their Youtube playlists and subscriptions. Additionally, while the app is in testing mode there is a daily limit on Youtube API requests. If you are getting "failed to retrieve data errors", this is likely because the daily limit has been reached. Check back again tomorrow when the quota has refreshed!
 
-[If you're an OSU student or staff member, click here to log in and check out our web app!](https://youtubetidy.netlify.app/)
+If you don't have an ONID account, you can still "log in" as a Guest and preview the website with some testing data.
+
+[Click here to log in and check out our web app!](https://youtubetidy.netlify.app/)
 
 ## Screenshots (Homepage, playlists functionality, search)
 
