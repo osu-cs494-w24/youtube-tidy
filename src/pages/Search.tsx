@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import FoldingCube from "../components/FoldingCube";
 import styled from "@emotion/styled";
 import { YoutubeSearchResponse, SinglePlaylistObj } from "../assets/interfaces";
+import ScrollToTopButton from "../components/ScrollToTopButton";
 import VideoModal from "../components/VideoModal";
 import { getVideo } from "../requests/VideoQuery";
 import { addVideoToPlaylist } from "../redux/playlistsSlice";
@@ -252,11 +253,15 @@ function Search() {
   // clicking a video will provide a pop-up modal with the video
   const handleVideoClick = (videoID: string) => {
     setSelectedVideoID(videoID);
+    // a little hacky, but this forces the scroll button to
+    // disappear when the modal is opened by scrolling the page slightly
+    window.scrollTo(0, window.scrollY + 1);
   };
 
   // closing the video will remove the pop-up modal
   const handleCloseVideo = () => {
     setSelectedVideoID(null);
+    window.scrollTo(0, window.scrollY - 1);
   };
 
   useEffect(() => {
@@ -489,6 +494,10 @@ function Search() {
           {selectedVideoID && (
             <VideoModal videoID={selectedVideoID} onClose={handleCloseVideo} />
           )}
+
+          <ScrollToTopButton
+            visible={selectedVideoID === null ? true : false}
+          />
         </>
       )}
     </>
